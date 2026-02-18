@@ -1,0 +1,14 @@
+export const TYPES_AUTHORIZATIONS = {
+    READ: 1,
+    WRITE: 2
+} as const;
+
+export const NAMES_TYPES_AUTHORIZATIONS = {
+    [TYPES_AUTHORIZATIONS['READ']]: 'LECTURA',
+    [TYPES_AUTHORIZATIONS['WRITE']]: 'ESCRITURA' 
+};
+
+
+export type Auth = typeof TYPES_AUTHORIZATIONS[keyof typeof TYPES_AUTHORIZATIONS];
+
+
