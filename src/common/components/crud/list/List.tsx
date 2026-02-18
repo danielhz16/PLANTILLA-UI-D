@@ -7,6 +7,7 @@ import { MainCard } from "@/components/Cards/MainCard";
 import { Espace } from "@/components/containers/Espace";
 import { MainButton } from "@/components/buttons/MainButton";
 import { MainFilter } from "@/components/filter/MainFIlter";
+import { NoData } from "@/components/tables/mainTable/NoData";
 
 interface Props<T> extends PropsHook {
   title: string;
@@ -32,7 +33,8 @@ export const List = <T,>({
   });
 
   return (
-    <MainCard sx={{ p: 2, height: '100%', borderRadius: '10px', paddingBlock: '1rem' }}>
+  <>
+    <MainCard sx={{  }}>
       <MainFilter title={title}  get={get} isPending={isLoading} />
       <Title>
         <MainButton variant="contained" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} onClick={toCreate}>
@@ -40,12 +42,15 @@ export const List = <T,>({
         </MainButton>
       </Title>
         
-      <Espace space={2.5} />
+ </MainCard>
+  <MainCard sx={{ p: 2, minHeight: '60%', borderRadius: '10px', paddingBlock: '1rem' }}>
       <MainTable<T>
         columns={columns}
         data={data}
         isLoading={isLoading}
       />
-    </MainCard>
+              {!data.length && <NoData />}
+    </MainCard></>
   );
 };
+

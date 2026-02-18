@@ -6,6 +6,7 @@ import {
 } from "@tanstack/react-table";
 import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import { Preview } from "@/components/loading/Preview";
+import { NoData } from "./NoData";
 
 interface PropsTable<T> {
   data: T[];

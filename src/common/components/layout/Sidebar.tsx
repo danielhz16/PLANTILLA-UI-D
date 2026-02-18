@@ -18,7 +18,11 @@ export const Sidebar: React.FC<SidebarProps> = () => {
 
     const toggleSidebar = () => setIsCollapsed(!isCollapsed);
     return (
-        <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`}>
+        <aside className={`sidebar ${isCollapsed ? 'collapsed' : ''}`} style={
+            {
+                userSelect: 'none'
+            }
+        }>
             <div className="sidebar-header">
                 {!isCollapsed && <span className="logo-text">
                     {INFO_SISTEM.fulllogo ? (
