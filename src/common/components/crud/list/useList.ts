@@ -10,17 +10,19 @@ export interface PropsHook {
 
 export const useList = <T,>({
   queryKey,
-  enabled = true,
+  enabled = false,
   endpoint,
 }: PropsHook) => {
-  const { getURL } = useUrl();
+  const { getURL, getValue } = useUrl();
+  
+  const status = !!getValue('status')
 
   const url = useMemo(() => getURL(endpoint), [getURL, endpoint]);
-
+  const fetchEnabled = enabled || status;
   const { data, isLoading, refetch } = useGetQuery<T[]>(
     url,
     queryKey ?? url,
-    enabled
+    fetchEnabled
   );
 
   return {

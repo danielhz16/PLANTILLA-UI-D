@@ -12,6 +12,7 @@ export const NoData = () => {
       height='100%'
       width='100%'
       sx={{ userSelect: 'none' }}
+      color='var(--color-text)'
     >
       <Inbox size={60} strokeWidth={1.5} />
       <span>NO HAY DATOS</span>

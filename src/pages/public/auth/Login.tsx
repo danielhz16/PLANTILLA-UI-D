@@ -6,7 +6,7 @@ import { useTheme } from "@/hooks/useTheme";
 import { INFO_SISTEM } from "@/conf/info.sistem";
 
 const Login = () => {
-    const { formRef, handleSubmit, isPending } = useLogin();
+    const { formRef, handleSubmit, isPending, toForgot } = useLogin();
     const { isDark } = useTheme();
 
     return (
@@ -183,6 +183,18 @@ const Login = () => {
                         >
                             Acceder
                         </Button>
+
+                        <Typography
+                            onClick={toForgot}
+                            sx={{
+                                mt: 1,
+                                textAlign: 'center',
+                                color: 'var(--color-primary)',
+                                textDecoration: 'none'
+                            }}
+                        >
+                            ¿Olvidaste tu contraseña?
+                        </Typography>
                     </Box>
                 </Card>
             </Container>

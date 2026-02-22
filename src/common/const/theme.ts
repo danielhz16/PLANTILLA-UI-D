@@ -9,7 +9,8 @@ export const themeConfig = {
         hover: 'rgba(0, 0, 0, 0.05)',
         error: '#ef4444',
         success: '#10b981',
-        warning: '#f59e0b'
+        warning: '#f59e0b',
+        date: '#5a84c7'
     },
     dark: {
         primary: '#3b82f6',
@@ -22,6 +23,7 @@ export const themeConfig = {
         error: '#ef4444',
         success: '#10b981',
         warning: '#f59e0b',
+        date: '#799dd8'
     },
 };
 

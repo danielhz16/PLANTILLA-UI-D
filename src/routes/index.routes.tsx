@@ -5,6 +5,8 @@ import { createBrowserRouter } from "react-router";
 import userRoutes from "./routes-modules/user.routes";
 import Loadable from "../common/components/loading/Lazy";
 import { lazy } from "react";
+import companyRoutes from "./routes-modules/companies.routes";
+import accessPermissionsRoutes from "./routes-modules/access.permissions.routes";
 
 const Unauthorized = Loadable(lazy(() => import("../pages/public/Unauthorized")));
 
@@ -18,6 +20,8 @@ const routes: Routes[] = [
     privateRoutes,
     unauthorizedRoute,
     userRoutes,
+    companyRoutes,
+    accessPermissionsRoutes
 ];
 
 const router = createBrowserRouter(routes);

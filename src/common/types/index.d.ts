@@ -1,5 +1,12 @@
 import type { Auth } from "@/const/auth"
 
+interface CommonColumns {
+    id: number,
+    createdAt: Date,
+    name: string,
+    status: number
+}
+
 export interface UserProfile {
     name: string,
     email: string,
@@ -18,3 +25,17 @@ export interface ResponseLogin {
 export interface RefForm {
  save: () => void
 };
+
+
+export interface Company extends CommonColumns {
+  bpCode: string;
+}
+
+
+export interface Permission extends CommonColumns{
+}
+
+export interface Options {
+    id: number,
+    label: string
+}

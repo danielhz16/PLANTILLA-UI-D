@@ -1,14 +1,12 @@
 import { List } from "@/components/crud/list/List";
-import { columnsUser } from "./columns";
-import { useNavigate } from "react-router";
+import { columnsUser } from "./utils/columns";
 
 const ListUsers = () => {
-  const navigate = useNavigate();
 
   return (
     <List
       title="Usuarios"
-      toCreate={() => { navigate("/user/create") }}
+      toCreate='/user/create'
       endpoint="auth/list"
       queryKey="user"
       columns={columnsUser()}

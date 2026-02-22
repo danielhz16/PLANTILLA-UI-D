@@ -3,11 +3,11 @@ import { Button, type ButtonProps, styled } from '@mui/material';
 const CrystalButton = styled(Button)(() => ({
     backdropFilter: 'blur(16px) saturate(180%)',
     WebkitBackdropFilter: 'blur(16px) saturate(180%)',
-    background: 'var(--color-sidebar)',
+    
     border: '1px solid var(--color-border)',
     borderRadius: '12px',
     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-    color: 'var(--color-text) !important',
+   
     padding: '10px 24px',
     textTransform: 'none',
     fontSize: '0.9rem',

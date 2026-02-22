@@ -1,5 +1,5 @@
 import { Details } from "@/components/crud/details/Details";
-import { inputsUser } from "./inputs";
+import { inputsUser } from "./utils/inputs";
 
 const DetailsUser = () => {
     return (
@@ -9,6 +9,8 @@ const DetailsUser = () => {
             urlUpdate="/auth/update-user"
             keyCache="user"
             nameID="id"
+            title="Usuario"
+            readEndpoint=""
         />
     )
 }

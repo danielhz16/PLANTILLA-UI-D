@@ -32,6 +32,7 @@ export const useLogin = () => {
   return {
     handleSubmit,
     formRef,
-    isPending: login.isPending
+    isPending: login.isPending,
+    toForgot: () => nav('/auth/forgot')
   };
 };

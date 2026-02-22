@@ -95,11 +95,15 @@ export const useClient = () => {
         });
     };
 
+    const setData = (key: string, newData: {}) => {
+        queryClient.setQueryData([key], newData);
+    }
+
     const invalidateAll = () => {
         queryClient.invalidateQueries()
     }
     return {
-        invalidateQuery, updateItem, deleteItem, invalidateAll,
+        invalidateQuery, updateItem, deleteItem, invalidateAll, setData,
         pushItem, invalidateQueries, getQueryData, getItem, updateListSubProp, pushItemSubProp
     };
 

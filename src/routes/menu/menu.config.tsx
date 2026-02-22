@@ -4,14 +4,18 @@ import {
     Users,
     BarChart,
     Settings,
-    FlaskConical
+    FlaskConical,
+    Building2,
+    UserRoundKey,
+    Shield,
 } from 'lucide-react';
 
 export interface MenuItem {
     icon: React.ReactNode;
     label: string;
-    path: string;
+    path?: string;
     roles?: string[];
+    children?: MenuItem[];
 }
 
 export const menuConfig: MenuItem[] = [
@@ -26,18 +30,21 @@ export const menuConfig: MenuItem[] = [
         path: '/user/list',
     },
     {
-        icon: <BarChart size={20} />,
-        label: 'Reports',
-        path: '/reports',
-    },
-    {
-        icon: <Settings size={20} />,
-        label: 'Settings',
-        path: '/settings',
+        icon: <Building2 size={20} />,
+        label: 'Empresas',
+        path: '/company',
     },
     {
         icon: <FlaskConical size={20} />,
         label: 'Demo',
         path: '/demo',
     },
+    {
+        icon: <UserRoundKey size={20} />,
+        label: 'Permisos',
+        children: [
+            { icon: <Shield size={20} />, label: 'Permisos', path: '/permissions/list' },
+            { icon: <Users size={20} />, label: 'Roles', path: '/roles/list' },
+        ]
+    }
 ];

@@ -7,6 +7,8 @@ import {
     Box,
     Typography,
     IconButton,
+    type SxProps,
+    type Theme,
 } from '@mui/material';
 import { X } from 'lucide-react';
 import { useTheme } from '@/hooks/useTheme';
@@ -21,6 +23,7 @@ interface ModalProps {
     fullWidth?: boolean;
     showCloseButton?: boolean;
     disableBackdropClick?: boolean;
+    sx?: SxProps<Theme>;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -33,8 +36,8 @@ export const Modal: React.FC<ModalProps> = ({
     fullWidth = true,
     showCloseButton = true,
     disableBackdropClick = false,
+    sx: sxProp,
 }) => {
-    const { isDark } = useTheme();
 
     const handleClose = (event: {}, reason?: string) => {
         if (disableBackdropClick && reason === 'backdropClick') {
@@ -58,15 +61,8 @@ export const Modal: React.FC<ModalProps> = ({
                     boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
                     overflow: 'hidden',
                     position: 'relative',
-                    '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: '4px',
-                        background: 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
-                    },
+                   
+                    ...((sxProp ?? {}) as Record<string, any>),
                 },
             }}
         >

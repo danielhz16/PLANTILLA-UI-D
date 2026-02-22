@@ -2,6 +2,7 @@ import { TextField, FormControl, FormHelperText, Typography } from "@mui/materia
 import type { Input, InputTypes } from "../ts/form";
 import { InputPhone } from "./inputs/InputPhone";
 import { MainSelect } from "./inputs/Select";
+import { PasswordInput } from "./inputs/Password";
 
 
 
@@ -28,9 +29,9 @@ const mapInputs: Record<InputTypes, { component: any, props: any }> = {
         }
     },
     password: {
-        component: TextField,
+        component: PasswordInput,
         props: {
-            type: 'password'
+            // additional props (none for now) can be defined here
         }
     },
     phone: {

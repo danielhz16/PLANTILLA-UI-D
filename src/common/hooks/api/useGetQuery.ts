@@ -7,7 +7,7 @@ export const useGetQuery = <T = unknown>(
     run: boolean = true
 ) => {
     const query = useQuery<T>({
-        queryKey: [key, url],
+        queryKey: [key],
         queryFn: () => callApi<T>(url, "GET"),
         enabled: run,
     });

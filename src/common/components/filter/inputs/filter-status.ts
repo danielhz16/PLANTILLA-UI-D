@@ -8,7 +8,11 @@ export const filterStatus = (): Input[] => [
         label: 'Estado',
         type: 'select',
         md: 12,
-        options: optionsStatus,
-        defaultValue:  STATUS.ACTIVE
+        options: optionsStatus
     }
 ];
+
+
+export const defaultInitial = {
+    status: STATUS.ACTIVE
+}

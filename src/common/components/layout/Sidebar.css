@@ -177,3 +177,61 @@
 .logout:hover {
     background: rgba(239, 68, 68, 0.1) !important;
 }
+
+/* ── Collapsible Nav Group ── */
+
+.nav-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-group-header {
+    justify-content: flex-start;
+    position: relative;
+}
+
+.nav-group-header.parent-active {
+    opacity: 1;
+    color: var(--color-primary, #3b82f6);
+}
+
+.nav-group-arrow {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-group-arrow.open {
+    transform: rotate(180deg);
+}
+
+.nav-group-children {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                opacity 0.25s ease;
+}
+
+.nav-group-children.expanded {
+    max-height: 300px;
+    opacity: 1;
+}
+
+.nav-child {
+    padding-left: 2.8rem !important;
+    font-size: 0.9rem;
+}
+
+.nav-child .nav-icon {
+    min-width: 20px;
+}
+
+.nav-child .nav-label {
+    font-size: 0.88rem;
+}
+
+.collapsed .nav-group-header {
+    justify-content: center;
+}

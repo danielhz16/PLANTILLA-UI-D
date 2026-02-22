@@ -4,40 +4,45 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Title } from "@/components/layout/Title/Title";
 import { Save } from "lucide-react";
 import { MainCard } from "@/components/Cards/MainCard";
-import { Espace } from "@/components/containers/Espace";
 import { MainButton } from "@/components/buttons/MainButton";
 import { MainFilter } from "@/components/filter/MainFIlter";
 import { NoData } from "@/components/tables/mainTable/NoData";
+import { useNavigate } from "react-router";
 
 interface Props<T> extends PropsHook {
   title: string;
-  toCreate: () => void;
+  toCreate?: string;
   columns: ColumnDef<T, any>[];
   queryKey: string;
   endpoint: string;
   enabled?: boolean;
+  onClickCreate?: () => void;
 }
 
 export const List = <T,>({
   title,
   queryKey,
   endpoint,
-  enabled = true,
+  enabled = false,
   columns,
-  toCreate
+  toCreate,
+  onClickCreate
 }: Props<T>) => {
   const { data, isLoading, get } = useList<T>({
     endpoint,
     enabled,
     queryKey,
   });
+const nav = useNavigate();
+
+const fnCreate = () =>  onClickCreate ? onClickCreate() : nav(toCreate ?? '/')
 
   return (
   <>
     <MainCard sx={{  }}>
       <MainFilter title={title}  get={get} isPending={isLoading} />
       <Title>
-        <MainButton variant="contained" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} onClick={toCreate}>
+        <MainButton variant="contained" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} onClick={fnCreate}>
           Crear <Save size={18} />
         </MainButton>
       </Title>

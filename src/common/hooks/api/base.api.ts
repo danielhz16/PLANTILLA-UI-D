@@ -67,7 +67,7 @@ export const callApi = async <T = unknown>(url: string, method: Method, data?: a
                     errorData = await response.json() as ApiErrorResponse;
                 }
             } catch (e) {
-                // Si no se puede parsear JSON, usar valores por defecto
+               
             }
             toast.error(errorData?.show || errorData?.message || "No tienes permisos para realizar esta acción");
             throw new Error("Forbidden");
@@ -79,20 +79,31 @@ export const callApi = async <T = unknown>(url: string, method: Method, data?: a
                     errorData = await response.json() as ApiErrorResponse;
                 }
             } catch (e) {
-                // Si no se puede parsear JSON, usar valores por defecto
+               
             }
             toast.error(errorData?.show || errorData?.message || "Ocurrió un error");
             throw new Error(errorData?.message || "Error en la petición");
         }
     }
 
-    const responseData = await response.json();
+    // Parse response body safely — avoid calling `json()` on empty responses
+    let responseData: T | null = null;
+    const contentType = response.headers.get("content-type") || "";
 
-    if (method !== "GET") {
-
-        const message = responseData.show || "Guardado";
-        toast.success(message);
+    if (response.status !== 204 && contentType.includes("application/json")) {
+      const text = await response.text();
+      responseData = text ? (JSON.parse(text) as T) : null;
+    } else if (response.status !== 204) {
+      // non-JSON but with a body — return raw text
+      const text = await response.text();
+      responseData = text ? (text as unknown as T) : null;
     }
 
-    return responseData;
+    if (method !== "GET") {
+      // Only show a toast when the API explicitly provides a `show` message
+      const apiShow = responseData && typeof responseData === "object" ? (responseData as any).show : null;
+      toast.success(apiShow || "Guardado exitosamente");
+    }
+
+    return responseData as unknown as T;
 }
