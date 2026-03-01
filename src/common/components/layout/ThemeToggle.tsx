@@ -68,3 +68,5 @@ export const ThemeToggle: React.FC = () => {
         </Box>
     );
 };
+
+export default ThemeToggle;

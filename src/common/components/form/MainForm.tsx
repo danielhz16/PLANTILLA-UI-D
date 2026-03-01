@@ -219,3 +219,4 @@ export const MainForm = forwardRef<
         </Box>
     )
 })
+export default MainForm;

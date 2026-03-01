@@ -2,9 +2,8 @@ import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import router from './routes/index.routes.tsx'
 import { RouterProvider } from 'react-router'
-import { ThemeProvider } from './common/context/ThemeContext'
+import { ThemeProvider, useAuthStore } from '@/common'
 import { Toaster } from 'sonner'
-import { useAuthStore } from '@/common/stores/auth-store'
 import { useEffect } from 'react'
 
 const queryClient = new QueryClient({

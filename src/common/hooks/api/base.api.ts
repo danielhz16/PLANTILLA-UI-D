@@ -1,7 +1,7 @@
 
 import type { Method } from "@/const/api";
 import { toast } from "sonner";
-import { useAuthStore } from "@/common/stores/auth-store";
+import { useAuthStore, ERRORS } from "@/common";
 
 const baseApi = import.meta.env.VITE_API || "http://localhost:3000/api";
 
@@ -36,11 +36,11 @@ export const callApi = async <T = unknown>(url: string, method: Method, data?: a
     const response: Response = await fetch(`${cleanBase}/${cleanUrl}`, config as RequestInit);
 
     if (!response.ok) {
-        // Manejar errores 401 (No autenticado) y 403 (No autorizado)
+      
         if (response.status === 401) {
-            // Limpiar estado de autenticación
+           
             useAuthStore.getState().logoutUser();
-            // Redirigir al login
+          
             if (window.location.pathname !== '/auth/login') {
                 window.location.href = '/auth/login';
             }

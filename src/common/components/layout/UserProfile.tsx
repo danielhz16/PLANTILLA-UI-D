@@ -216,3 +216,5 @@ export const UserProfile: React.FC = () => {
         </>
     );
 };
+
+export default UserProfile;

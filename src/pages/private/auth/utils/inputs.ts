@@ -1,3 +1,4 @@
+import {  filterStatus, type Options } from "@/common";
 import type { Input } from "@/components/ts/form";
 import { VALIDATIONS } from "@/const/validations";
 
@@ -49,3 +50,15 @@ export const inputsUser = (): Input[] => [
         ]
     }
 ];
+
+
+export const filters = (companies: Options[]): Input[] => [
+    {
+        name: 'company',
+        label: 'Empresa',
+        type: 'select',
+        md: 12,
+        options: companies
+    },
+    ...filterStatus()
+]

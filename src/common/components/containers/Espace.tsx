@@ -5,3 +5,5 @@ export const Espace = ({ space }: { space: number }) => {
         <Box sx={{ marginBlock: `${space / 2}rem` }}></Box>
     );
 };
+
+export default Espace;

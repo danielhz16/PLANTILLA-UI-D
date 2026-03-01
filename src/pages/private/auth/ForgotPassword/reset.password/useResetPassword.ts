@@ -1,7 +1,7 @@
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
 import { useParams, useNavigate } from "react-router";
 import { useRef } from "react";
-import type { RefForm } from "@/common/types";
+import type { RefForm } from "@/common";
 
 export const useResetPassword = () => {
     const formRef = useRef<RefForm>(null);

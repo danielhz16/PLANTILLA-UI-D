@@ -146,3 +146,4 @@ export const InputGenerator: React.FC<Props> = ({ input, field, error }) => {
         </FormControl>
     )
 }
+export default InputGenerator;

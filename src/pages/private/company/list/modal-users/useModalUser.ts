@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useGetQuery } from "@/hooks/api/useGetQuery";
-import type { Options } from "@/common/types";
+import type { Options } from "@/common";
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
 import { useClient } from "@/hooks/api/useClient";
 

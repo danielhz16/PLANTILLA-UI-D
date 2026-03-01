@@ -65,3 +65,5 @@ export const Header: React.FC<HeaderProps> = ({ title, children }) => {
         </Box>
     );
 };
+
+export default Header;

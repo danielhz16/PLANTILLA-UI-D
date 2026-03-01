@@ -7,7 +7,7 @@ import { Users } from "lucide-react";
 import { ModalForm } from "@/components/modal/ModalForm";
 import { useState } from "react";
 import type { Input } from "@/components/ts/form";
-import type { Options } from "@/common/types";
+import type { Options } from "@/common";
 import type { PropsFetchModalUsers } from "./useModalUser";
 
 const { accessor } = createColumnHelper<Options>();

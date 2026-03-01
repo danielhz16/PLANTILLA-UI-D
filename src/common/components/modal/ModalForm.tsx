@@ -114,3 +114,5 @@ export const ModalForm: React.FC<ModalFormProps> = ({
         </Modal>
     );
 };
+
+export default ModalForm;

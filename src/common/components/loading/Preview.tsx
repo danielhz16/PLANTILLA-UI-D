@@ -40,3 +40,5 @@ export const Preview: React.FC<Props> = ({ loading = false, children, sx, radius
   );
 };
 
+
+export default Preview;

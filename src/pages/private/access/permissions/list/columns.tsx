@@ -1,4 +1,4 @@
-import type { Permission } from "@/common/types";
+import type { Permission } from "@/common";
 import { DateCell } from "@/components/tables/cell";
 import { StatusCell } from "@/components/tables/cell/status-cell/StatusCell";
 import { createColumnHelper } from "@tanstack/react-table"

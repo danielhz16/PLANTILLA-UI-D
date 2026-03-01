@@ -32,6 +32,9 @@
       "@/utils/*": [
         "./src/common/utils/*"
       ],
+      "@/common": [
+        "./src/common/index.ts"
+      ],
       "@/common/*": [
         "./src/common/*"
       ],

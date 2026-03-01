@@ -1,6 +1,6 @@
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
 import { useRef } from "react";
-import type { RefForm } from "@/common/types";
+import type { RefForm } from "@/common";
 import { useNavigate } from "react-router";
 
 export const useForgotPassword = () => {

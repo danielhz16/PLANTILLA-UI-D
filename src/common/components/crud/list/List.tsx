@@ -1,13 +1,11 @@
-import { MainTable } from "@/components/tables/mainTable/MainTable";
+import { MainTable, Title, MainCard, MainButton, MainFilter, NoData } from "@/common";
 import { useList, type PropsHook } from "./useList";
 import type { ColumnDef } from "@tanstack/react-table";
-import { Title } from "@/components/layout/Title/Title";
 import { Save } from "lucide-react";
-import { MainCard } from "@/components/Cards/MainCard";
-import { MainButton } from "@/components/buttons/MainButton";
-import { MainFilter } from "@/components/filter/MainFIlter";
-import { NoData } from "@/components/tables/mainTable/NoData";
 import { useNavigate } from "react-router";
+import type { Input } from "@/components/ts/form";
+import { useMemo } from "react";
+
 
 interface Props<T> extends PropsHook {
   title: string;
@@ -17,6 +15,9 @@ interface Props<T> extends PropsHook {
   endpoint: string;
   enabled?: boolean;
   onClickCreate?: () => void;
+  filters?: Input[];
+  initialFilter?: Record<string, any>;
+  isPending?: boolean;
 }
 
 export const List = <T,>({
@@ -26,7 +27,10 @@ export const List = <T,>({
   enabled = false,
   columns,
   toCreate,
-  onClickCreate
+  onClickCreate,
+  filters,
+  initialFilter,
+  isPending = false
 }: Props<T>) => {
   const { data, isLoading, get } = useList<T>({
     endpoint,
@@ -37,10 +41,19 @@ const nav = useNavigate();
 
 const fnCreate = () =>  onClickCreate ? onClickCreate() : nav(toCreate ?? '/')
 
+   const objFilters = useMemo(() => {
+    if(!filters) return {};
+
+  return ({
+    initialValues: initialFilter,
+    inputs: filters,
+  });
+  }, [filters]);
+
   return (
   <>
-    <MainCard sx={{  }}>
-      <MainFilter title={title}  get={get} isPending={isLoading} />
+    <MainCard>
+      <MainFilter title={title}  get={get} isPending={isLoading || isPending} {...objFilters} />
       <Title>
         <MainButton variant="contained" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} onClick={fnCreate}>
           Crear <Save size={18} />
@@ -52,7 +65,7 @@ const fnCreate = () =>  onClickCreate ? onClickCreate() : nav(toCreate ?? '/')
       <MainTable<T>
         columns={columns}
         data={data}
-        isLoading={isLoading}
+        isLoading={isLoading || isPending}
       />
               {!data.length && <NoData />}
     </MainCard></>

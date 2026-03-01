@@ -4,7 +4,8 @@ const { accessor } = createColumnHelper<User>();
 
 export interface User {
     id: number;
-    name: string;
+    username: string;
+    email: string;
 }
 
 export const columnsUser = () => {
@@ -12,8 +13,11 @@ export const columnsUser = () => {
     accessor('id', {
         header: 'ID'
     }),
-    accessor('name', {
-        header: 'Nombre'
+    accessor('username', {
+        header: 'Nombre de usuario'
+    }),
+    accessor('email', {
+        header: 'Correo electrónico'
     })
     ]
     return columns

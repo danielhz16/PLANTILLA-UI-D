@@ -300,3 +300,5 @@ export const Pagination: React.FC<PaginationProps> = ({
         </Box>
     );
 };
+
+export default Pagination;

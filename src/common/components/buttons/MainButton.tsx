@@ -46,3 +46,5 @@ export const MainButton = (props: ButtonProps) => {
         </CrystalButton>
     );
 };
+
+export default MainButton;

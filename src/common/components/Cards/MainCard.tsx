@@ -7,3 +7,4 @@ export const MainCard = ({children, sx}: {children: React.ReactNode, sx?: any}) 
         </Card>
     );
 };
+export default MainCard;

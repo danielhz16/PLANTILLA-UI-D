@@ -18,7 +18,8 @@ interface Props {
 
 const DEFAULT_INPUTS = filterStatus();
 
-export const MainFilter = ({ inputs, get, title, initialValues, isPending = false }: Props) => {
+ const MainFilter = ({ inputs, get, title, initialValues, isPending = false }: Props) => {
+    console.log({ initialValues })
     
     const { setValue } = useUrl()
     const inputsOnChamge = useMemo(() => {
@@ -31,10 +32,12 @@ export const MainFilter = ({ inputs, get, title, initialValues, isPending = fals
     }, [inputs, setValue])
 
     useEffect(() => {
+       if(isPending) return;
         (initialValues || defaultInitial) && Object.entries(initialValues || defaultInitial).forEach(([key, value]) => {
-            setValue(key, value as string)
+            setValue(key, value as string);
+            console.log({ key, value })
         })
-    }, [])
+    }, [isPending])
 
     return (
         <Title title={title}>
@@ -47,3 +50,4 @@ export const MainFilter = ({ inputs, get, title, initialValues, isPending = fals
         </Title>
     )
 }
+export default MainFilter;

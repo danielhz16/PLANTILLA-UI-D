@@ -1,4 +1,4 @@
-import type { Company } from "@/common/types";
+import type { Company } from "@/common";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DateCell } from "@/components/tables/cell";
 import { OptionsSecondary } from "@/components/tables/cell/options/OptionsSecondary";
