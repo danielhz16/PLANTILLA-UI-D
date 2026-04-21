@@ -1,9 +1,9 @@
 
 import type { Method } from "@/const/api";
 import { toast } from "sonner";
-import { useAuthStore, ERRORS } from "@/common";
+import { useAuthStore } from "@/common";
 
-const baseApi = import.meta.env.VITE_API || "http://localhost:3000/api";
+const baseApi = import.meta.env.VITE_API;
 
 interface Config {
     method: Method;
@@ -17,7 +17,7 @@ interface ApiErrorResponse {
     message: string
 }
 
-export const callApi = async <T = unknown>(url: string, method: Method, data?: any, formData?: boolean): Promise<T> => {
+export const callApi = async <T = unknown>(url: string, method: Method, data?: any, formData?: boolean): Promise<T>  => {
 
     const config: Config = {
         method,

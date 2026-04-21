@@ -14,7 +14,6 @@ export const useList = <T,>({
   endpoint,
 }: PropsHook) => {
   const { getURL, getValue } = useUrl();
-  
   const status = !!getValue('status')
 
   const url = useMemo(() => getURL(endpoint), [getURL, endpoint]);

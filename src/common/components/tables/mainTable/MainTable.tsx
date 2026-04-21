@@ -4,9 +4,41 @@ import {
   type ColumnDef,
   getCoreRowModel,
 } from "@tanstack/react-table";
-import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material";
+import { Table, TableBody, TableCell, TableHead, TableRow, Tooltip, Box } from "@mui/material";
 import { Preview } from "@/components/loading/Preview";
 import { NoData } from "./NoData";
+import { useState } from "react";
+
+const CopyableContent = ({ cell }: { cell: any }) => {
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    const value = cell.getValue();
+    if (value !== undefined && value !== null) {
+      navigator.clipboard.writeText(String(value));
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
+
+  const content = flexRender(cell.column.columnDef.cell, cell.getContext());
+
+  if (cell.column.id === 'options' || cell.column.id === 'actions') {
+    return content;
+  }
+
+  return (
+    <Tooltip title={copied ? "¡Copiado!" : "Doble clic para copiar"} placement="top" arrow>
+      <Box
+        component="div"
+        onDoubleClick={handleCopy}
+        sx={{ userSelect: 'none', display: 'block', width: '100%', height: '100%' }}
+      >
+        {content}
+      </Box>
+    </Tooltip>
+  );
+};
 
 interface PropsTable<T> {
   data: T[];
@@ -33,8 +65,8 @@ export const MainTable = <T,>({
     }}>
       <TableHead>
         {
-          customTable.getHeaderGroups()?.map(group => (
-            <TableRow id={group.id}>
+          customTable.getHeaderGroups()?.map((group, groupIndex) => (
+            <TableRow key={`header-group-${groupIndex}-${group.id}`}>
               {group.headers.map((header, index) => (
                 <th
                   key={header.id}
@@ -98,7 +130,7 @@ export const MainTable = <T,>({
                     padding: '16px',
                   }}
                 >
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                  <CopyableContent cell={cell} />
                 </TableCell>
               ))}
             </TableRow>

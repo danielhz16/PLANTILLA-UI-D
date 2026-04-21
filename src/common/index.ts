@@ -5,10 +5,11 @@ export * from "./const/auth";
 export * from "./const/status";
 export * from "./const/theme";
 export * from "./const/cache";
+export * from "./const/permissions/index"
 
 
 export * from "./context/ThemeContext";
-export * from "./hooks/useTheme";
+export * from "./hooks";
 
 
 export * from "./stores/auth-store";

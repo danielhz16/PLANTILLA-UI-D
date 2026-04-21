@@ -26,12 +26,12 @@ export const menuConfig: MenuItem[] = [
     },
     {
         icon: <Users size={20} />,
-        label: 'Users',
+        label: 'Usuarios',
         path: '/user/list',
     },
     {
         icon: <Building2 size={20} />,
-        label: 'Empresas',
+        label: 'Clientes',
         path: '/company',
     },
     {

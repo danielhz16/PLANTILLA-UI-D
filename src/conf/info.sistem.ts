@@ -2,9 +2,9 @@ import fulllogo from '../assets/logos/full-logo.png'
 import minlogo from '../assets/logos/min-logo.png'
 
 export const INFO_SISTEM = {
-    name: "VERA UI",
+    name: "ALE LAB",
     version: "1.0.0",
-    description: "Sistema de gestion de usuarios",
+    description: "Gestión Médica",
     author: "Daniel Hernández",
    // license: "MIT",
    // url: "https://github.com/daniel-dev-07/VERA-UI",

@@ -23,16 +23,17 @@ export const useClient = () => {
 
     const deleteItem = ({ key, id, nameID, subProp }: { key: string, id: string, nameID: string, subProp?: string }) => {
         queryClient.setQueryData([key], (old: any) => {
+            console.log(old, key)
             if (!old) return old;
 
 
             const target = subProp ? old[subProp] : old;
-
+           
             if (!Array.isArray(target)) return old;
 
 
             const filtered = target.filter(item => item[nameID] != id);
-            
+            console.log(filtered)
             return subProp ? { ...old, [subProp]: filtered } : filtered;
         });
     };

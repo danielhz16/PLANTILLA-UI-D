@@ -3,10 +3,10 @@ import { useForgotPassword } from "./useForgot";
 import { inputs } from "./inputs";
 import { Box, Typography, Container, Card, Button } from "@mui/material";
 import { useTheme } from "@/hooks/useTheme";
-import { Link as RouterLink } from "react-router";
+import { Loader } from "@/common";
 
 const ForgotPassword = () => {
-  const { formRef, handleSubmbit, toLogin } = useForgotPassword();
+  const { formRef, handleSubmbit, toLogin, isPending } = useForgotPassword();
   const { isDark } = useTheme();
 
   return (
@@ -35,6 +35,9 @@ const ForgotPassword = () => {
         userSelect: 'none'
       }}
     >
+      <Loader 
+       isPending={isPending}
+      />
       <Container maxWidth="sm">
         <Card
           sx={{

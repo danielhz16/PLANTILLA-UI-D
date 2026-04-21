@@ -1,4 +1,4 @@
-import type { Company } from "@/common";
+import { mapRowWithHeaders, type Company } from "@/common";
 import { createColumnHelper } from "@tanstack/react-table";
 import { DateCell } from "@/components/tables/cell";
 import { OptionsSecondary } from "@/components/tables/cell/options/OptionsSecondary";
@@ -25,7 +25,8 @@ export const columnsCompany = ({handleSelect}: {
     accessor('id', {
       id: 'options',
       header: 'Opciones',
-      cell: ({ getValue }) => <OptionsSecondary id={getValue()} select={handleSelect} toolTipUsers="Usuarios de la empresa" to={`/company/details/${getValue()}`} />
+      cell: ({ getValue, row }) => <OptionsSecondary 
+      id={getValue()} select={handleSelect} toolTipUsers="Usuarios de la empresa" to={`/company/details/${getValue()}`} data={mapRowWithHeaders(row, columnsCompany({ handleSelect }))} />
     }),
   ];
 };

@@ -1,3 +1,4 @@
+import { TYPES_AUTHORIZATIONS } from './../const/auth';
 import type { Auth } from "@/const/auth"
 
 interface CommonColumns {
@@ -12,30 +13,37 @@ export interface UserProfile {
     email: string,
     id: number,
     firstLogin: boolean,
-    username: string
+    username: string,
+    permissions: Permission[]
 };
 
-export type Permissions = Auth[];
+export interface Permission {
+    name: string,
+    type: Auth
+}
 
 export interface ResponseLogin {
     user: UserProfile,
-    permissions: Permissions
+    show: string
 };
 
 export interface RefForm {
- save: () => void
+    save: () => void
 };
 
 
 export interface Company extends CommonColumns {
-  bpCode: string;
+    bpCode: string;
 }
 
 
-export interface Permission extends CommonColumns{
-}
 
 export interface Options {
     id: number,
     label: string
 }
+
+export interface PropsColumns {
+    cacheKey: string
+}
+export type TypeAuth = typeof TYPES_AUTHORIZATIONS[keyof typeof TYPES_AUTHORIZATIONS];

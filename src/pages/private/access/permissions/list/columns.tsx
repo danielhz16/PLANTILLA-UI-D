@@ -1,13 +1,15 @@
-import type { Permission } from "@/common";
-import { DateCell } from "@/components/tables/cell";
-import { StatusCell } from "@/components/tables/cell/status-cell/StatusCell";
+import type { Permission, PropsColumns } from "@/common";
+import { DateCell } from "@/components/tables/cell/date-cell/DateCell";
 import { createColumnHelper } from "@tanstack/react-table"
-import { OptionsSecondary } from "@/components/tables/cell/options/OptionsSecondary";
-
+import { OptionsCell } from "@/common/components/tables/cell";
+import { useNavigate } from "react-router";
+import { UsersRound } from "lucide-react";
 
 const { accessor } = createColumnHelper<Permission>();
-
-export const getColumnsPermissions = () => {
+export const getColumnsPermissions = ({
+    cacheKey,
+    handleSelect
+}: PropsColumns & {handleSelect: (id: number) => void}) => {
     const columns = [
         accessor('id', {
             header: 'ID'
@@ -19,16 +21,39 @@ export const getColumnsPermissions = () => {
             header: 'Fecha Creación',
             cell: ({ getValue }) => <DateCell date={getValue()} />
         }),
-        accessor('status', {
-            header: 'Estado',
-            cell: ({ getValue }) => <StatusCell status={getValue()} />
-        }),
         accessor('id', {
             id: 'options',
             header: 'Opciones',
-            cell: ({ getValue }) => (
-                <OptionsSecondary id={getValue()} select={() => {}} toolTipUsers="Usuarios" to={`/permissions/details/${getValue()}`} />
-            )
+            cell: function CellWrapper({ getValue, row }) {
+                const navigate = useNavigate();
+                return (
+                    <OptionsCell
+                        config={{
+                            id: String(getValue()),
+                            table: 'permissions',
+                            enabledEdit: true,
+                            statusConfig: {
+                                enabled: true,
+                                actualStatus: row.original.status,
+                                cacheKey: cacheKey,
+                                nameID: 'id'
+                            },
+                            historyConfig: {
+                                enabled: true
+                            },
+                            onEdit: () => {
+                                navigate(`/permissions/details/${getValue()}`);
+                            },
+                            additionalItems: [{
+                                label: 'Usuarios',
+                                icon: <UsersRound size={16} />,
+                                onClick: () => handleSelect(getValue())
+                            }]
+                        }}
+                        rowData={row.original}
+                    />
+                );
+            }
         })
     ];
 

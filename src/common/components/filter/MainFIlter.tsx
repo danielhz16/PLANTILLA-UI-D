@@ -19,8 +19,7 @@ interface Props {
 const DEFAULT_INPUTS = filterStatus();
 
  const MainFilter = ({ inputs, get, title, initialValues, isPending = false }: Props) => {
-    console.log({ initialValues })
-    
+
     const { setValue } = useUrl()
     const inputsOnChamge = useMemo(() => {
         return (inputs || DEFAULT_INPUTS).map(i => ({
@@ -35,7 +34,6 @@ const DEFAULT_INPUTS = filterStatus();
        if(isPending) return;
         (initialValues || defaultInitial) && Object.entries(initialValues || defaultInitial).forEach(([key, value]) => {
             setValue(key, value as string);
-            console.log({ key, value })
         })
     }, [isPending])
 

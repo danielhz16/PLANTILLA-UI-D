@@ -5,6 +5,8 @@ import { RouterProvider } from 'react-router'
 import { ThemeProvider, useAuthStore } from '@/common'
 import { Toaster } from 'sonner'
 import { useEffect } from 'react'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -21,10 +23,11 @@ const queryClient = new QueryClient({
 function App() {
   useEffect(() => {
     useAuthStore.getState().loadLocal();
-  }, [])
+  }, []);
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
+          {import.meta.env.DEV === true && <ReactQueryDevtools />}
         <Toaster toastOptions={{ className: 'sonner-toast' }} />
         <RouterProvider router={router} />
       </QueryClientProvider>

@@ -1,11 +1,11 @@
 import { create } from 'zustand';
-import type { UserProfile, Permissions, ResponseLogin } from '../types';
+import type { UserProfile, Permission, ResponseLogin } from '../types';
 
 
 const key_local = 'user-vera';
 interface AuthState {
   user: UserProfile | null;
-  permissions: Permissions | null;
+  permissions: Permission[] | null;
   loginUser: (res: ResponseLogin) => void;
   logoutUser: () => void;
   loadLocal: () => void;
@@ -19,7 +19,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   loginUser: (res) => {
     const saved = {
       user: res.user,
-      permissions: res.permissions,
+      permissions: res.user.permissions,
     };
 
     set(saved);
@@ -35,9 +35,9 @@ export const useAuthStore = create<AuthState>((set) => ({
     const raw = localStorage.getItem(key_local);
     if (!raw) return;
     const parsed = JSON.parse(raw) as {
-        user: UserProfile;
-        permissions: Permissions;
-      };
-      set(parsed);
+      user: UserProfile;
+      permissions: Permission[];
+    };
+    set(parsed);
   },
 }));

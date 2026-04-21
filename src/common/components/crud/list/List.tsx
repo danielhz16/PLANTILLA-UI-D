@@ -18,6 +18,7 @@ interface Props<T> extends PropsHook {
   filters?: Input[];
   initialFilter?: Record<string, any>;
   isPending?: boolean;
+  enabledCreate?: boolean
 }
 
 export const List = <T,>({
@@ -30,45 +31,52 @@ export const List = <T,>({
   onClickCreate,
   filters,
   initialFilter,
-  isPending = false
+  isPending = false,
+  enabledCreate
 }: Props<T>) => {
   const { data, isLoading, get } = useList<T>({
     endpoint,
     enabled,
     queryKey,
   });
-const nav = useNavigate();
+  const nav = useNavigate();
 
-const fnCreate = () =>  onClickCreate ? onClickCreate() : nav(toCreate ?? '/')
+  const fnCreate = () => onClickCreate ? onClickCreate() : nav(toCreate ?? '/')
 
-   const objFilters = useMemo(() => {
-    if(!filters) return {};
+  const objFilters = useMemo(() => {
+    if (!filters) return {};
 
-  return ({
-    initialValues: initialFilter,
-    inputs: filters,
-  });
+    return ({
+      initialValues: initialFilter,
+      inputs: filters,
+    });
   }, [filters]);
 
   return (
-  <>
-    <MainCard>
-      <MainFilter title={title}  get={get} isPending={isLoading || isPending} {...objFilters} />
-      <Title>
-        <MainButton variant="contained" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} onClick={fnCreate}>
-          Crear <Save size={18} />
-        </MainButton>
-      </Title>
-        
- </MainCard>
-  <MainCard sx={{ p: 2, minHeight: '60%', borderRadius: '10px', paddingBlock: '1rem' }}>
-      <MainTable<T>
-        columns={columns}
-        data={data}
-        isLoading={isLoading || isPending}
-      />
-              {!data.length && <NoData />}
-    </MainCard></>
+    <>
+      <MainCard>
+        <MainFilter title={title} get={get} isPending={isLoading || isPending} {...objFilters} />
+        <Title>
+
+          {enabledCreate && (
+
+            <MainButton variant="contained" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} onClick={fnCreate}>
+              Crear <Save size={18} />
+            </MainButton>
+
+          )}
+
+        </Title>
+
+      </MainCard>
+      <MainCard sx={{ p: 2, minHeight: '60%', borderRadius: '10px', paddingBlock: '1rem' }}>
+        <MainTable<T>
+          columns={columns}
+          data={data}
+          isLoading={isLoading || isPending}
+        />
+        {!data.length && <NoData />}
+      </MainCard></>
   );
 };
 

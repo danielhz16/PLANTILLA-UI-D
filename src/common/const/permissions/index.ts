@@ -1,0 +1,14 @@
+export const PERMISSIONS = {
+    MODULE: 'GESTION_PERMISOS',
+    HISTORY: 'HISTORIAL_PERMISOS', 
+};
+
+export const ROLES = {
+    MODULE: 'GESTION_ROLES',
+    HISTORY: 'ROLES_BITACORA'
+}
+
+export const USERS = {
+    MODULE: 'GESTION_USUARIOS',
+    HISTORY: 'USUARIOS_BITACORA'
+}

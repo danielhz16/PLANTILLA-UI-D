@@ -24,7 +24,8 @@ export const useForgotPassword = () => {
         formRef,
         save,
         handleSubmbit,
-        toLogin
+        toLogin,
+        isPending: mutation.isPending
     }
 
 };

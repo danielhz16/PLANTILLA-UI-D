@@ -1,25 +1,30 @@
-import { Box } from "@mui/material";
+import { useAuth } from "@/hooks/auth/useAuth";
+import { type TypeAuth, useAuthStore } from "@/common";
+import { useNavigate } from "react-router";
+import { useEffect } from "react";
 
-const NotAccess = () => {
-    return (
-        <Box>
-            <h1>No tienes acceso</h1>
-        </Box>
-    )
+
+interface Props {
+    name: string,
+    level: TypeAuth,
+    children: React.ReactNode
 }
 
+export const Protector = ({ name, level, children }: Props) => {
+    const nav = useNavigate();
+    const { user } = useAuthStore();
+    const { validarPermiso } = useAuth();
+    const access = validarPermiso(name, level);
 
-interface ProtectorProps {
-    component: React.ComponentType<any>;
+    useEffect(() => {
+        if (!access) {
+            if (!user) {
+                nav('/auth/login')
+            } else {
+                nav('/unauthorized')
+            }
+        }
+    }, [access, user, nav]);
+
+    return access ? children : null
 }
-
-const Protector = ({ component: Component }: ProtectorProps) => {
-    const access = true;
-    return (
-        <>
-            {access ? <Component /> : <NotAccess />}
-        </>
-    )
-}
-
-export default Protector
