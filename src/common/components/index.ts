@@ -16,7 +16,8 @@ export { Preview } from './loading/Preview';
 export { MainButton } from './buttons/MainButton';
 
 // filter
-export { default as MainFilter } from './filter/MainFIlter';
+export { default as MainFilter } from './filter/MainFilter';
+export { ErrorBoundary } from './error-boundary';
 export * from './filter/inputs/filter-status';
 
 // cards & containers
@@ -37,7 +38,7 @@ export { useDetails } from './crud/details/useDetails';
 export { ModalForm } from './modal/ModalForm';
 export { Modal, ConfirmDialog } from './modal';
 
-// pagination (already has its own barrel)
+// pagination (alReady has its own barrel)
 export * from './pagination';
 
 // layout components

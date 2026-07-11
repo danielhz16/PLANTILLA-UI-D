@@ -17,18 +17,6 @@ const CrystalButton = styled(Button)(() => ({
     gap: '8px',
     minWidth: 'auto',
 
-    '&:hover': {
-        background: 'var(--color-hover)',
-       
-        transform: 'translateY(-1px)',
-        boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-    },
-
-    '&:active': {
-        transform: 'translateY(0)',
-        opacity: 0.8,
-    },
-
     '&.Mui-disabled': {
         background: 'var(--color-hover)',
         opacity: 0.4,
@@ -41,7 +29,7 @@ const CrystalButton = styled(Button)(() => ({
 
 export const MainButton = (props: ButtonProps) => {
     return (
-        <CrystalButton {...props}>
+        <CrystalButton {...props} color={props.color || 'primary'}>
             {props.children}
         </CrystalButton>
     );

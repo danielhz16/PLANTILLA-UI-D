@@ -1,6 +1,7 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { OptionsSecondary } from "@/components/tables/cell/options/OptionsSecondary";
-import { mapRowWithHeaders } from "@/common";
+import { OptionsCell } from "@/components/tables/cell";
+import { useNavigate } from "react-router";
+import { userDetailFields } from "./details";
 
 const { accessor } = createColumnHelper<User>();
 
@@ -10,8 +11,11 @@ export interface User {
     email: string;
 }
 
-export const columnsUser = () => {
-    const columns = [
+interface ColumnsProps {
+    canWrite: boolean;
+}
+
+export const columnsUser = ({ canWrite }: ColumnsProps) => [
     accessor('id', {
         header: 'ID'
     }),
@@ -22,10 +26,24 @@ export const columnsUser = () => {
         header: 'Correo electrónico'
     }),
     accessor('id', {
-        id: 'id',
+        id: 'options',
         header: 'Opciones',
-        cell: ({ getValue, row }) => <OptionsSecondary id={getValue()} select={() => {}} toolTipUsers="" to="" data={mapRowWithHeaders(row, columnsUser())} />
+        cell: function CellWrapper({ getValue, row }) {
+            const navigate = useNavigate();
+            return (
+                <OptionsCell
+                    config={{
+                        id: String(getValue()),
+                        table: 'users',
+                        enabledEdit: canWrite,
+                        detailsData: row.original,
+                        detailsTitle: 'Usuario',
+                        readEndpoint: '/users/read',
+                        detailFields: userDetailFields,
+                        onEdit: () => navigate(`/gestion-usuarios/usuarios/details/${getValue()}`),
+                    }}
+                />
+            );
+        },
     })
-    ]
-    return columns
-}
+];

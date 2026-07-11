@@ -1,10 +1,9 @@
-import { optionsStatus } from "@/const/status";
+import { optionsStatus, STATUS } from "@/const/status";
 import type { Input } from "@/components/ts/form";
-import  { STATUS, } from "@/const/status";
 
 export const filterStatus = (): Input[] => [
     {
-        name: 'status',
+        name: 'status_id',
         label: 'Estado',
         type: 'select',
         md: 12,
@@ -14,5 +13,6 @@ export const filterStatus = (): Input[] => [
 
 
 export const defaultInitial = {
+    status_id: STATUS.ACTIVE,
     status: STATUS.ACTIVE
 }

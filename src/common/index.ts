@@ -20,4 +20,4 @@ export * from "./components";
 export * from "./types";
 
 export * from "./const/errors";
-
+export * from "./services";

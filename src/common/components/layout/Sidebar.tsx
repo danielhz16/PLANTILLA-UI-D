@@ -8,6 +8,7 @@ import { Link, useLocation } from 'react-router';
 import { menuConfig, type MenuItem } from '../../../routes/menu/menu.config';
 import './Sidebar.css';
 import { INFO_SISTEM } from '../../../conf/info.sistem';
+import { useThemeContext } from '../../context/ThemeContext';
 
 interface SidebarProps {
 
@@ -16,6 +17,9 @@ interface SidebarProps {
 export const Sidebar: React.FC<SidebarProps> = () => {
     const [isCollapsed, setIsCollapsed] = useState(false);
     const [openMenus, setOpenMenus] = useState<Record<number, boolean>>({});
+    const { theme } = useThemeContext();
+    const isDark = theme === 'dark';
+    const logoFilter = isDark ? 'brightness(0) invert(1)' : undefined;
     const location = useLocation();
 
     const toggleSidebar = () => setIsCollapsed(!isCollapsed);
@@ -40,7 +44,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                         <img
                             src={INFO_SISTEM.fulllogo}
                             alt={INFO_SISTEM.name}
-                            style={{ height: 32, objectFit: 'contain' }}
+                            style={{ height: 48, maxWidth: 160, objectFit: 'contain', filter: logoFilter, transition: 'filter 0.3s ease' }}
                         />
                     ) : (
                         INFO_SISTEM.name
@@ -52,7 +56,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
                             <img
                                 src={INFO_SISTEM.minlogo}
                                 alt={INFO_SISTEM.name}
-                                style={{ height: 28, objectFit: 'contain' }}
+                                style={{ height: 28, objectFit: 'contain', filter: logoFilter, transition: 'filter 0.3s ease' }}
                             />
                         ) : (
                             INFO_SISTEM.name?.charAt(0) ?? 'V'

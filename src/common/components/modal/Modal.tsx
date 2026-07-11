@@ -55,10 +55,10 @@ export const Modal: React.FC<ModalProps> = ({
             PaperProps={{
                 sx: {
                     borderRadius: '24px',
-                    backgroundColor: 'var(--color-background)',
+                    backgroundColor: 'var(--color-bgCard)',
                     backdropFilter: 'blur(20px)',
                     border: '1px solid var(--color-border)',
-                    boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                    boxShadow: '0 25px 50px -12px var(--color-shadowCard)',
                     overflow: 'hidden',
                     position: 'relative',
                    

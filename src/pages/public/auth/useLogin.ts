@@ -1,12 +1,13 @@
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
-import { useRef } from "react";
-import { useAuthStore } from "@/common";
+import { useRef, useState } from "react";
 import type { RefForm, ResponseLogin } from "@/common";
+import { ERRORS } from "@/const/errors";
 import { useNavigate } from "react-router";
 
 export const useLogin = () => {
-  const { loginUser } = useAuthStore();
   const nav = useNavigate();
+  const [openMfa, setOpenMfa] = useState(false);
+  const [pendingLogin, setPendingLogin] = useState<ResponseLogin | null>(null);
 
   const login = useMutationQuery<ResponseLogin>({
     url: "auth/login",
@@ -19,19 +20,38 @@ export const useLogin = () => {
     username: string;
     password: string;
   }) => {
-    const res = await login.mutateAsync(data) as ResponseLogin;
-    loginUser({
-        permissions: res.permissions,
-        user: res.user
-    });
-    nav('/')
+    try {
+      const res = (await login.mutateAsync(data)) as ResponseLogin;
+
+      if (!res.mfaOk) {
+        setPendingLogin(res);
+        setOpenMfa(true);
+        return;
+      }
+
+      setPendingLogin(null);
+      setOpenMfa(false);
+      nav('/');
+    } catch (error: any) {
+      if (Number(error?.code) === ERRORS.MFA_PENDING) {
+        return;
+      }
+      throw error;
+    }
   };
- 
+
+  const handleCloseMfa = () => {
+    setOpenMfa(false);
+    setPendingLogin(null);
+  };
 
   return {
     handleSubmit,
     formRef,
     isPending: login.isPending,
-    toForgot: () => nav('/auth/forgot')
+    toForgot: () => nav('/auth/forgot'),
+    openMfa,
+    pendingLogin,
+    handleCloseMfa,
   };
 };

@@ -2,6 +2,7 @@ import { createColumnHelper } from "@tanstack/react-table";
 import type { Role } from "../utils/type";
 import { OptionsCell } from "@/components/tables/cell";
 import { ShieldCheck } from "lucide-react";
+import { roleDetailFields } from "../details/details";
 
 const { accessor } = createColumnHelper<Role>();
 
@@ -13,9 +14,9 @@ interface ColumnsProps {
 }
 
 export const columnsRoles = ({ cacheKey, onEdit, onPermissions, canWrite }: ColumnsProps) => [
-    accessor("id", { header: "ID" }),
-    accessor("name", { header: "Nombre" }),
-    accessor("description", { header: "Descripción" }),
+    accessor("id", { header: "ID", meta: { filterType: 'number', filterPlaceholder: 'Filtrar ID' } }),
+    accessor("name", { header: "Nombre", meta: { filterType: 'text', filterPlaceholder: 'Filtrar Nombre' } }),
+    accessor("description", { header: "Descripción", meta: { filterType: 'text', filterPlaceholder: 'Filtrar Descripción' } }),
     accessor("id", {
         id: "options",
         header: "Opciones",
@@ -23,11 +24,15 @@ export const columnsRoles = ({ cacheKey, onEdit, onPermissions, canWrite }: Colu
             <OptionsCell
                 config={{
                     id: String(getValue()),
-                    table: "roles",
+                    table: "role",
                     enabledEdit: canWrite,
+                    detailsData: row.original,
+                    detailsTitle: 'Rol',
+                    readEndpoint: '/roles/Read',
+                    detailFields: roleDetailFields,
                     statusConfig: {
                         enabled: true,
-                        actualStatus: row.original.status,
+                        actualStatus: row.original.status_id,
                         cacheKey: cacheKey,
                         nameID: "id"
                     },

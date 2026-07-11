@@ -3,8 +3,11 @@ import { Outlet } from 'react-router';
 import { Sidebar } from './Sidebar';
 import { Header } from './Header';
 import { Box } from '@mui/material';
+import { useTheme } from '@/hooks/useTheme';
 
 const MainLayout: React.FC = () => {
+    const { isDark } = useTheme();
+
     return (
         <Box
             sx={{
@@ -12,10 +15,12 @@ const MainLayout: React.FC = () => {
                 minHeight: '100vh',
                 width: '100%',
                 background: 'var(--color-background)',
-                backgroundImage: `
-                    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%), 
-                    radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.05) 0px, transparent 50%)
-                `,
+                backgroundImage: isDark
+                    ? `radial-gradient(ellipse at 0% 0%, rgba(96,165,250,0.07) 0px, transparent 55%),
+                       radial-gradient(ellipse at 100% 0%, rgba(167,139,250,0.05) 0px, transparent 55%),
+                       radial-gradient(ellipse at 50% 100%, rgba(96,165,250,0.03) 0px, transparent 50%)`
+                    : `radial-gradient(ellipse at 0% 0%, rgba(59,130,246,0.06) 0px, transparent 50%),
+                       radial-gradient(ellipse at 100% 0%, rgba(139,92,246,0.05) 0px, transparent 50%)`,
             }}
         >
             <Sidebar />

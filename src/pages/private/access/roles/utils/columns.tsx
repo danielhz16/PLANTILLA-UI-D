@@ -26,7 +26,7 @@ export const columnsRoles = ({ cacheKey, onEdit, onPermissions }: ColumnsProps) 
                     enabledEdit: true,
                     statusConfig: {
                         enabled: true,
-                        actualStatus: row.original.status,
+                        actualStatus: row.original.status_id,
                         cacheKey: cacheKey,
                         nameID: "id"
                     },

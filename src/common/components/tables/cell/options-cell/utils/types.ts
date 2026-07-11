@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { DetailField } from '@common/types/details';
 
 export interface StatusConfig {
     enabled?: boolean;
@@ -28,6 +29,11 @@ export interface Config {
     table: string;
     onEdit?: () => void;
     enabledEdit?: boolean;
+    detailsData?: Record<string, any>;
+    detailsTitle?: string;
+    detailFields?: DetailField[];
+    readEndpoint?: string;
+    nameID?: string;
     additionalItems?: AdditionalItem[];
 }
 

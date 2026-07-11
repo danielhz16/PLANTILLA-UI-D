@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { callApi } from "./base.api";
 import type { Method } from "@/const/api";
-import { useClient } from "./useClient";
+import { useSmartQuery } from "@/common/lib/smart-query-ui";
 
 interface Props {
   url: string;
@@ -20,6 +20,9 @@ interface Response<T> {
   deleteData?: T;
 }
 
+type MutationVariables = Record<string, unknown> | FormData | null | undefined;
+type RowData = Record<string, unknown>;
+
 export const useMutationQuery = <T>({
   url,
   keyCache,
@@ -30,11 +33,9 @@ export const useMutationQuery = <T>({
   deleteCell = false,
   id
 }: Props) => {
-  const { pushItem, updateItem, deleteItem } = useClient();
- 
-   
+  const { pushRow, updateRow, deleteRow } = useSmartQuery();
 
-  const mutation = useMutation<Response<T>, Error, any>({
+  const mutation = useMutation<Response<T>, Error, MutationVariables>({
     mutationFn: (data) =>
       callApi<Response<T>>(url, method, data ?? {}, useDataForm),
 
@@ -42,24 +43,25 @@ export const useMutationQuery = <T>({
       if (!keyCache) return;
 
       if (res?.newData) {
-        pushItem({ key: keyCache, newData: res.newData, subProp });
+        pushRow({ key: keyCache, data: res.newData, subProp });
       }
 
       if (res?.updateData && nameID) {
-        updateItem({
+        const updateData = res.updateData as RowData;
+
+        updateRow({
           key: keyCache,
-          id: (res?.updateData as any)[nameID],
+          id: updateData[nameID] as string | number,
           nameID,
           newData: res.updateData,
           subProp,
         });
       }
 
-  
       if (deleteCell && id && nameID) {
-        deleteItem({
+        deleteRow({
           key: keyCache,
-          id: String(id),
+          id,
           nameID,
           subProp,
         });

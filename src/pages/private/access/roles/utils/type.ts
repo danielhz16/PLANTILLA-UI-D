@@ -2,7 +2,7 @@ export interface Role {
     id: number;
     name: string;
     description: string;
-    status: number;
+    status_id: number;
 }
 
 export interface RolePermission {

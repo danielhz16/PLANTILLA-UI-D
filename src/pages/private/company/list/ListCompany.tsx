@@ -8,6 +8,7 @@ const ListCompany = () => {
   return (
     <>
       <List
+        name="empresas"
         endpoint="company/list"
         queryKey="companies"
         columns={columnsCompany({ handleSelect })}

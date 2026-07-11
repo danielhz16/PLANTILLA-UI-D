@@ -1,28 +1,35 @@
-import { MainTable, Title, MainCard, MainButton, MainFilter, NoData } from "@/common";
+import { MainTable, Title, MainCard, MainButton, MainFilter, useAuth, TYPES_AUTHORIZATIONS } from "@/common";
 import { useList, type PropsHook } from "./useList";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Save } from "lucide-react";
 import { useNavigate } from "react-router";
 import type { Input } from "@/components/ts/form";
 import { useMemo } from "react";
+import ButtonStatus from "../../filter/ButtonStatus";
 
 
 interface Props<T> extends PropsHook {
   title: string;
+  name: string;
   toCreate?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   columns: ColumnDef<T, any>[];
   queryKey: string;
   endpoint: string;
   enabled?: boolean;
   onClickCreate?: () => void;
   filters?: Input[];
-  initialFilter?: Record<string, any>;
+  initialFilter?: Record<string, unknown>;
   isPending?: boolean;
-  enabledCreate?: boolean
+  permission?: string;
+  enabledCreate?: boolean;
+  useMainFilter?: boolean;
+  disabledButtonStatus?: boolean;
 }
 
 export const List = <T,>({
   title,
+  name,
   queryKey,
   endpoint,
   enabled = false,
@@ -32,12 +39,36 @@ export const List = <T,>({
   filters,
   initialFilter,
   isPending = false,
-  enabledCreate
+  permission,
+  enabledCreate,
+  useMainFilter = false,
+  disabledButtonStatus = false,
+  minDataFetch
 }: Props<T>) => {
-  const { data, isLoading, get } = useList<T>({
+  const { validarPermiso } = useAuth();
+
+  const canCreate = enabledCreate ?? (permission ? validarPermiso(permission, TYPES_AUTHORIZATIONS.Write) : undefined);
+
+  const {
+    data,
+    isLoading,
+    isFetched,
+    get,
+    columnFilters,
+    onColumnFilterChange,
+    onColumnFilterBlur,
+    page,
+    pageSize,
+    hasNextPage,
+    setPage,
+    setPageSize,
+    totalPages,
+    totalRecords
+  } = useList<T>({
     endpoint,
     enabled,
     queryKey,
+    minDataFetch,
   });
   const nav = useNavigate();
 
@@ -50,20 +81,30 @@ export const List = <T,>({
       initialValues: initialFilter,
       inputs: filters,
     });
-  }, [filters]);
+  }, [filters, initialFilter]);
+
 
   return (
     <>
       <MainCard>
-        <MainFilter title={title} get={get} isPending={isLoading || isPending} {...objFilters} />
-        <Title>
+        {(useMainFilter) && (
+          <MainFilter
+            title={title}
+            get={get}
+            isPending={isLoading || isPending}
+            {...objFilters}
+          />
+        )}
+        <Title title={title}>
 
-          {enabledCreate && (
+          {!disabledButtonStatus && (
+            <ButtonStatus get={get} isPending={isLoading || isPending} />
+          )}
 
+          {canCreate && (
             <MainButton variant="contained" sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }} onClick={fnCreate}>
               Crear <Save size={18} />
             </MainButton>
-
           )}
 
         </Title>
@@ -71,12 +112,23 @@ export const List = <T,>({
       </MainCard>
       <MainCard sx={{ p: 2, minHeight: '60%', borderRadius: '10px', paddingBlock: '1rem' }}>
         <MainTable<T>
+          name={name}
           columns={columns}
           data={data}
           isLoading={isLoading || isPending}
+          isFetched={isFetched}
+          columnFilters={columnFilters}
+          onColumnFilterChange={onColumnFilterChange}
+          onColumnFilterBlur={onColumnFilterBlur}
+          page={page}
+          pageSize={pageSize}
+          hasNextPage={hasNextPage}
+          onPageChange={setPage}
+          onPageSizeChange={setPageSize}
+          totalPages={totalPages}
+          totalRecords={totalRecords}
         />
-        {!data.length && <NoData />}
+    
       </MainCard></>
   );
 };
-

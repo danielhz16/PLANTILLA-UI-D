@@ -21,22 +21,22 @@ interface ConfirmDialogProps {
 const typeConfig = {
     warning: {
         icon: AlertTriangle,
-        color: '#f59e0b',
+        color: 'var(--color-warning)',
         bgColor: 'rgba(245, 158, 11, 0.1)',
     },
     error: {
         icon: XCircle,
-        color: '#ef4444',
+        color: 'var(--color-error)',
         bgColor: 'rgba(239, 68, 68, 0.1)',
     },
     info: {
         icon: Info,
-        color: '#3b82f6',
+        color: 'var(--color-primary)',
         bgColor: 'rgba(59, 130, 246, 0.1)',
     },
     success: {
         icon: CheckCircle,
-        color: '#10b981',
+        color: 'var(--color-success)',
         bgColor: 'rgba(16, 185, 129, 0.1)',
     },
 };

@@ -9,11 +9,12 @@ interface CommonColumns {
 }
 
 export interface UserProfile {
-    name: string,
-    email: string,
     id: number,
+    fullName: string,
+    email: string,
     firstLogin: boolean,
-    username: string,
+    phone: string,
+    mfaOk: boolean,
     permissions: Permission[]
 };
 
@@ -24,7 +25,8 @@ export interface Permission {
 
 export interface ResponseLogin {
     user: UserProfile,
-    show: string
+    show: string,
+    mfaOk: boolean,
 };
 
 export interface RefForm {

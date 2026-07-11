@@ -10,21 +10,44 @@ export const themeConfig = {
         error: '#ef4444',
         success: '#10b981',
         warning: '#f59e0b',
-        date: '#5a84c7'
+        date: '#5a84c7',
+        bgCard: '#ffffff',
+        bgInput: '#ffffff',
+        borderSoft: 'rgba(0, 0, 0, 0.05)',
+        textSecondary: '#64748b',
+        textMuted: '#94a3b8',
+        primaryHover: '#2563eb',
+        primarySoft: 'rgba(59,130,246,.15)',
+        tableHeader: 'rgba(255, 255, 255, 0.7)',
+        tableRowBorder: 'rgba(0, 0, 0, 0.1)',
+        tableRowHover: 'rgba(0, 0, 0, 0.02)',
+        shadowCard: 'rgba(0,0,0,.05)'
     },
     dark: {
-        primary: '#3b82f6',
-        secondary: '#8b5cf6',
-        background: '#0f172a',
-        sidebar: 'rgba(30, 41, 59, 0.7)',
-        text: '#ffffffff',
-        border: 'rgba(255, 255, 255, 0.1)',
-        hover: 'rgba(255, 255, 255, 0.05)',
-        error: '#ef4444',
-        success: '#10b981',
-        warning: '#f59e0b',
-        date: '#799dd8'
+        primary: '#60a5fa',
+        secondary: '#a78bfa',
+        background: '#0c111d',
+        sidebar: '#111827',
+        text: '#e8edf5',
+        border: '#1e2d45',
+        hover: '#172a47',
+        error: '#f87171',
+        success: '#4ade80',
+        warning: '#fbbf24',
+        date: '#93c5fd',
+        bgCard: '#111827',
+        bgInput: '#0c111d',
+        borderSoft: '#162035',
+        textSecondary: '#8b9ab5',
+        textMuted: '#4e6080',
+        primaryHover: '#3b82f6',
+        primarySoft: 'rgba(96,165,250,.15)',
+        tableHeader: '#0f1a2e',
+        tableRowBorder: '#162035',
+        tableRowHover: 'rgba(96,165,250,.05)',
+        shadowCard: 'rgba(0,0,0,.6)'
     },
-};
+} as const;
 
 export type ThemeType = 'light' | 'dark';
+export type ThemeColors = typeof themeConfig.light;

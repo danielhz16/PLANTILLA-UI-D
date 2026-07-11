@@ -1,24 +1,23 @@
+import { USERS, useAuth, TYPES_AUTHORIZATIONS } from "@/common";
 import { List } from "@/components/crud/list/List";
 import { columnsUser } from "./utils/columns";
-import { useUsers } from "./utils/useUsers";
-import { filters } from "./utils/inputs";
 import { useMemo } from "react";
 
 const ListUsers = () => {
-  const { optionsCompany, isLoading, initialValues } = useUsers();
+  const { validarPermiso } = useAuth();
+  const canWrite = validarPermiso(USERS.MODULE, TYPES_AUTHORIZATIONS.Write);
   const memoColumns = useMemo(() => {
-     return columnsUser()
-  }, [])
+     return columnsUser({ canWrite })
+  }, [canWrite])
   return (
     <List
+      name="usuarios"
       title="Usuarios"
-      toCreate='/user/create'
-      endpoint="auth/list"
+      toCreate='/gestion-usuarios/usuarios/create'
+      endpoint="/users/list"
       queryKey="user"
       columns={memoColumns}
-      initialFilter={initialValues}
-      filters={filters(optionsCompany ?? [])}
-      isPending={isLoading}
+      permission={USERS.MODULE}
     />
   )
 }

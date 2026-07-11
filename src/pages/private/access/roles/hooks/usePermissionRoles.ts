@@ -5,7 +5,7 @@ export const usePermissionRoles = () => {
     const { validarPermiso } = useAuth();
 
     return {
-        canWrite: validarPermiso(ROLES.MODULE, TYPES_AUTHORIZATIONS.WRITE),
-        canRead: validarPermiso(ROLES.MODULE, TYPES_AUTHORIZATIONS.READ),
+        canWrite: validarPermiso(ROLES.MODULE, TYPES_AUTHORIZATIONS.Write),
+        canRead: validarPermiso(ROLES.MODULE, TYPES_AUTHORIZATIONS.Read),
     };
 };

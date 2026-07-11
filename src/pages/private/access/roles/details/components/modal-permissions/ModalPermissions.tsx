@@ -4,6 +4,8 @@ import { columnsPermissions } from "./columns";
 import { useMemo } from "react";
 import { inputs } from "./inputs";
 import type { RolePermission } from "../../../utils/type";
+import { Typography } from "@mui/material";
+import { Box, Grid } from "lucide-react";
 
 interface Props {
     open: boolean;
@@ -15,7 +17,6 @@ interface Props {
     onOpenForm: () => void;
     onCloseForm: () => void;
     onSubmit: (data: any) => void;
-    onRemove: (permissionId: number) => void;
     isPendingForm: boolean;
 }
 
@@ -29,7 +30,6 @@ export const ModalPermissions = ({
     onOpenForm,
     onCloseForm,
     onSubmit,
-    onRemove,
     isPendingForm
 }: Props) => {
     const inputsMemo = useMemo(() => inputs(permissionsOptions), [permissionsOptions]);
@@ -40,16 +40,26 @@ export const ModalPermissions = ({
             title="Permisos del Rol"
         >
             <Title>
-                <MainButton sx={{ mt: 2 }} onClick={onOpenForm}>
+                <MainButton sx={{ m: 2 }} onClick={onOpenForm}>
                     Agregar permiso
                 </MainButton>
             </Title>
-            <MainTable
+           {
+            permissions.length ? (
+                 <MainTable
                 data={permissions}
                 columns={columnsPermissions}
                 isLoading={isLoading}
                 
             />
+            ): (
+               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "200px" }}>
+                 <Typography variant="body1">
+                    No hay permisos asignados a este rol.
+                </Typography>
+               </div>
+            )
+           }
             <ModalForm
                 open={openForm}
                 onClose={onCloseForm}

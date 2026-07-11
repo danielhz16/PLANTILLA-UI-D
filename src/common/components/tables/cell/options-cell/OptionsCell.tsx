@@ -1,5 +1,7 @@
-import { Menu, MenuItem, Button, CircularProgress, ListItemIcon, ListItemText } from '@mui/material';
+import { Box, Button, Typography, Menu, MenuItem, CircularProgress, ListItemIcon, ListItemText } from '@mui/material';
 import { Eye, Pencil, History as HistoryIcon, ChevronDown } from 'lucide-react';
+import { Modal } from '@/components/modal';
+import { ViewDetailsModal } from '@/components/view-details/ViewDetailsModal';
 import type { Config } from './utils/types';
 import { UpdateStatus } from './status/UpdateStatus';
 import History from './history/History';
@@ -21,6 +23,9 @@ export default function OptionsCell({ config, rowData }: OptionsCellProps) {
     showHistory,
     setShowHistory,
     handleShowHistory,
+    showDetails,
+    setShowDetails,
+    handleShowDetails,
     showStatusOption,
     showHistoryOption
   } = useOptions(config);
@@ -71,6 +76,18 @@ export default function OptionsCell({ config, rowData }: OptionsCellProps) {
           }
         }}
       >
+        {(config.readEndpoint || config.detailsData) && (
+          <MenuItem onClick={handleShowDetails}>
+            <ListItemIcon sx={{ minWidth: 32 }}>
+              <Eye size={16} />
+            </ListItemIcon>
+            <ListItemText
+              primary="Detalles"
+              primaryTypographyProps={{ variant: 'body2' }}
+            />
+          </MenuItem>
+        )}
+
         {showHistoryOption && (
           <MenuItem onClick={handleShowHistory}>
             <ListItemIcon sx={{ minWidth: 32 }}>
@@ -87,21 +104,21 @@ export default function OptionsCell({ config, rowData }: OptionsCellProps) {
           <UpdateStatus config={config} onCloseMenu={handleClose} />
         )}
 
-        <MenuItem onClick={handleEdit} disabled={loading}>
-          <ListItemIcon sx={{ minWidth: 32 }}>
-            {loading ? (
-              <CircularProgress size={16} color="inherit" />
-            ) : config.enabledEdit ? (
-              <Pencil size={16} />
-            ) : (
-              <Eye size={16} />
-            )}
-          </ListItemIcon>
-          <ListItemText
-            primary={config.enabledEdit ? 'Editar' : 'Ver'}
-            primaryTypographyProps={{ variant: 'body2' }}
-          />
-        </MenuItem>
+        {config.enabledEdit && (
+          <MenuItem onClick={handleEdit} disabled={loading}>
+            <ListItemIcon sx={{ minWidth: 32 }}>
+              {loading ? (
+                <CircularProgress size={16} color="inherit" />
+              ) : (
+                <Pencil size={16} />
+              )}
+            </ListItemIcon>
+            <ListItemText
+              primary="Editar"
+              primaryTypographyProps={{ variant: 'body2' }}
+            />
+          </MenuItem>
+        )}
 
         {config.additionalItems?.map((item, index) => (
           <MenuItem
@@ -124,6 +141,55 @@ export default function OptionsCell({ config, rowData }: OptionsCellProps) {
           </MenuItem>
         ))}
       </Menu>
+
+      {showDetails && config.readEndpoint && config.detailFields && (
+        <ViewDetailsModal
+          open
+          onClose={() => setShowDetails(false)}
+          readEndpoint={config.readEndpoint}
+          id={config.id}
+          title={config.detailsTitle}
+          fields={config.detailFields}
+        />
+      )}
+      {showDetails && config.detailsData && !config.readEndpoint && (
+        <Modal
+          open
+          onClose={() => setShowDetails(false)}
+          title={config.detailsTitle ?? 'Detalles'}
+          maxWidth="md"
+          actions={
+            <Box sx={{ display: 'flex', width: '100%' }}>
+              <Button
+                onClick={() => setShowDetails(false)}
+                variant="outlined"
+                sx={{
+                  flex: 1,
+                  borderRadius: '16px',
+                  textTransform: 'none',
+                  py: 1.2,
+                  fontWeight: 600,
+                }}
+              >
+                Cerrar
+              </Button>
+            </Box>
+          }
+        >
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            {Object.entries(config.detailsData).map(([key, value]) => (
+              <Box key={key}>
+                <Typography variant="body2" sx={{ opacity: 0.7, mb: 0.5 }}>
+                  {key}
+                </Typography>
+                <Typography variant="body1" sx={{ fontWeight: 600 }}>
+                  {String(value ?? '')}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Modal>
+      )}
 
       {showHistory && (
         <History

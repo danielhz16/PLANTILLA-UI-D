@@ -10,7 +10,7 @@ const DetailsCompany = () => {
           keyCache="companies"
           nameID="id"
           title="Empresa"
-          readEndpoint="company/read"
+          ReadEndpoint="company/Read"
         />
     )
 };

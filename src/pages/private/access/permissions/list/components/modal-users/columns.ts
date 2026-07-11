@@ -17,7 +17,7 @@ export const columnsUsers = [
         header: 'Nivel de autorización',
         cell: ({ getValue }) => {
             const auth = getValue();
-            return auth === TYPES_AUTHORIZATIONS.READ ? 'Lectura' : 'Escritura';
+            return auth === TYPES_AUTHORIZATIONS.Read ? 'Lectura' : 'Escritura';
         }
     })
 ];

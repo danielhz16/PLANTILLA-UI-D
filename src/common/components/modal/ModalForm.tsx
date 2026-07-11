@@ -72,10 +72,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({
                         onClick={onClose}
                         sx={{
                             gap: 1,
-                            color: '#ef4444',
-                            borderColor: 'rgba(239, 68, 68, 0.5)',
+                            color: 'var(--color-error)',
+                            borderColor: 'var(--color-error)',
                             '&:hover': {
-                                borderColor: '#ef4444',
+                                borderColor: 'var(--color-error)',
                                 backgroundColor: 'rgba(239, 68, 68, 0.08)',
                             },
                         }}
@@ -88,10 +88,10 @@ export const ModalForm: React.FC<ModalFormProps> = ({
                         loading={isLoading}
                         sx={{
                             gap: 1,
-                            background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                            background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
                             color: '#fff !important',
                             '&:hover': {
-                                background: 'linear-gradient(135deg, #2563eb, #7c3aed)',
+                                background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
                             },
                         }}
                     >

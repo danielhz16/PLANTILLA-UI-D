@@ -1,9 +1,10 @@
+import { ROLES } from "@/common";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/common";
 import { List } from "@/components/crud/list/List";
 import { columnsRoles } from "./columns";
 import { useRoles } from "../hooks/useRoles";
 import { useModalPermissions } from "../details/hooks/useModalPermissions";
 import { ModalPermissions } from "../details/components/modal-permissions/ModalPermissions";
-import { usePermissionRoles } from "../hooks/usePermissionRoles";
 
 const cacheKey = "roles";
 
@@ -20,20 +21,22 @@ const ListRoles = () => {
         handleOpenForm,
         handleCloseForm,
         onSubmit,
-        onRemove,
         isPendingForm
     } = useModalPermissions();
-    const  { canWrite } = usePermissionRoles();
+    const { validarPermiso } = useAuth();
+    const canWrite = validarPermiso(ROLES.MODULE, TYPES_AUTHORIZATIONS.Write);
 
     return (
         <>
             <List
+                name="roles"
                 columns={columnsRoles({ cacheKey, onEdit: handleEdit, onPermissions: handleOpenModal, canWrite })}
                 endpoint="/roles/list"
                 title="Roles"
                 queryKey={cacheKey}
                 toCreate="/roles/create"
-                enabledCreate={true}
+                permission={ROLES.MODULE}
+                minDataFetch={5}
             />
             <ModalPermissions
                 isLoading={isLoading}
@@ -45,7 +48,6 @@ const ListRoles = () => {
                 onOpenForm={handleOpenForm}
                 onCloseForm={handleCloseForm}
                 onSubmit={onSubmit}
-                onRemove={onRemove}
                 isPendingForm={isPendingForm}
             />
         </>

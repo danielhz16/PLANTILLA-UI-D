@@ -1,5 +1,6 @@
 #root {
   width: 100%;
+  user-select: none;
 }
 
 .logo {
@@ -37,6 +38,6 @@
   padding: 2em;
 }
 
-.read-the-docs {
+.Read-the-docs {
   color: #888;
 }

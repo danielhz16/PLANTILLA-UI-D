@@ -36,7 +36,9 @@ export const ModalUsers = ({
             onClose={onClose}
             title="Usuarios"
         >
-            <Title>
+            <Title sx={{
+                marginBottom: 2
+            }}>
                 <MainButton sx={{ mt: 2 }} onClick={onOpenForm}>
                     Agregar usuario
                 </MainButton>

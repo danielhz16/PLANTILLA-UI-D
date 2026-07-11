@@ -4,6 +4,7 @@ import type { Config } from './utils/types';
 export const useOptions = (config: Config) => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const [showHistory, setShowHistory] = useState(false);
+    const [showDetails, setShowDetails] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const open = Boolean(anchorEl);
@@ -33,6 +34,11 @@ export const useOptions = (config: Config) => {
         setShowHistory(true);
     };
 
+    const handleShowDetails = () => {
+        handleClose();
+        setShowDetails(true);
+    };
+
     const showStatusOption = config.enabledEdit && config.statusConfig?.enabled;
     const showHistoryOption = config.enabledEdit && config.historyConfig?.enabled;
 
@@ -46,6 +52,9 @@ export const useOptions = (config: Config) => {
         showHistory,
         setShowHistory,
         handleShowHistory,
+        showDetails,
+        setShowDetails,
+        handleShowDetails,
         showStatusOption,
         showHistoryOption
     };

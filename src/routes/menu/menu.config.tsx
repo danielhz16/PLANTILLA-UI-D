@@ -1,13 +1,7 @@
 import React from 'react';
 import {
-    Home,
-    Users,
-    BarChart,
-    Settings,
-    FlaskConical,
-    Building2,
-    UserRoundKey,
-    Shield,
+    Home, Users, Building2, FlaskConical,
+    UserRoundKey, Shield, Microscope, Stethoscope, Hospital,
 } from 'lucide-react';
 
 export interface MenuItem {
@@ -19,32 +13,18 @@ export interface MenuItem {
 }
 
 export const menuConfig: MenuItem[] = [
+    { icon: <Home size={20} />, label: 'Dashboard', path: '/dashboard' },
     {
-        icon: <Home size={20} />,
-        label: 'Dashboard',
-        path: '/',
-    },
-    {
-        icon: <Users size={20} />,
-        label: 'Usuarios',
-        path: '/user/list',
-    },
-    {
-        icon: <Building2 size={20} />,
-        label: 'Clientes',
-        path: '/company',
-    },
-    {
-        icon: <FlaskConical size={20} />,
-        label: 'Demo',
-        path: '/demo',
-    },
-    {
-        icon: <UserRoundKey size={20} />,
-        label: 'Permisos',
+        icon: <Users size={20} />, label: 'Gestión usuarios',
         children: [
-            { icon: <Shield size={20} />, label: 'Permisos', path: '/permissions/list' },
-            { icon: <Users size={20} />, label: 'Roles', path: '/roles/list' },
+            { icon: <Users size={20} />, label: 'Usuarios', path: '/gestion-usuarios/usuarios/list' },
+            { icon: <Shield size={20} />, label: 'Permisos', path: '/gestion-usuarios/permisos/list' },
+            { icon: <UserRoundKey size={20} />, label: 'Roles', path: '/gestion-usuarios/roles/list' },
         ]
-    }
+    },
+    { icon: <Building2 size={20} />, label: 'Clientes', path: '/clientes' },
+    { icon: <FlaskConical size={20} />, label: 'Demo', path: '/demo' },
+    { icon: <Microscope size={20} />, label: 'Laboratorio', path: '/laboratorio' },
+    { icon: <Stethoscope size={20} />, label: 'Clínica', path: '/clinica' },
+    { icon: <Hospital size={20} />, label: 'Hospital', path: '/hospital' },
 ];

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Menu, MenuItem, Avatar, Divider } from '@mui/material';
-import { User, LogOut, Settings, ChevronDown } from 'lucide-react';
+import { LogOut, Settings, ChevronDown } from 'lucide-react';
 import { useAuthStore } from '@/common/stores/auth-store';
 import { useNavigate } from 'react-router';
 import { useMutationQuery } from '@/hooks/api/useMutationQuery';
@@ -25,7 +25,7 @@ export const UserProfile: React.FC = () => {
         handleClose();
         try {
             await logout.mutateAsync(null);
-        } catch (error) {
+        } catch {
             // Error ya manejado por el interceptor
         }
         logoutUser();
@@ -70,15 +70,14 @@ export const UserProfile: React.FC = () => {
                     sx={{
                         width: 40,
                         height: 40,
-                        bgcolor: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                        background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                        backgroundColor: 'var(--color-primary)',
                         color: 'white',
                         fontWeight: 700,
                         fontSize: '0.9rem',
                         border: '2px solid var(--color-border)',
                     }}
                 >
-                    {getInitials(user.name)}
+                    {getInitials(user.fullName)}
                 </Avatar>
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, flexDirection: 'column', alignItems: 'flex-start' }}>
                     <Typography
@@ -89,7 +88,7 @@ export const UserProfile: React.FC = () => {
                             lineHeight: 1.2,
                         }}
                     >
-                        {user.name}
+                        {user.fullName}
                     </Typography>
                     <Typography
                         variant="caption"
@@ -144,14 +143,13 @@ export const UserProfile: React.FC = () => {
                             sx={{
                                 width: 48,
                                 height: 48,
-                                bgcolor: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
-                                background: 'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+                                backgroundColor: 'var(--color-primary)',
                                 color: 'white',
                                 fontWeight: 700,
                                 fontSize: '1.1rem',
                             }}
                         >
-                            {getInitials(user.name)}
+                            {getInitials(user.fullName)}
                         </Avatar>
                         <Box>
                             <Typography
@@ -161,7 +159,7 @@ export const UserProfile: React.FC = () => {
                                     color: 'var(--color-text)',
                                 }}
                             >
-                                {user.name}
+                                {user.fullName}
                             </Typography>
                             <Typography
                                 variant="caption"

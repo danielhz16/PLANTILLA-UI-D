@@ -1,19 +1,18 @@
-import authRoutes from "./routes-modules/auth.routes";
-import type { Routes } from "./ts";
+import type { RouteConfig } from "./ts";
 import { createBrowserRouter, Navigate } from "react-router";
-import userRoutes from "./routes-modules/user.routes";
-import Loadable from "../common/components/loading/Lazy";
-import { lazy } from "react";
-import companyRoutes from "./routes-modules/companies.routes";
-import accessPermissionsRoutes from "./routes-modules/access.permissions.routes";
-import accessRolesRoutes from "./routes-modules/access.roles.routes";
 import { useAuthStore } from "@/common";
+import { lazyLoad } from "./routes.factory";
+import authRoutes from "./auth/index.routes";
+import dashboardRoutes from "./dashboard/index.routes";
+import gestionUsuariosRoutes from "./gestion-usuarios/index.routes";
+import clientesRoutes from "./clientes/index.routes";
+import laboratorioRoutes from "./laboratorio/index.routes";
+import clinicaRoutes from "./clinica/index.routes";
+import hospitalRoutes from "./hospital/index.routes";
 
+const Unauthorized = lazyLoad(() => import("../pages/public/Unauthorized"));
 
-const Unauthorized = Loadable(lazy(() => import("../pages/public/Unauthorized")));
-import DashboardRoutes from "./routes-modules/dashboard.routes";
-
-const unauthorizedRoute: any = {
+const unauthorizedRoute: RouteConfig = {
     path: "/unauthorized",
     element: <Unauthorized />,
 };
@@ -23,29 +22,29 @@ const RootRedirect = () => {
     return <Navigate to={user ? "/dashboard" : "/auth/login"} replace />;
 };
 
-const rootRoute: any = {
+const rootRoute: RouteConfig = {
     path: "/",
     element: <RootRedirect />,
 };
 
+const loginRedirect: RouteConfig = {
+    path: "/login",
+    element: <Navigate to="/auth/login" replace />,
+};
 
-const routes: Routes[] = [
+const routes: RouteConfig[] = [
     rootRoute,
     authRoutes,
     unauthorizedRoute,
-    userRoutes,
-    companyRoutes,
-    accessPermissionsRoutes,
-    accessRolesRoutes,
-    {
-        path: "/login",
-        element: <Navigate to="/auth/login" replace />,
-    },
-    DashboardRoutes
+    dashboardRoutes,
+    gestionUsuariosRoutes,
+    clientesRoutes,
+    laboratorioRoutes,
+    clinicaRoutes,
+    hospitalRoutes,
+    loginRedirect,
 ];
-
 
 const router = createBrowserRouter(routes);
 
 export default router;
-

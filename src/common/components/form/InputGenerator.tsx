@@ -84,7 +84,10 @@ export const InputGenerator: React.FC<Props> = ({ input, field, error }) => {
     const { component: Component, props, ...rest } = mapInputs[input.type];
     const { name, label, disabled, options, type, validations, md, value, fields, handleChange, ...inputRest } = input;
 
-    if (!Component) return <></>;
+    if (!Component) return <> </>;
+
+    const isTextFieldLike = Component === TextField || Component === PasswordInput;
+    const isCustomInput = Component !== TextField;
 
     return (
         <FormControl fullWidth error={!!error} margin="normal" sx={{ gap: 0.5 }}>
@@ -109,7 +112,8 @@ export const InputGenerator: React.FC<Props> = ({ input, field, error }) => {
                 id={name}
                 disabled={disabled}
                 options={options}
-                handleChange={handleChange || field.onChange}
+                {...(isCustomInput ? { handleChange: handleChange || field.onChange } : {})}
+                {...(isTextFieldLike ? { value: field.value ?? '' } : {})}
                 {...inputRest}
                 {...rest}
                 variant="outlined"

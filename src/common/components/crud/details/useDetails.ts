@@ -1,7 +1,6 @@
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
-import { useParams } from "react-router";
+import { useParams, useNavigate } from "react-router";
 import { useRef } from "react";
-import { useNavigate } from "react-router";
 import { useGetQuery } from "@/hooks/api/useGetQuery";
 import { useClient } from "@/hooks/api/useClient";
 export interface PropsHook {
@@ -12,7 +11,7 @@ export interface PropsHook {
     useDataForm?: boolean;
     subProp?: string;
     interceptSubmit?: (data: any) => void;
-    readEndpoint: string
+    ReadEndpoint: string
 }
 
 export const useDetails = ({
@@ -23,7 +22,7 @@ export const useDetails = ({
     useDataForm = false,
     subProp,
     interceptSubmit,
-    readEndpoint
+    ReadEndpoint
 }: PropsHook) => {
     const nav = useNavigate();
     const { id } = useParams();
@@ -39,7 +38,7 @@ export const useDetails = ({
     const method = id ? "PUT" : "POST";
     const url = id ? `${urlUpdate}/${id}`  : urlCreate;
 
-    const urlData = id && `${readEndpoint}/${id}` || '';
+    const urlData = id && `${ReadEndpoint}/${id}` || '';
 
     const { data, isLoading } = useGetQuery(urlData, urlData, !!id)
     const { setData } = useClient();

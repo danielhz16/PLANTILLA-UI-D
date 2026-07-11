@@ -111,7 +111,7 @@ export const MainForm = forwardRef<
 
 const watchedValues = useWatch<Record<string, any>>({
   control,
-  name: valuesWatch as readonly string[]
+  name: valuesWatch as Readonly<string[]>
 });
 
   if (handleWatch) {
