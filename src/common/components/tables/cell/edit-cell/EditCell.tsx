@@ -4,7 +4,7 @@ import { Edit } from "lucide-react";
 
 
 export const EditCell = ({ to }: {to: string}) => {
-   
+
     return (
         <Tooltip title='Editar'>
             <Link to={to}>
@@ -14,10 +14,10 @@ export const EditCell = ({ to }: {to: string}) => {
                                 minWidth: 36,
                                 height: 36,
                                 borderRadius: '8px',
-                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                                color: '#f59e0b',
+                                backgroundColor: 'var(--color-warningSoft)',
+                                color: 'var(--color-warning)',
                                 '&:hover': {
-                                    backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                                    backgroundColor: 'var(--color-warningSoftHover)',
                                 },
                             }}
                         >
@@ -27,4 +27,3 @@ export const EditCell = ({ to }: {to: string}) => {
         </Tooltip>
     );
 };
-

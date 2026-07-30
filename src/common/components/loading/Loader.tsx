@@ -14,7 +14,7 @@ const Loader: React.FC<Props> = ({ isPending }) => {
       closeAfterTransition
       BackdropProps={{
         sx: {
-          backgroundColor: "rgba(255,255,255,0.55)",
+          backgroundColor: "var(--color-loaderBackdrop)",
           backdropFilter: "blur(2px)",
         },
       }}
@@ -37,7 +37,7 @@ const Loader: React.FC<Props> = ({ isPending }) => {
           size={45}
           thickness={4}
           sx={{
-            color: "#2563eb",
+            color: "var(--color-primary)",
           }}
         />
       </Box>

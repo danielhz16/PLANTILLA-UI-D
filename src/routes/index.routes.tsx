@@ -6,6 +6,7 @@ import authRoutes from "./auth/index.routes";
 import dashboardRoutes from "./dashboard/index.routes";
 import gestionUsuariosRoutes from "./gestion-usuarios/index.routes";
 import clientesRoutes from "./clientes/index.routes";
+import pacientesRoutes from "./pacientes/index.routes";
 import laboratorioRoutes from "./laboratorio/index.routes";
 import clinicaRoutes from "./clinica/index.routes";
 import hospitalRoutes from "./hospital/index.routes";
@@ -39,6 +40,7 @@ const routes: RouteConfig[] = [
     dashboardRoutes,
     gestionUsuariosRoutes,
     clientesRoutes,
+    pacientesRoutes,
     laboratorioRoutes,
     clinicaRoutes,
     hospitalRoutes,

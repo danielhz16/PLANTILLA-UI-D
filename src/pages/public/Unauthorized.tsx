@@ -41,7 +41,7 @@ const Unauthorized = () => {
                         background: 'var(--color-background)',
                         backdropFilter: 'blur(20px)',
                         border: '1px solid var(--color-border)',
-                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+                        boxShadow: 'var(--color-shadowElevated)',
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
@@ -55,7 +55,7 @@ const Unauthorized = () => {
                             left: 0,
                             right: 0,
                             height: '4px',
-                            background: 'linear-gradient(90deg, #ef4444, #f59e0b)',
+                            background: 'linear-gradient(90deg, var(--color-error), var(--color-warning))',
                         }
                     }}
                 >
@@ -64,21 +64,21 @@ const Unauthorized = () => {
                             width: 80,
                             height: 80,
                             borderRadius: '50%',
-                            background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(245, 158, 11, 0.1))',
+                            background: 'linear-gradient(135deg, var(--color-errorSoft), var(--color-warningSoft))',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
                             mb: 2
                         }}
                     >
-                        <Lock size={40} color={isDark ? '#ef4444' : '#dc2626'} />
+                        <Lock size={40} color="var(--color-error)" />
                     </Box>
 
                     <Typography
                         variant="h3"
                         sx={{
                             fontWeight: 900,
-                            background: 'linear-gradient(135deg, #ef4444, #f59e0b)',
+                            background: 'linear-gradient(135deg, var(--color-error), var(--color-warning))',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             letterSpacing: '-0.05em',
@@ -108,7 +108,7 @@ const Unauthorized = () => {
                             mb: 2
                         }}
                     >
-                        No tienes los permisos necesarios para acceder a este recurso. 
+                        No tienes los permisos necesarios para acceder a este recurso.
                         Si crees que esto es un error, contacta al administrador del sistema.
                     </Typography>
 
@@ -126,7 +126,7 @@ const Unauthorized = () => {
                                 transition: 'all 0.3s ease',
                                 '&:hover': {
                                     transform: 'translateY(-2px)',
-                                    boxShadow: '0 15px 30px -5px rgba(37, 99, 235, 0.4)',
+                                    boxShadow: 'var(--color-buttonHoverShadow)',
                                 }
                             }}
                         >

@@ -1,14 +1,25 @@
 import { ChartCard, PieChart } from "@/common/components/charts";
 import type { PendingByType } from "../hooks/useDashboardData";
+import { useTheme } from "@/hooks/useTheme";
 
 interface PendingByTypeChartProps {
   data: PendingByType[];
 }
 
-const COLORS = ['#4640c2', '#3b82f6', '#f59e0b', '#ef4444', '#22c55e'];
+export const PendingByTypeChart = ({ data }: PendingByTypeChartProps) => {
+  const { colors } = useTheme();
 
-export const PendingByTypeChart = ({ data }: PendingByTypeChartProps) => (
-  <ChartCard title="Pendientes por tipo">
-    <PieChart data={data} colors={COLORS} innerRadius={50} outerRadius={90} />
-  </ChartCard>
-);
+  const chartColors = [
+    colors.chartIndigo,
+    colors.chartBlue,
+    colors.chartAmber,
+    colors.chartRed,
+    colors.chartGreen,
+  ];
+
+  return (
+    <ChartCard title="Pendientes por tipo">
+      <PieChart data={data} colors={chartColors} innerRadius={50} outerRadius={90} />
+    </ChartCard>
+  );
+};

@@ -34,7 +34,7 @@ const ListRoles = () => {
                 endpoint="/roles/list"
                 title="Roles"
                 queryKey={cacheKey}
-                toCreate="/roles/create"
+                toCreate="/gestion-usuarios/roles/create"
                 permission={ROLES.MODULE}
                 minDataFetch={5}
             />

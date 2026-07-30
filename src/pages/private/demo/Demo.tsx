@@ -104,12 +104,12 @@ const Demo: React.FC = () => {
             header: 'Estado',
             cell: (info) => {
                 const estado = info.getValue();
-                const colors = {
-                    activo: { bg: 'rgba(16, 185, 129, 0.1)', color: '#10b981' },
-                    inactivo: { bg: 'rgba(239, 68, 68, 0.1)', color: '#ef4444' },
-                    pendiente: { bg: 'rgba(245, 158, 11, 0.1)', color: '#f59e0b' },
+                const statusColors = {
+                    activo: { bg: 'var(--color-successSoft)', color: 'var(--color-success)' },
+                    inactivo: { bg: 'var(--color-errorSoft)', color: 'var(--color-error)' },
+                    pendiente: { bg: 'var(--color-warningSoft)', color: 'var(--color-warning)' },
                 };
-                const color = colors[estado];
+                const color = statusColors[estado];
                 return (
                     <Chip
                         label={estado.charAt(0).toUpperCase() + estado.slice(1)}
@@ -171,10 +171,10 @@ const Demo: React.FC = () => {
                                 minWidth: 36,
                                 height: 36,
                                 borderRadius: '8px',
-                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                                color: '#f59e0b',
+                                backgroundColor: 'var(--color-warningSoft)',
+                                color: 'var(--color-warning)',
                                 '&:hover': {
-                                    backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                                    backgroundColor: 'var(--color-warningSoftHover)',
                                 },
                             }}
                         >
@@ -191,10 +191,10 @@ const Demo: React.FC = () => {
                                 minWidth: 36,
                                 height: 36,
                                 borderRadius: '8px',
-                                backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                                color: '#ef4444',
+                                backgroundColor: 'var(--color-errorSoft)',
+                                color: 'var(--color-error)',
                                 '&:hover': {
-                                    backgroundColor: 'rgba(239, 68, 68, 0.2)',
+                                    backgroundColor: 'var(--color-errorSoftHover)',
                                 },
                             }}
                         >

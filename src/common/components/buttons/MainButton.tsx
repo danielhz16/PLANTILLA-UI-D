@@ -6,7 +6,7 @@ const CrystalButton = styled(Button)(() => ({
     
     border: '1px solid var(--color-border)',
     borderRadius: '12px',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+    boxShadow: '0 4px 6px -1px var(--color-shadowCard)',
    
     padding: '10px 24px',
     textTransform: 'none',

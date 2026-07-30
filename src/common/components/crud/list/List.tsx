@@ -25,6 +25,7 @@ interface Props<T> extends PropsHook {
   enabledCreate?: boolean;
   useMainFilter?: boolean;
   disabledButtonStatus?: boolean;
+  minDataFetch?: number;
 }
 
 export const List = <T,>({

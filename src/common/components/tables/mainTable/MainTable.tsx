@@ -449,7 +449,7 @@ export const MainTable = <T,>({
               backgroundColor: colors.sidebar,
               color: colors.text,
               border: `1px solid ${colors.border}`,
-              boxShadow: '0 16px 40px rgba(15, 23, 42, 0.16)',
+              boxShadow: colors.shadowPopover,
             }
           }
         }}

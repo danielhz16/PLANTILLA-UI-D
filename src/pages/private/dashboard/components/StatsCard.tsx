@@ -5,11 +5,11 @@ interface StatsCardProps {
   title: string;
   value: number | string;
   icon: React.ReactNode;
-  color?: string;
+  colorToken?: string;
   subtitle?: string;
 }
 
-export const StatsCard = ({ title, value, icon, color, subtitle }: StatsCardProps) => (
+export const StatsCard = ({ title, value, icon, colorToken, subtitle }: StatsCardProps) => (
   <MainCard sx={{ height: '100%' }}>
     <Box sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 1 }}>
       <Box>
@@ -33,8 +33,8 @@ export const StatsCard = ({ title, value, icon, color, subtitle }: StatsCardProp
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: color ? `${color}20` : 'var(--color-primarySoft)',
-          color: color ?? 'var(--color-primary)',
+          backgroundColor: colorToken ? `var(--color-${colorToken}Soft)` : 'var(--color-primarySoft)',
+          color: colorToken ? `var(--color-${colorToken})` : 'var(--color-primary)',
           flexShrink: 0,
         }}
       >

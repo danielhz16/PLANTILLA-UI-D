@@ -1,17 +1,18 @@
-import { lazyLoad, simpleRoute } from "../routes.factory";
 import type { RouteConfig } from "../ts";
 import MainLayout from "@/components/layout/MainLayout";
-
-const List = lazyLoad(() => import("../../pages/private/company/list/ListCompany"));
-const Create = lazyLoad(() => import("../../pages/private/company/details/Details"));
+import clientesListRoutes from "./clientes/index.routes";
+import usuariosRoutes from "./usuarios/index.routes";
+import permisosRoutes from "./permisos/index.routes";
+import rolesRoutes from "./roles/index.routes";
 
 const clientesRoutes: RouteConfig = {
     path: "/clientes",
     element: <MainLayout />,
     children: [
-        simpleRoute("", List),
-        simpleRoute("create", Create),
-        simpleRoute("details/:id", Create),
+        clientesListRoutes,
+        usuariosRoutes,
+        permisosRoutes,
+        rolesRoutes,
     ],
 };
 

@@ -22,22 +22,22 @@ const typeConfig = {
     warning: {
         icon: AlertTriangle,
         color: 'var(--color-warning)',
-        bgColor: 'rgba(245, 158, 11, 0.1)',
+        bgColor: 'var(--color-warningSoft)',
     },
     error: {
         icon: XCircle,
         color: 'var(--color-error)',
-        bgColor: 'rgba(239, 68, 68, 0.1)',
+        bgColor: 'var(--color-errorSoft)',
     },
     info: {
         icon: Info,
         color: 'var(--color-primary)',
-        bgColor: 'rgba(59, 130, 246, 0.1)',
+        bgColor: 'var(--color-infoSoft)',
     },
     success: {
         icon: CheckCircle,
         color: 'var(--color-success)',
-        bgColor: 'rgba(16, 185, 129, 0.1)',
+        bgColor: 'var(--color-successSoft)',
     },
 };
 
@@ -103,7 +103,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                             transition: 'all 0.3s ease',
                             '&:hover': {
                                 transform: 'translateY(-1px)',
-                                boxShadow: '0 8px 20px rgba(59, 130, 246, 0.3)',
+                                boxShadow: '0 8px 20px var(--color-buttonShadow)',
                             },
                         }}
                     >

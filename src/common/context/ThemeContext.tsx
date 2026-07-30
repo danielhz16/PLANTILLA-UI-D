@@ -110,7 +110,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                             border: `1px solid ${colors.border}`,
                             color: colors.text,
                             fontSize: '0.75rem',
-                            boxShadow: `0 8px 24px ${colors.shadowCard}`,
+                            boxShadow: colors.shadowElevated,
                         },
                         arrow: {
                             color: colors.bgCard,

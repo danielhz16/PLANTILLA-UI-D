@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { UserProfile } from './UserProfile';
-import { useTheme } from '@/hooks/useTheme';
 import { ThemeToggle } from './ThemeToggle';
 
 interface HeaderProps {
@@ -10,8 +9,6 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ title, children }) => {
-    const { isDark } = useTheme();
-
     return (
         <Box
             component="header"
@@ -24,14 +21,11 @@ export const Header: React.FC<HeaderProps> = ({ title, children }) => {
                 justifyContent: 'space-between',
                 gap: 2,
                 borderBottom: '1px solid var(--color-border)',
-                backgroundColor: 'var(--color-background)',
                 position: 'sticky',
                 top: 0,
                 zIndex: 10,
                 backdropFilter: 'blur(20px)',
-                background: isDark
-                    ? 'rgba(15, 23, 42, 0.8)'
-                    : 'rgba(248, 250, 252, 0.8)',
+                background: 'var(--color-headerBg)',
             }}
         >
             {/* Sección izquierda: Título o contenido personalizado */}

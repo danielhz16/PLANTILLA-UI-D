@@ -23,17 +23,13 @@ export const useClient = () => {
 
     const deleteItem = ({ key, id, nameID, subProp }: { key: string, id: string, nameID: string, subProp?: string }) => {
         queryClient.setQueryData([key], (old: any) => {
-            console.log(old, key)
             if (!old) return old;
 
-
             const target = subProp ? old[subProp] : old;
-           
+
             if (!Array.isArray(target)) return old;
 
-
-            const filtered = target.filter(item => item[nameID] != id);
-            console.log(filtered)
+            const filtered = target.filter((item: any) => item[nameID] != id);
             return subProp ? { ...old, [subProp]: filtered } : filtered;
         });
     };
@@ -66,11 +62,11 @@ export const useClient = () => {
         return data.find(item => item[nameID] == id);
     };
 
-    const updateListSubProp = ({ key, itme, id, nameID, newData }: { key: string, itme: string, id: string, nameID: string, newData: any }) => {
+    const updateListSubProp = ({ key, item, id, nameID, newData }: { key: string, item: string, id: string, nameID: string, newData: any }) => {
         queryClient.setQueryData([key], (oldData) => {
             if (!Array.isArray(oldData)) return oldData;
-            return oldData.map((item) => {
-                return item[nameID] === id ? { ...item, [itme]: newData } : item;
+            return oldData.map((row) => {
+                return row[nameID] === id ? { ...row, [item]: newData } : row;
             });
         });
     };

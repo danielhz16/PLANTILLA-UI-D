@@ -1,5 +1,5 @@
 import { Box, Stack, Typography } from "@mui/material";
-import { INFO_SISTEM } from "@/conf/info.sistem";
+import { INFO_SYSTEM } from "@/conf/info.system";
 
 interface AuthLayoutProps {
     subtitle?: string;
@@ -45,11 +45,11 @@ const AuthLayout = ({ subtitle, children }: AuthLayoutProps) => {
                 }} />
 
                 <Stack alignItems="center" gap={3} sx={{ position: 'relative', zIndex: 1 }}>
-                    {INFO_SISTEM.fulllogo && (
+                    {INFO_SYSTEM.fulllogo && (
                         <Box
                             component="img"
-                            src={INFO_SISTEM.fulllogo}
-                            alt={INFO_SISTEM.name}
+                            src={INFO_SYSTEM.fulllogo}
+                            alt={INFO_SYSTEM.name}
                             sx={{
                                 width: '100%',
                                 maxWidth: 220,
@@ -62,7 +62,7 @@ const AuthLayout = ({ subtitle, children }: AuthLayoutProps) => {
                         variant="h5"
                         sx={{ color: '#ffffff', fontWeight: 700, textAlign: 'center', letterSpacing: 0.3 }}
                     >
-                        {INFO_SISTEM.description}
+                        {INFO_SYSTEM.description}
                     </Typography>
                     {subtitle && (
                         <Typography
@@ -89,11 +89,11 @@ const AuthLayout = ({ subtitle, children }: AuthLayoutProps) => {
             >
                 {/* Logo solo en mobile */}
                 <Box sx={{ display: { xs: 'flex', md: 'none' }, justifyContent: 'center', mb: 4 }}>
-                    {INFO_SISTEM.fulllogo && (
+                    {INFO_SYSTEM.fulllogo && (
                         <Box
                             component="img"
-                            src={INFO_SISTEM.fulllogo}
-                            alt={INFO_SISTEM.name}
+                            src={INFO_SYSTEM.fulllogo}
+                            alt={INFO_SYSTEM.name}
                             sx={{ width: 160, objectFit: 'contain' }}
                         />
                     )}

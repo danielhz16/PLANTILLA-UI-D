@@ -10,5 +10,14 @@ export const inputsCompany: Input[] = [
             {type: VALIDATIONS.REQUIRED},
             {type: VALIDATIONS.MAX_LENGTH, value: 75}
         ]
+    },
+    {
+        label: 'NIT',
+        name: 'nit',
+        type: 'text',
+        validations: [
+            {type: VALIDATIONS.REQUIRED},
+            {type: VALIDATIONS.MAX_LENGTH, value: 30}
+        ]
     }
 ]

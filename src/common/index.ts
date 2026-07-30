@@ -4,7 +4,7 @@ export * from "./const/api";
 export * from "./const/auth";
 export * from "./const/status";
 export * from "./const/theme";
-export * from "./const/cache";
+
 export * from "./const/permissions/index"
 
 

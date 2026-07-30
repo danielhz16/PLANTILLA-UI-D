@@ -132,7 +132,7 @@ export const UserProfile: React.FC = () => {
                         border: '1px solid var(--color-border)',
                         backgroundColor: 'var(--color-background)',
                         backdropFilter: 'blur(20px)',
-                        boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+                        boxShadow: '0 10px 40px var(--color-shadowElevated)',
                         overflow: 'hidden',
                     }
                 }}
@@ -203,7 +203,7 @@ export const UserProfile: React.FC = () => {
                         gap: 1.5,
                         color: 'var(--color-error)',
                         '&:hover': {
-                            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+                            backgroundColor: 'var(--color-logoutHoverBg)',
                         }
                     }}
                 >

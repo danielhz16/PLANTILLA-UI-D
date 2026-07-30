@@ -16,10 +16,10 @@ export const UserCell: React.FC<PropsUserCell> = ({ select, tooltip }) => {
                     minWidth: 36,
                     height: 36,
                     borderRadius: '8px',
-                    backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                    color: '#0b9ff5e0',
+                    backgroundColor: 'var(--color-warningSoft)',
+                    color: 'var(--color-primary)',
                     '&:hover': {
-                        backgroundColor: 'rgba(245, 158, 11, 0.2)',
+                        backgroundColor: 'var(--color-warningSoftHover)',
                     },
                 }}
             >

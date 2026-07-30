@@ -4,7 +4,7 @@ export const useRoles = () => {
     const navigate = useNavigate();
 
     const handleEdit = (id: number) => {
-        navigate(`/roles/details/${id}`);
+        navigate(`/gestion-usuarios/roles/details/${id}`);
     };
 
     return {

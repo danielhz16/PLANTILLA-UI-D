@@ -49,11 +49,11 @@ const Mfa = () => {
                     fontSize: '1rem',
                     fontWeight: 700,
                     letterSpacing: 0.2,
-                    background: 'linear-gradient(90deg, #2563eb, #1a3ea8)',
-                    boxShadow: '0 8px 24px -6px rgba(37,99,235,0.45)',
+                    background: 'linear-gradient(90deg, var(--color-primary), var(--color-primaryHover))',
+                    boxShadow: '0 8px 24px -6px var(--color-buttonShadow)',
                     '&:hover': {
-                        background: 'linear-gradient(90deg, #1d55d4, #163399)',
-                        boxShadow: '0 12px 28px -8px rgba(37,99,235,0.55)',
+                        background: 'linear-gradient(90deg, var(--color-primaryHover), var(--color-primary))',
+                        boxShadow: '0 12px 28px -8px var(--color-buttonShadowHover)',
                         transform: 'translateY(-1px)',
                     },
                 }}

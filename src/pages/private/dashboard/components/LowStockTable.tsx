@@ -25,13 +25,13 @@ export const LowStockTable = ({ data }: LowStockTableProps) => (
               justifyContent: 'space-between',
               p: 1.5,
               borderRadius: '10px',
-              backgroundColor: isCritical ? 'rgba(239, 68, 68, 0.08)' : 'var(--color-hover)',
+              backgroundColor: isCritical ? 'var(--color-errorBg)' : 'var(--color-hover)',
               border: '1px solid',
-              borderColor: isCritical ? 'rgba(239, 68, 68, 0.2)' : 'var(--color-border)',
+              borderColor: isCritical ? 'var(--color-errorSoftHover)' : 'var(--color-border)',
             }}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-              {isCritical && <AlertTriangle size={16} color="#ef4444" />}
+              {isCritical && <AlertTriangle size={16} color="var(--color-error)" />}
               <Box>
                 <Typography variant="body2" sx={{ fontWeight: 600, color: 'var(--color-text)' }}>
                   {item.name}
@@ -46,8 +46,8 @@ export const LowStockTable = ({ data }: LowStockTableProps) => (
                 px: 1.5,
                 py: 0.5,
                 borderRadius: '8px',
-                backgroundColor: isCritical ? 'rgba(239, 68, 68, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-                color: isCritical ? '#ef4444' : '#f59e0b',
+                backgroundColor: isCritical ? 'var(--color-errorSoft)' : 'var(--color-warningSoft)',
+                color: isCritical ? 'var(--color-error)' : 'var(--color-warning)',
                 fontWeight: 700,
                 fontSize: '0.75rem',
               }}

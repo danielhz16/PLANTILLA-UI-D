@@ -223,9 +223,22 @@ export const useGetData = <T, TFilters extends Filters = Filters,>({
     (options?: FilterActionOptions) => {
       const nextFilters = {} as TFilters;
       setAutoFetchEnabled(options?.refetch !== false);
+      setColumnFetchEnabled(true);
       setFilters(nextFilters);
+      setColumnFilters({});
+      clearColumnFilterTimeout();
+
+      if (options?.refetch !== false) {
+        setFetchSource("manual");
+        const nextScope = { endpoint, page, pageSize, filters: nextFilters };
+        void queryClient.fetchQuery({
+          queryKey: createSmartQueryKey(key, nextScope),
+          queryFn: () => fetchFunction(constructUrlFilter(endpoint, nextFilters, page, pageSize)),
+          staleTime: 0
+        });
+      }
     },
-    []
+    [clearColumnFilterTimeout, endpoint, fetchFunction, key, page, pageSize, queryClient]
   );
 
   const commitColumnFilter = useCallback((name: string, value: string) => {

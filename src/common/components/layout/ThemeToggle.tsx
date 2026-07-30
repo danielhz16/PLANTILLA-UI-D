@@ -31,9 +31,7 @@ export const ThemeToggle: React.FC = () => {
                     inset: 0,
                     borderRadius: '12px',
                     padding: '1px',
-                    background: isDark
-                        ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3))'
-                        : 'linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2))',
+                    background: 'var(--color-toggleBorderGlow)',
                     WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
                     WebkitMaskComposite: 'xor',
                     maskComposite: 'exclude',
@@ -44,7 +42,7 @@ export const ThemeToggle: React.FC = () => {
                     backgroundColor: 'var(--color-hover)',
                     borderColor: 'var(--color-primary)',
                     transform: 'translateY(-2px)',
-                    boxShadow: '0 8px 20px rgba(59, 130, 246, 0.2)',
+                    boxShadow: 'var(--color-toggleHoverShadow)',
                     '&::before': {
                         opacity: 1,
                     },
@@ -57,9 +55,7 @@ export const ThemeToggle: React.FC = () => {
                 },
                 '& svg': {
                     transition: 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                    filter: isDark
-                        ? 'drop-shadow(0 2px 4px rgba(251, 191, 36, 0.3))'
-                        : 'drop-shadow(0 2px 4px rgba(59, 130, 246, 0.3))',
+                    filter: 'var(--color-toggleIconShadow)',
                 },
             }}
             title={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}

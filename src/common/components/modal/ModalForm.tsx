@@ -76,7 +76,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({
                             borderColor: 'var(--color-error)',
                             '&:hover': {
                                 borderColor: 'var(--color-error)',
-                                backgroundColor: 'rgba(239, 68, 68, 0.08)',
+                                backgroundColor: 'var(--color-errorBg)',
                             },
                         }}
                     >
@@ -89,7 +89,7 @@ export const ModalForm: React.FC<ModalFormProps> = ({
                         sx={{
                             gap: 1,
                             background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
-                            color: '#fff !important',
+                            color: 'var(--color-textOnPrimary) !important',
                             '&:hover': {
                                 background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))',
                             },

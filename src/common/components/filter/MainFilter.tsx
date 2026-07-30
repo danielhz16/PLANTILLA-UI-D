@@ -35,7 +35,7 @@ const DEFAULT_INPUTS = filterStatus();
         (initialValues || defaultInitial) && Object.entries(initialValues || defaultInitial).forEach(([key, value]) => {
             setValue(key, value as string);
         })
-    }, [isPending])
+    }, [isPending, initialValues, defaultInitial, setValue])
 
     return (
         <Title title={title}>

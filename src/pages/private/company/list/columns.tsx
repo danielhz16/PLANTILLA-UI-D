@@ -1,32 +1,58 @@
-import { mapRowWithHeaders, type Company } from "@/common";
 import { createColumnHelper } from "@tanstack/react-table";
-import { DateCell } from "@/components/tables/cell";
-import { OptionsSecondary } from "@/components/tables/cell/options/OptionsSecondary";
+import { OptionsCell, DateCell } from "@/components/tables/cell";
+import { companyDetailFields } from "../details/company-details";
+import { Users } from "lucide-react";
 
 const { accessor } = createColumnHelper<Company>();
 
-export const columnsCompany = ({handleSelect}: {
-  handleSelect: Function
-}) => {
-  return [
+interface Company {
+    id: number;
+    name: string;
+    nit: string;
+    createdAt: Date;
+    uuid: string;
+}
+
+interface ColumnsProps {
+    canWrite: boolean;
+    handleSelect: (id: number) => void;
+    handleNavigate: (id: string) => void;
+}
+
+export const columnsCompany = ({ canWrite, handleSelect, handleNavigate }: ColumnsProps) => [
     accessor('id', {
-      header: 'ID',
-    }),
-    accessor('bpCode', {
-      header: 'Código Socio Negocio',
+        header: 'ID',
     }),
     accessor('name', {
-      header: 'Nombre'
+        header: 'Nombre',
     }),
     accessor('createdAt', {
-      header: 'Fecha Creación',
-      cell: ({ getValue }) => <DateCell date={getValue()} />
+        header: 'Fecha Creación',
+        cell: ({ getValue }) => <DateCell date={getValue()} />,
     }),
-    accessor('id', {
-      id: 'options',
-      header: 'Opciones',
-      cell: ({ getValue, row }) => <OptionsSecondary 
-      id={getValue()} select={handleSelect} toolTipUsers="Usuarios de la empresa" to={`/company/details/${getValue()}`} data={mapRowWithHeaders(row, columnsCompany({ handleSelect }))} />
+    accessor('uuid', {
+        id: 'options',
+        header: 'Opciones',
+        cell: ({ getValue, row }) => (
+            <OptionsCell
+                config={{
+                    id: String(getValue()),
+                    table: 'company',
+                    enabledEdit: canWrite,
+                    detailsData: row.original,
+                    detailsTitle: 'Empresa',
+                    readEndpoint: '/company/read',
+                    detailFields: companyDetailFields,
+                    onEdit: () => handleNavigate(getValue()),
+                    additionalItems: [
+                        {
+                            label: 'Usuarios',
+                            icon: <Users size={16} />,
+                            onClick: () => handleSelect(Number(getValue())),
+                        },
+                    ],
+                }}
+            />
+        ),
     }),
-  ];
-};
+];

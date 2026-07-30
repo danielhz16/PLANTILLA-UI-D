@@ -30,7 +30,7 @@ export class ErrorBoundary extends Component<Props, State> {
       return (
         <div style={{ padding: '2rem', textAlign: 'center' }}>
           <h2>Algo sali\u00f3 mal</h2>
-          <p style={{ color: '#666' }}>{this.state.error?.message}</p>
+          <p style={{ color: 'var(--color-textSecondary)' }}>{this.state.error?.message}</p>
           <button
             onClick={() => {
               this.setState({ hasError: false, error: null });

@@ -67,7 +67,7 @@ export default function History({
           <TableContainer component={Paper} sx={{ mt: 2 }}>
             <Table>
               <TableHead>
-                <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
+                <TableRow sx={{ backgroundColor: 'var(--color-tableHeader)' }}>
                   <TableCell>Fecha y Hora</TableCell>
                   <TableCell>Acción</TableCell>
                   <TableCell>Usuario</TableCell>

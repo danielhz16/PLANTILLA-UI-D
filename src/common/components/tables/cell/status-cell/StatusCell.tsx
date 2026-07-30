@@ -65,7 +65,7 @@ export const StatusCell: React.FC<Props> = ({
           display: "grid",
           placeItems: "center",
           width: 60,
-          color: "#fff",
+          color: "var(--color-textOnPrimary)",
           borderRadius: 1,
           padding: "2px 0",
           fontSize: 12,

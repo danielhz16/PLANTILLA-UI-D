@@ -51,5 +51,13 @@ export { default as MainLayout } from './layout/MainLayout';
 // table utilities
 export { MainTable } from './tables/mainTable/MainTable';
 export { NoData } from './tables/mainTable/NoData';
+export * from './tables/cell';
+
+// charts
+export * from './charts';
+
+// view-details
+export { DetailsView } from './view-details/DetailsView';
+export { ViewDetailsModal } from './view-details/ViewDetailsModal';
 
 export * from './helpers';

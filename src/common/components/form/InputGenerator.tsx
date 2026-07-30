@@ -132,7 +132,7 @@ export const InputGenerator: React.FC<Props> = ({ input, field, error }) => {
                         },
                         '&.Mui-focused': {
                             backgroundColor: 'var(--color-sidebar)',
-                            boxShadow: '0 8px 16px -4px rgba(59, 130, 246, 0.15)',
+                            boxShadow: 'var(--color-focusShadow)',
                             borderColor: 'var(--color-primary)',
                         },
                         '& fieldset': {

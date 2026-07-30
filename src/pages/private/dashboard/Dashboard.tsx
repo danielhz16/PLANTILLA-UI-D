@@ -21,7 +21,7 @@ const Dashboard: React.FC = () => {
             title="Pendientes"
             value={data.stats.pendingResults}
             icon={<Clock size={20} />}
-            color="#f59e0b"
+            colorToken="warning"
           />
         </Box>
         <Box sx={{ flex: '1 1 180px', minWidth: 180 }}>
@@ -29,7 +29,7 @@ const Dashboard: React.FC = () => {
             title="Analizados Hoy"
             value={data.stats.analyzedToday}
             icon={<Activity size={20} />}
-            color="#3b82f6"
+            colorToken="primary"
           />
         </Box>
         <Box sx={{ flex: '1 1 180px', minWidth: 180 }}>
@@ -37,7 +37,7 @@ const Dashboard: React.FC = () => {
             title="Notificados Hoy"
             value={data.stats.notifiedToday}
             icon={<CheckCheck size={20} />}
-            color="#22c55e"
+            colorToken="success"
           />
         </Box>
         <Box sx={{ flex: '1 1 180px', minWidth: 180 }}>
@@ -45,7 +45,7 @@ const Dashboard: React.FC = () => {
             title="Stock Bajo"
             value={data.stats.lowStockItems}
             icon={<AlertTriangle size={20} />}
-            color="#ef4444"
+            colorToken="error"
           />
         </Box>
       </Box>
