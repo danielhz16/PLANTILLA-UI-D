@@ -1,8 +1,8 @@
-import { MainForm } from "@/components/form/MainForm";
+import { MainForm } from "@/ui/form/MainForm";
 import { useForgotPassword } from "./useForgot";
 import { inputs } from "./inputs";
 import { Typography, Button, Stack } from "@mui/material";
-import { Loader } from "@/common";
+import { Loader } from "@/ui";
 import AuthLayout from "@/pages/public/auth/AuthLayout";
 
 const ForgotPassword = () => {

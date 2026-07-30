@@ -1,4 +1,4 @@
-import type { Input } from "@/components/ts/form";
+import type { Input } from "@/ui/ts/form";
 import { VALIDATIONS } from "@/const/validations";
 
 export const inputs: Input[] = [

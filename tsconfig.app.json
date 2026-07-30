@@ -30,14 +30,8 @@
     /* Path Mappings */
     "baseUrl": ".",
     "paths": {
-      "@/components/*": [
-        "./src/common/components/*"
-      ],
       "@/const/*": [
         "./src/common/const/*"
-      ],
-      "@/hooks/*": [
-        "./src/common/hooks/*"
       ],
       "@/common": [
         "./src/common/index.ts"

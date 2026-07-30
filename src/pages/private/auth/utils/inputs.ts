@@ -1,5 +1,6 @@
-import {  filterStatus, type Options } from "@/common";
-import type { Input } from "@/components/ts/form";
+import { filterStatus } from "@/ui";
+import { type Options } from "@/common";
+import type { Input } from "@/ui/ts/form";
 import { VALIDATIONS } from "@/const/validations";
 
 export const inputsUser = ({ roles }: { roles: Options[] }): Input[] => [

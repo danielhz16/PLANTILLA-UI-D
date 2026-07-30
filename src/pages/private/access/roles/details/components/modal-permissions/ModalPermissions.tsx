@@ -1,5 +1,6 @@
-import { MainButton, MainTable, ModalForm, Title, type Options } from "@/common";
-import { Modal } from "@/common/components/modal";
+import { MainButton, MainTable, ModalForm, Title } from "@/ui";
+import { type Options } from "@/common";
+import { Modal } from "@/ui/modal";
 import { columnsPermissions } from "./columns";
 import { useMemo } from "react";
 import { inputs } from "./inputs";

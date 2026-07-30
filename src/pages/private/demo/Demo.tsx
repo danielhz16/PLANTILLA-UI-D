@@ -2,12 +2,12 @@ import React, { useState, useMemo } from 'react';
 import { Box, Typography, Button, Chip } from '@mui/material';
 import { createColumnHelper } from '@tanstack/react-table';
 import type { ColumnDef } from '@tanstack/react-table';
-import { MainTable } from '@/components/tables/mainTable/MainTable';
-import { MainCard } from '@/components/Cards/MainCard';
-import { Pagination, usePagination } from '@/components/pagination';
-import { Modal, ConfirmDialog } from '@/components/modal';
-import { MainButton } from '@/components/buttons/MainButton';
-import { Espace } from '@/components/containers/Espace';
+import { MainTable } from '@/ui/tables/mainTable/MainTable';
+import { MainCard } from '@/ui/Cards/MainCard';
+import { Pagination, usePagination } from '@/ui/pagination';
+import { Modal, ConfirmDialog } from '@/ui/modal';
+import { MainButton } from '@/ui/buttons/MainButton';
+import { Espace } from '@/ui/containers/Espace';
 import { Edit, Trash2, Eye, Plus, AlertTriangle, CheckCircle, Info, XCircle } from 'lucide-react';
 import { toast } from 'sonner';
 

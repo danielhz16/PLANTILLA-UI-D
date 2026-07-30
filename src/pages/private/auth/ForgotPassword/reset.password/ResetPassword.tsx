@@ -1,4 +1,4 @@
-import { MainForm } from "@/components/form/MainForm";
+import { MainForm } from "@/ui/form/MainForm";
 import { useResetPassword } from "./useResetPassword";
 import { inputs } from "./inputs";
 import { Typography, Button, Stack } from "@mui/material";

@@ -1,5 +1,5 @@
 import { ROLES } from "@/features/roles";
-import { Details } from "@/components/crud/details/Details";
+import { Details } from "@/ui/crud/details/Details";
 import { inputsRoles } from "./inputs";
 
 const DetailsRoles = () => {

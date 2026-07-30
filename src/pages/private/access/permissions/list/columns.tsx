@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { OptionsCell } from "@/common/components/tables/cell";
+import { OptionsCell } from "@/ui/tables/cell";
 import { UsersRound } from "lucide-react";
 import { permissionDetailFields } from "../details/details";
 

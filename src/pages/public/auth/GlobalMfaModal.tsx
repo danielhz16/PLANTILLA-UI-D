@@ -1,7 +1,7 @@
 import { useAuthStore, type ResponseLogin } from "@/features/auth";
 import { callApi } from "@/hooks/api/base.api";
 import { MfaForm } from "./MfaModal";
-import { Modal } from "@/components/modal/Modal";
+import { Modal } from "@/ui/modal/Modal";
 import { useState } from "react";
 
 export const GlobalMfaModal = () => {

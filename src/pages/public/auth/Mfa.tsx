@@ -1,9 +1,9 @@
-import { MainForm } from "@/components/form/MainForm";
+import { MainForm } from "@/ui/form/MainForm";
 import { inputs } from "./inputs.mfa";
 import { Typography, Button, Stack } from "@mui/material";
 import { useMfa } from "./useMfa";
 import AuthLayout from "./AuthLayout";
-import { Loader } from "@/common";
+import { Loader } from "@/ui";
 
 const Mfa = () => {
     const { formRef, handleSubmit, isPending, toLogin } = useMfa();

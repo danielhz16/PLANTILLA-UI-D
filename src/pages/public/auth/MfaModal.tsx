@@ -1,4 +1,4 @@
-import { Modal } from "@/components/modal/Modal";
+import { Modal } from "@/ui/modal/Modal";
 import { Typography, Button, Stack, Box, TextField } from "@mui/material";
 import { useMfa } from "./useMfa";
 import type { ResponseLogin } from "@/features/auth";

@@ -1,5 +1,5 @@
 import { PERMISSIONS } from "@/features/permissions";
-import { Details } from "@/components/crud/details/Details";
+import { Details } from "@/ui/crud/details/Details";
 import { inputsPermission } from "./inputs";
 
 const DetailsPermission = () => {

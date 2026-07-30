@@ -8,7 +8,7 @@ import { Link, useLocation } from 'react-router';
 import { menuConfig, type MenuItem } from '../../routes/menu/menu.config';
 import './Sidebar.css';
 import { INFO_SYSTEM } from '../../conf/info.system';
-import { useThemeContext } from '@/common/context/ThemeContext';
+import { useThemeContext } from '@/ui/theme/ThemeContext';
 import { useAuth } from '@/features/auth';
 
 interface SidebarProps {

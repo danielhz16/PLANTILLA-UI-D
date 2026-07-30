@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import type { UserProfile, Permission, ResponseLogin } from '../types';
-import { configureApiAuthHandlers } from '@/common/services/api.service';
+import { configureApiAuthHandlers } from '@/services/api.service';
 import { ERRORS } from '../const/errors';
 
 

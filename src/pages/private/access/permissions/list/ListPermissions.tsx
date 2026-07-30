@@ -1,6 +1,6 @@
 import { PERMISSIONS } from "@/features/permissions";
 import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
-import { List } from "@/components/crud/list/List";
+import { List } from "@/ui/crud/list/List";
 import { getColumnsPermissions } from "./columns";
 import { useModalUsers } from "./hooks/useModalUsers";
 import { ModalUsers } from "./components/modal-users/ModalUsers";

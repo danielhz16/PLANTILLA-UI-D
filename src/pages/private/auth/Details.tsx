@@ -1,5 +1,5 @@
 import { USERS } from "@/features/users";
-import { Details } from "@/components/crud/details/Details";
+import { Details } from "@/ui/crud/details/Details";
 import { useDetailsUser } from "./hooks/useDetailsUser";
 
 const DetailsUser = () => {

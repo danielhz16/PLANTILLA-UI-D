@@ -1,4 +1,4 @@
-import type { Input } from "@/components/ts/form";
+import type { Input } from "@/ui/ts/form";
 import { type Options } from "@/common";
 import { AUTH_OPTIONS } from "@/features/auth";
 

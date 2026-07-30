@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { OptionsCell, DateCell } from "@/components/tables/cell";
+import { OptionsCell, DateCell } from "@/ui/tables/cell";
 import { companyDetailFields } from "../details/company-details";
 import { Users } from "lucide-react";
 

@@ -1,5 +1,5 @@
 import { createColumnHelper } from "@tanstack/react-table";
-import { OptionsCell } from "@/components/tables/cell";
+import { OptionsCell } from "@/ui/tables/cell";
 import { userDetailFields } from "./details";
 
 const { accessor } = createColumnHelper<User>();

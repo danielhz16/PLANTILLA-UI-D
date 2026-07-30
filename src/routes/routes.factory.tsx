@@ -1,5 +1,5 @@
 import { lazy, type ComponentType } from "react";
-import Loadable from "@/components/loading/Lazy";
+import Loadable from "@/ui/loading/Lazy";
 import type { RouteConfig } from "./ts";
 import { PrivateRoute } from "./protector/PrivateRoute";
 import { PublicRoute } from "./protector/PublicRoute";

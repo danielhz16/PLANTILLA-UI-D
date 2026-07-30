@@ -1,4 +1,4 @@
-import { Details } from "@/components/crud/details/Details";
+import { Details } from "@/ui/crud/details/Details";
 import { inputsCompany } from "./inputs";
 
 const DetailsCompany = () => {

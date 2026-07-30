@@ -1,4 +1,4 @@
-import { ChartCard, PieChart } from "@/common/components/charts";
+import { ChartCard, PieChart } from "@/ui/charts";
 import type { PendingByType } from "../hooks/useDashboardData";
 import { useTheme } from "@/hooks/useTheme";
 

@@ -1,6 +1,6 @@
 import { createColumnHelper } from "@tanstack/react-table";
 import type { Role } from "./type";
-import { OptionsCell } from "@/components/tables/cell";
+import { OptionsCell } from "@/ui/tables/cell";
 import { ShieldCheck } from "lucide-react";
 
 const { accessor } = createColumnHelper<Role>();

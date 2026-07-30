@@ -1,6 +1,6 @@
 import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
 import { USERS } from "@/features/users";
-import { List } from "@/components/crud/list/List";
+import { List } from "@/ui/crud/list/List";
 import { columnsUser } from "./utils/columns";
 import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router";

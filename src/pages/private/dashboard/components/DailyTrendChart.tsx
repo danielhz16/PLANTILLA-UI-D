@@ -1,4 +1,4 @@
-import { ChartCard, BarChart } from "@/common/components/charts";
+import { ChartCard, BarChart } from "@/ui/charts";
 import type { DailyResult } from "../hooks/useDashboardData";
 import { useTheme } from "@/hooks/useTheme";
 

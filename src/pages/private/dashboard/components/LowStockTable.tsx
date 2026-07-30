@@ -1,4 +1,4 @@
-import { MainCard } from "@/common/components/Cards/MainCard";
+import { MainCard } from "@/ui/Cards/MainCard";
 import { Typography, Box } from "@mui/material";
 import { AlertTriangle } from "lucide-react";
 import type { LowStockItem } from "../hooks/useDashboardData";

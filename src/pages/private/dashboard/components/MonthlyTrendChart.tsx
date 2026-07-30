@@ -1,4 +1,4 @@
-import { ChartCard, LineChart } from "@/common/components/charts";
+import { ChartCard, LineChart } from "@/ui/charts";
 import type { MonthlyTrend } from "../hooks/useDashboardData";
 import { useTheme } from "@/hooks/useTheme";
 

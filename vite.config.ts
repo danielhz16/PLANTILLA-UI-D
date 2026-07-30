@@ -6,9 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [
-      { find: '@/components', replacement: fileURLToPath(new URL('./src/common/components', import.meta.url)) },
       { find: '@/const', replacement: fileURLToPath(new URL('./src/common/const', import.meta.url)) },
-      { find: '@/hooks', replacement: fileURLToPath(new URL('./src/common/hooks', import.meta.url)) },
       { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
     ],
   },
