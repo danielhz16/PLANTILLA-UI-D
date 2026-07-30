@@ -1,7 +1,5 @@
 import type { Method } from '@/const/api';
 import { toast } from 'sonner';
-import { useAuthStore } from '@/common';
-import { ERRORS } from '@/const/errors';
 
 const baseApi = import.meta.env.VITE_API;
 
@@ -11,6 +9,20 @@ interface ApiErrorResponse {
   code?: number;
   retryAfter?: number;
 }
+
+interface ApiAuthHandlers {
+  isMfaPendingCode?: (code: number | undefined) => boolean;
+  onMfaPending?: () => void;
+  onUnauthorized?: () => void;
+  onForbidden?: () => void;
+}
+
+let authHandlers: ApiAuthHandlers = {};
+
+/** Permite a features/auth inyectar la reacción a 401/403/MFA sin acoplar este cliente HTTP genérico al store de auth. */
+export const configureApiAuthHandlers = (handlers: ApiAuthHandlers): void => {
+  authHandlers = handlers;
+};
 
 const cleanUrl = (url: string): string => {
   const cleanBase = baseApi.replace(/\/$/, '');
@@ -31,30 +43,25 @@ const parseError = async (response: Response): Promise<ApiErrorResponse> => {
 const handleUnauthorized = async (response: Response): Promise<never> => {
   const errorData = await parseError(response);
 
-  if (Number(errorData.code) === ERRORS.MFA_PENDING) {
-    useAuthStore.getState().setMfaPending(true);
+  if (authHandlers.isMfaPendingCode?.(errorData.code)) {
+    authHandlers.onMfaPending?.();
     const mfaError = new Error(errorData?.show || errorData?.message || 'MFA pendiente') as Error & {
       code?: number;
       apiError?: ApiErrorResponse;
     };
-    mfaError.code = ERRORS.MFA_PENDING;
+    mfaError.code = errorData.code;
     mfaError.apiError = errorData;
     throw mfaError;
   }
 
-  useAuthStore.getState().logoutUser();
-  if (globalThis.location.pathname !== '/auth/login') {
-    globalThis.location.href = '/auth/login';
-  }
+  authHandlers.onUnauthorized?.();
   toast.error(errorData?.show || errorData?.message || 'Sesi\u00f3n expirada');
   throw new Error('Unauthorized');
 };
 
 const handleForbidden = async (response: Response): Promise<never> => {
   const errorData = await parseError(response);
-  if (globalThis.location.pathname !== '/unauthorized') {
-    globalThis.location.href = '/unauthorized';
-  }
+  authHandlers.onForbidden?.();
   toast.error(errorData?.show || errorData?.message || 'No tienes permisos');
   throw new Error('Forbidden');
 };

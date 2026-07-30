@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Typography, Menu, MenuItem, Avatar, Divider } from '@mui/material';
 import { LogOut, Settings, ChevronDown } from 'lucide-react';
-import { useAuthStore } from '@/common/stores/auth-store';
+import { useAuthStore } from '@/features/auth';
 import { useNavigate } from 'react-router';
 import { useMutationQuery } from '@/hooks/api/useMutationQuery';
 

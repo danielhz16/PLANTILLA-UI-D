@@ -1,7 +1,7 @@
 import { Modal } from "@/components/modal/Modal";
 import { Typography, Button, Stack, Box, TextField } from "@mui/material";
 import { useMfa } from "./useMfa";
-import type { ResponseLogin } from "@/common";
+import type { ResponseLogin } from "@/features/auth";
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type ClipboardEvent, type KeyboardEvent } from "react";
 import mfaImg from "@/assets/mfa.png";
 

@@ -1,4 +1,4 @@
-import { useAuth, TYPES_AUTHORIZATIONS } from "@/common";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
 import { MainForm } from "@/components/form/MainForm";
 import type { Input } from "@/components/ts/form";
 import { useDetails, type PropsHook } from "./useDetails";

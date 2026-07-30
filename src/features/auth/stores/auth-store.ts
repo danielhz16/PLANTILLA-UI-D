@@ -1,5 +1,7 @@
 import { create } from 'zustand';
 import type { UserProfile, Permission, ResponseLogin } from '../types';
+import { configureApiAuthHandlers } from '@/common/services/api.service';
+import { ERRORS } from '../const/errors';
 
 
 const key_local = 'user-vera';
@@ -46,3 +48,19 @@ export const useAuthStore = create<AuthState>((set) => ({
     set(parsed);
   },
 }));
+
+configureApiAuthHandlers({
+  isMfaPendingCode: (code) => Number(code) === ERRORS.MFA_PENDING,
+  onMfaPending: () => useAuthStore.getState().setMfaPending(true),
+  onUnauthorized: () => {
+    useAuthStore.getState().logoutUser();
+    if (globalThis.location.pathname !== '/auth/login') {
+      globalThis.location.href = '/auth/login';
+    }
+  },
+  onForbidden: () => {
+    if (globalThis.location.pathname !== '/unauthorized') {
+      globalThis.location.href = '/unauthorized';
+    }
+  },
+});

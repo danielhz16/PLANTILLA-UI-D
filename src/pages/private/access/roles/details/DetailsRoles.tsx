@@ -1,4 +1,4 @@
-import { ROLES } from "@/common";
+import { ROLES } from "@/features/roles";
 import { Details } from "@/components/crud/details/Details";
 import { inputsRoles } from "./inputs";
 

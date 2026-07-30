@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 import { UserProfile } from './UserProfile';
-import { ThemeToggle } from './ThemeToggle';
+import { ThemeToggle } from '@/components/layout/ThemeToggle';
 
 interface HeaderProps {
     title?: string;

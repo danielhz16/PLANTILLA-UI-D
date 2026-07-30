@@ -1,4 +1,5 @@
-import { useAuth, TYPES_AUTHORIZATIONS, ROLES } from "@/common";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
+import { ROLES } from "@/features/roles";
 
 
 export const usePermissionRoles = () => {

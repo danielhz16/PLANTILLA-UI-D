@@ -1,5 +1,5 @@
-import { ROLES } from "@/common";
-import { useAuth, TYPES_AUTHORIZATIONS } from "@/common";
+import { ROLES } from "@/features/roles";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
 import { List } from "@/components/crud/list/List";
 import { columnsRoles } from "./columns";
 import { useRoles } from "../hooks/useRoles";

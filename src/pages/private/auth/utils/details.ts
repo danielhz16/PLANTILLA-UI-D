@@ -1,4 +1,4 @@
-import type { DetailField } from '@common/types/details';
+import type { DetailField } from '@/common/types/details';
 import { User, AtSign, Mail, Phone } from 'lucide-react';
 
 export const userDetailFields: DetailField[] = [

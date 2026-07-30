@@ -1,5 +1,5 @@
 import type { RouteConfig } from "../ts";
-import MainLayout from "@/components/layout/MainLayout";
+import MainLayout from "@/app/layout/MainLayout";
 import usuariosRoutes from "./usuarios/index.routes";
 
 const pacientesRoutes: RouteConfig = {

@@ -1,6 +1,6 @@
 import { lazyLoad, privateRoute } from "../routes.factory";
 import type { RouteConfig } from "../ts";
-import MainLayout from "@/components/layout/MainLayout";
+import MainLayout from "@/app/layout/MainLayout";
 
 const Clinic = lazyLoad(() => import("../../pages/private/clinic/Clinic"));
 

@@ -1,4 +1,5 @@
-import { useAuth, COMPANY, TYPES_AUTHORIZATIONS } from "@/common";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
+import { COMPANY } from "@/features/company";
 import { List } from "@/components/crud/list/List";
 import { columnsCompany } from "./columns.tsx";
 import { useModalUsers } from "./modal-users/useModalUser.ts";

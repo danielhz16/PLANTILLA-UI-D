@@ -1,7 +1,7 @@
 import { lazyLoad, protectedRoute } from "../../routes.factory";
 import type { RouteConfig } from "../../ts";
-import { COMPANY } from "@/common/const/permissions";
-import { TYPES_AUTHORIZATIONS } from "@/common";
+import { COMPANY } from "@/features/company";
+import { TYPES_AUTHORIZATIONS } from "@/features/auth";
 
 const { MODULE } = COMPANY;
 const { Write, Read } = TYPES_AUTHORIZATIONS;

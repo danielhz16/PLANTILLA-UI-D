@@ -1,4 +1,5 @@
-import { type TypeAuth, useAuthStore } from "@/common";
+import { useAuthStore } from '../stores/auth-store';
+import type { TypeAuth } from '../types';
 
 export const useAuth = () => {
     const { permissions } = useAuthStore();

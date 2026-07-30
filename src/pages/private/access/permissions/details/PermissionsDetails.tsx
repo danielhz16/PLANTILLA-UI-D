@@ -1,4 +1,4 @@
-import { PERMISSIONS } from "@/common";
+import { PERMISSIONS } from "@/features/permissions";
 import { Details } from "@/components/crud/details/Details";
 import { inputsPermission } from "./inputs";
 

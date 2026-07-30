@@ -4,7 +4,7 @@ import type { RouteConfig } from "./ts";
 import { PrivateRoute } from "./protector/PrivateRoute";
 import { PublicRoute } from "./protector/PublicRoute";
 import { Protector } from "./protector/Protector";
-import { type TypeAuth } from "@/common";
+import { type TypeAuth } from "@/features/auth";
 
 export const lazyLoad = (importFn: () => Promise<{ default: ComponentType }>) =>
     Loadable(lazy(importFn));

@@ -1,5 +1,5 @@
-import { PERMISSIONS } from "@/common";
-import { useAuth, TYPES_AUTHORIZATIONS } from "@/common";
+import { PERMISSIONS } from "@/features/permissions";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
 import { List } from "@/components/crud/list/List";
 import { getColumnsPermissions } from "./columns";
 import { useModalUsers } from "./hooks/useModalUsers";

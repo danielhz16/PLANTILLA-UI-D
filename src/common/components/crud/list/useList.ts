@@ -1,4 +1,4 @@
-import { useGetQuery2 } from "@/hooks/api/useGetQuery2";
+import { useListQuery } from "./useListQuery";
 import { useUrl } from "@/hooks/api/useUrl";
 import { callApi } from "@/hooks/api/base.api";
 import { constructUrlFilter } from "@/common/lib/smart-query-ui/src/helpers/constructUrlFilter";
@@ -52,7 +52,7 @@ export const useList = <T,>({
     removeFilter,
     clearFilters,
     totalRecords
-  } = useGetQuery2<T[]>({
+  } = useListQuery<T[]>({
     url,
     key: cacheKey,
     run: fetchEnabled,

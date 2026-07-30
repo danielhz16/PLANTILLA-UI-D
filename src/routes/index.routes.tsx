@@ -1,6 +1,6 @@
 import type { RouteConfig } from "./ts";
 import { createBrowserRouter, Navigate } from "react-router";
-import { useAuthStore } from "@/common";
+import { useAuthStore } from "@/features/auth";
 import { lazyLoad } from "./routes.factory";
 import authRoutes from "./auth/index.routes";
 import dashboardRoutes from "./dashboard/index.routes";

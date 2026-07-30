@@ -3,7 +3,7 @@ import {
     Home, Users, Building2, FlaskConical,
     UserRoundKey, Shield, Microscope, Stethoscope, Hospital, HeartPulse,
 } from 'lucide-react';
-import { TYPES_AUTHORIZATIONS } from '@/common';
+import { TYPES_AUTHORIZATIONS } from '@/features/auth';
 
 export interface MenuItem {
     icon: React.ReactNode;

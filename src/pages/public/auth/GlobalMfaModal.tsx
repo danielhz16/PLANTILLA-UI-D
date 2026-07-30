@@ -1,4 +1,4 @@
-import { useAuthStore, type ResponseLogin } from "@/common";
+import { useAuthStore, type ResponseLogin } from "@/features/auth";
 import { callApi } from "@/hooks/api/base.api";
 import { MfaForm } from "./MfaModal";
 import { Modal } from "@/components/modal/Modal";

@@ -39,19 +39,7 @@
       "@/hooks/*": [
         "./src/common/hooks/*"
       ],
-      "@/routes/*": [
-        "./src/common/routes/*"
-      ],
-      "@/services/*": [
-        "./src/common/services/*"
-      ],
-      "@/stores/*": [
-        "./src/common/stores/*"
-      ],
-      "@/utils/*": [
-        "./src/common/utils/*"
-      ],
-       "@/common": [
+      "@/common": [
         "./src/common/index.ts"
       ],
       "@/common/*": [
@@ -59,6 +47,9 @@
       ],
       "@/conf/*": [
         "src/conf/*"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     }
   },

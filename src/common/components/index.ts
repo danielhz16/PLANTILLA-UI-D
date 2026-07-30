@@ -41,12 +41,9 @@ export { Modal, ConfirmDialog } from './modal';
 // pagination (alReady has its own barrel)
 export * from './pagination';
 
-// layout components
-export { Sidebar } from './layout/Sidebar';
-export { Header } from './layout/Header';
+// layout components (app-shell specific: Header/Sidebar/MainLayout/UserProfile live in src/app/layout)
 export { ThemeToggle } from './layout/ThemeToggle';
 export { Title } from './layout/Title/Title';
-export { default as MainLayout } from './layout/MainLayout';
 
 // table utilities
 export { MainTable } from './tables/mainTable/MainTable';

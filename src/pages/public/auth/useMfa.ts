@@ -1,8 +1,8 @@
 import { callApi } from "@/hooks/api/base.api";
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
 import { useRef } from "react";
-import { useAuthStore } from "@/common";
-import type { RefForm, ResponseLogin } from "@/common";
+import { useAuthStore, type ResponseLogin } from "@/features/auth";
+import type { RefForm } from "@/common";
 import { useNavigate } from "react-router";
 
 export const useMfa = (pendingLogin?: ResponseLogin | null) => {

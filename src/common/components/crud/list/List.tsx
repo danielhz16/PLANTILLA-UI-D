@@ -1,4 +1,5 @@
-import { MainTable, Title, MainCard, MainButton, MainFilter, useAuth, TYPES_AUTHORIZATIONS } from "@/common";
+import { MainTable, Title, MainCard, MainButton, MainFilter } from "@/common";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
 import { useList, type PropsHook } from "./useList";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Save } from "lucide-react";

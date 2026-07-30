@@ -1,5 +1,4 @@
-import { useAuth } from "@/hooks/auth/useAuth";
-import { type TypeAuth, useAuthStore } from "@/common";
+import { useAuth, type TypeAuth, useAuthStore } from "@/features/auth";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
 

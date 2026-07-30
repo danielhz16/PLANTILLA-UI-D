@@ -1,4 +1,5 @@
-import { USERS, useAuth, TYPES_AUTHORIZATIONS } from "@/common";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
+import { USERS } from "@/features/users";
 import { List } from "@/components/crud/list/List";
 import { columnsUser } from "./utils/columns";
 import { useCallback, useMemo } from "react";

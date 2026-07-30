@@ -1,4 +1,4 @@
-import { TYPES_AUTHORIZATIONS, type TypeAuth } from "@/common";
+import { TYPES_AUTHORIZATIONS, type TypeAuth } from "@/features/auth";
 import { createColumnHelper } from "@tanstack/react-table";
 
 export interface UserPermission {

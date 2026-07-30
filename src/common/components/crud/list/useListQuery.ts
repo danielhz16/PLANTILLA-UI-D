@@ -1,5 +1,5 @@
 import { useGetData } from "@/common/lib/smart-query-ui";
-import { callApi } from "./base.api";
+import { callApi } from "@/hooks/api/base.api";
 import type { Filters } from "@/common/lib/smart-query-ui";
 import { useCallback } from "react";
 
@@ -16,7 +16,7 @@ type UseGetQueryProps<TFilters extends Filters> = UseGetQueryOptions & {
     filters?: TFilters;
 };
 
-export const useGetQuery2 = <T = unknown, TFilters extends Filters = Filters>({
+export const useListQuery = <T = unknown, TFilters extends Filters = Filters>({
     url,
     key,
     run = true,
@@ -62,5 +62,3 @@ export const useGetQuery2 = <T = unknown, TFilters extends Filters = Filters>({
         totalRecords: query.totalRecords,
     };
 };
-
-export default useGetQuery2;

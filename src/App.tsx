@@ -2,7 +2,8 @@ import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import router from './routes/index.routes.tsx'
 import { RouterProvider } from 'react-router'
-import { ThemeProvider, useAuthStore, ErrorBoundary } from '@/common'
+import { ThemeProvider, ErrorBoundary } from '@/common'
+import { useAuthStore } from '@/features/auth'
 import { Toaster } from 'sonner'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GlobalMfaModal } from './pages/public/auth/GlobalMfaModal';

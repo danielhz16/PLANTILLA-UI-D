@@ -1,4 +1,4 @@
-import { USERS } from "@/common";
+import { USERS } from "@/features/users";
 import { Details } from "@/components/crud/details/Details";
 import { useDetailsUser } from "./hooks/useDetailsUser";
 

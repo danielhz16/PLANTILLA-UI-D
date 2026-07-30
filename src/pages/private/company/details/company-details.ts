@@ -1,4 +1,4 @@
-import type { DetailField } from '@common/types/details';
+import type { DetailField } from '@/common/types/details';
 import { Building2, Hash } from 'lucide-react';
 
 export const companyDetailFields: DetailField[] = [

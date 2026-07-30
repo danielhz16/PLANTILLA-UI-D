@@ -1,5 +1,5 @@
 import { Box, Typography, Divider } from '@mui/material';
-import type { DetailField } from '@common/types/details';
+import type { DetailField } from '@/common/types/details';
 
 interface Props {
     fields: DetailField[];

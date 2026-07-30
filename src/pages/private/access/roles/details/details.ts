@@ -1,4 +1,4 @@
-import type { DetailField } from '@common/types/details';
+import type { DetailField } from '@/common/types/details';
 import { Shield, Key, FileText } from 'lucide-react';
 
 export const roleDetailFields: DetailField[] = [

@@ -1,7 +1,7 @@
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
 import { useRef, useState } from "react";
-import type { RefForm, ResponseLogin } from "@/common";
-import { ERRORS } from "@/const/errors";
+import type { RefForm } from "@/common";
+import { ERRORS, type ResponseLogin } from "@/features/auth";
 import { useNavigate } from "react-router";
 
 export const useLogin = () => {

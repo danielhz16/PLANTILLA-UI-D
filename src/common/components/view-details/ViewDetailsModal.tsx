@@ -1,7 +1,7 @@
 import { useGetQuery } from "@/hooks/api/useGetQuery";
 import { Modal } from "@/components/modal/Modal";
 import { Box, Typography } from "@mui/material";
-import type { DetailField } from '@common/types/details';
+import type { DetailField } from '@/common/types/details';
 import { DetailsView } from './DetailsView';
 import Loader from "@/components/loading/Loader";
 

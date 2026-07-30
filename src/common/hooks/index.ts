@@ -1,7 +1,5 @@
 export * from './useTheme'
 export * from './api/useGetQuery'
-export * from './api/useGetQuery2'
 export * from './api/useMutationQuery'
 export * from './api/useClient'
 export * from './api/useUrl'
-export * from './auth/useAuth'

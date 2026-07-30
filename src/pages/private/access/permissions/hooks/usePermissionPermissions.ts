@@ -1,4 +1,5 @@
-import { useAuth, TYPES_AUTHORIZATIONS, PERMISSIONS } from "@/common";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
+import { PERMISSIONS } from "@/features/permissions";
 
 export const usePermissionPermissions = () => {
     const { validarPermiso } = useAuth();
