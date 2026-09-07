@@ -1,52 +1,49 @@
-import type { RouteConfig } from "./ts";
-import { createBrowserRouter, Navigate } from "react-router";
-import { useAuthStore } from "@/features/auth";
-import { lazyLoad } from "./routes.factory";
-import authRoutes from "./auth/index.routes";
-import dashboardRoutes from "./dashboard/index.routes";
-import gestionUsuariosRoutes from "./gestion-usuarios/index.routes";
-import clientesRoutes from "./clientes/index.routes";
-import pacientesRoutes from "./pacientes/index.routes";
-import laboratorioRoutes from "./laboratorio/index.routes";
-import clinicaRoutes from "./clinica/index.routes";
-import hospitalRoutes from "./hospital/index.routes";
+import { useMemo } from "react";
+import { Navigate } from "react-router";
+import { createRouter } from "@/lib/routecraft";
+import MainLayout from "@/app/layout/MainLayout";
+import { useAuthStore, useAuth } from "@/features/auth";
+import { authRoutes } from "./auth/route";
+import { dashboardRoutes } from "./dashboard/route";
+import { gestionUsuariosRoutes } from "./gestion-usuarios/route";
+import { clientesRoutes } from "./clientes/route";
+import { pacientesRoutes } from "./pacientes/route";
+import { laboratorioRoutes } from "./laboratorio/route";
+import { clinicaRoutes } from "./clinica/route";
+import { hospitalRoutes } from "./hospital/route";
+import { profileRoutes } from "./profile/route";
 
-const Unauthorized = lazyLoad(() => import("../pages/public/Unauthorized"));
-
-const unauthorizedRoute: RouteConfig = {
-    path: "/unauthorized",
-    element: <Unauthorized />,
-};
-
-const RootRedirect = () => {
-    const { user } = useAuthStore();
-    return <Navigate to={user ? "/dashboard" : "/auth/login"} replace />;
-};
-
-const rootRoute: RouteConfig = {
-    path: "/",
-    element: <RootRedirect />,
-};
-
-const loginRedirect: RouteConfig = {
-    path: "/login",
-    element: <Navigate to="/auth/login" replace />,
-};
-
-const routes: RouteConfig[] = [
-    rootRoute,
-    authRoutes,
-    unauthorizedRoute,
-    dashboardRoutes,
-    gestionUsuariosRoutes,
-    clientesRoutes,
-    pacientesRoutes,
-    laboratorioRoutes,
-    clinicaRoutes,
-    hospitalRoutes,
-    loginRedirect,
+const allRoutes = [
+    ...authRoutes,
+    ...dashboardRoutes,
+    ...gestionUsuariosRoutes,
+    ...pacientesRoutes,
+    ...laboratorioRoutes,
+    ...clinicaRoutes,
+    ...hospitalRoutes,
+    ...profileRoutes,
+    ...clientesRoutes,
 ];
 
-const router = createBrowserRouter(routes);
+function AppRootRedirect() {
+    const { user } = useAuthStore();
+    return <Navigate to={user ? "/dashboard" : "/auth/login"} replace />;
+}
 
-export default router;
+export default function AppRouter() {
+    const { user } = useAuthStore();
+    const isAuthenticated = !!user;
+
+    const Router = useMemo(
+        () => createRouter({
+            routes: allRoutes,
+            layoutDefault: MainLayout,
+            rootRedirect: AppRootRedirect,
+            isAuthenticated,
+            validatePermission: useAuth.validatePermission,
+        }),
+        [isAuthenticated]
+    );
+
+    return <Router />;
+}

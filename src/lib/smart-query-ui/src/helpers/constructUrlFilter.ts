@@ -13,7 +13,11 @@ const toFilterPairs = (key: string, value: unknown): string[] => {
         return [`${key}=${encodeURIComponent(JSON.stringify(value))}`];
     }
 
-    return [`${key}=${encodeURIComponent(String(value))}`];
+    if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+        return [`${key}=${encodeURIComponent(String(value))}`];
+    }
+
+    return [];
 };
 
 export const constructUrlFilter = (

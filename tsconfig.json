@@ -11,35 +11,20 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@/components/*": [
-        "./src/common/components/*"
-      ],
       "@/const/*": [
-        "./src/common/const/*"
+        "./src/shared/const/*"
       ],
-      "@/hooks/*": [
-        "./src/common/hooks/*"
+      "@/shared": [
+        "./src/shared/index.ts"
       ],
-      "@/routes/*": [
-        "./src/common/routes/*"
-      ],
-      "@/services/*": [
-        "./src/common/services/*"
-      ],
-      "@/stores/*": [
-        "./src/common/stores/*"
-      ],
-      "@/utils/*": [
-        "./src/common/utils/*"
-      ],
-      "@/common": [
-        "./src/common/index.ts"
-      ],
-      "@/common/*": [
-        "./src/common/*"
+      "@/shared/*": [
+        "./src/shared/*"
       ],
       "@/conf/*": [
         "src/conf/*"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     }
   }

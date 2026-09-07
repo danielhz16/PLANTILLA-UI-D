@@ -1,7 +1,8 @@
-import { Modal } from "@/ui/modal/Modal";
+import { Modal } from "@/components/modal/Modal";
 import { Typography, Button, Stack, Box, TextField } from "@mui/material";
 import { useMfa } from "./useMfa";
-import type { ResponseLogin } from "@/features/auth";
+import { useTheme } from "@/hooks/useTheme";
+import { TypeMfa, type MfaOptions, type ResponseLogin } from "@/features/auth";
 import { useCallback, useEffect, useRef, useState, type ChangeEvent, type ClipboardEvent, type KeyboardEvent } from "react";
 import mfaImg from "@/assets/mfa.png";
 
@@ -11,12 +12,59 @@ interface MfaModalProps {
   pendingLogin?: ResponseLogin | null;
 }
 
+export interface MfaHandlers {
+  handleSubmit: (data: { code: string; type: number }) => Promise<void>;
+  handleResend: (method: number) => Promise<number>;
+  handleBackToLogin: () => void;
+  isPending: boolean;
+  options: MfaOptions;
+}
+
 const OTP_LENGTH = 6;
+
+type MfaError = {
+  apiError?: { message?: string };
+  message?: string;
+  retryAfter?: number;
+};
+
+const getMfaError = (error: unknown): MfaError => (error ?? {}) as MfaError;
 
 const formatTime = (seconds: number) => {
   const minutes = Math.floor(seconds / 60).toString().padStart(2, '0');
   const secs = (seconds % 60).toString().padStart(2, '0');
   return `${minutes}:${secs}`;
+};
+
+const getDefaultMethod = (options: MfaOptions): number => {
+  if (options.mfaAuthenticator) return TypeMfa.AuthenticatorApp;
+  if (options.mfaEmail) return TypeMfa.Email;
+  if (options.mfaWp) return TypeMfa.WhatsApp;
+  return TypeMfa.Email;
+};
+
+const getPrimaryMessage = (type: number): string => {
+  switch (type) {
+    case TypeMfa.AuthenticatorApp:
+      return 'Ingresa el código de autenticación';
+    case TypeMfa.Email:
+      return 'Ingresa el código de 6 dígitos enviado a tu correo electrónico';
+    case TypeMfa.WhatsApp:
+      return 'Ingresa el código de 6 dígitos enviado a tu WhatsApp';
+    default:
+      return 'Ingresa el código de 6 dígitos';
+  }
+};
+
+const getSendLabel = (type: number): string => {
+  switch (type) {
+    case TypeMfa.Email:
+      return 'Enviar por correo electrónico';
+    case TypeMfa.WhatsApp:
+      return 'Enviar por WhatsApp';
+    default:
+      return 'Reenviar código';
+  }
 };
 
 export const MfaForm = ({
@@ -25,18 +73,27 @@ export const MfaForm = ({
   toLogin,
   onClose,
   resendCode,
+  options,
 }: {
-  handleSubmit: (data: { code: string }) => Promise<void>;
+  handleSubmit: MfaHandlers['handleSubmit'];
   isPending: boolean;
   toLogin: () => void;
   onClose: () => void;
-  resendCode: () => Promise<number>;
+  resendCode: MfaHandlers['handleResend'];
+  options: MfaOptions;
 }) => {
+  const { colors } = useTheme();
   const [values, setValues] = useState<string[]>(new Array(OTP_LENGTH).fill(''));
   const [error, setError] = useState<string>('');
   const [timeLeft, setTimeLeft] = useState<number>(0);
   const [isResending, setIsResending] = useState(false);
+  const [activeType, setActiveType] = useState<number>(() => getDefaultMethod(options));
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
+
+  const sendMethods = [
+    ...(options.mfaEmail ? [TypeMfa.Email] : []),
+    ...(options.mfaWp ? [TypeMfa.WhatsApp] : []),
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -64,7 +121,7 @@ export const MfaForm = ({
     }
   }, []);
 
-  const onKeyDown = useCallback((index: number, event: KeyboardEvent<HTMLInputElement>) => {
+  const onKeyDown = useCallback((index: number, event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Backspace' && !values[index] && index > 0) {
       inputsRef.current[index - 1]?.focus();
     }
@@ -96,48 +153,51 @@ export const MfaForm = ({
 
     setError('');
     try {
-      await handleSubmit({ code });
-    } catch (e: any) {
-      setError(e?.apiError?.message || e?.message || 'Código incorrecto');
+      await handleSubmit({ code, type: activeType });
+    } catch (e: unknown) {
+      const err = getMfaError(e);
+      setError(err?.apiError?.message || err?.message || 'Código incorrecto');
     }
-  }, [values, handleSubmit]);
+  }, [values, activeType, handleSubmit]);
+
+  const requestCode = useCallback(async (method: number) => {
+    if (timeLeft > 0 || isResending) return;
+    setIsResending(true);
+    setError('');
+    setActiveType(method);
+    try {
+      const nextWait = await resendCode(method);
+      setTimeLeft(nextWait);
+    } catch (e: unknown) {
+      const err = getMfaError(e);
+      setError(err?.message || 'Error al enviar el código');
+      if (err?.retryAfter) setTimeLeft(err.retryAfter);
+    } finally {
+      setIsResending(false);
+    }
+  }, [timeLeft, isResending, resendCode]);
 
   return (
     <>
-      <Stack alignItems="center" gap={2} mb={3}>
-        <Box
-          sx={{
-            width: '100%',
-            maxWidth: 320,
-            height: 220,
-            backgroundImage: `url(${mfaImg})`,
-            backgroundSize: '115%',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat',
-            mixBlendMode: 'multiply',
-            mb: -2,
-          }}
-        />
-
-        <Typography
-          variant="h5"
-          sx={{ fontWeight: 800, color: 'var(--color-text)', letterSpacing: '-0.03em' }}
-        >
-          Verificación en dos pasos
-        </Typography>
-        <Typography
-          variant="body2"
-          sx={{ color: 'var(--color-text)', opacity: 0.72, maxWidth: 380, textAlign: 'center' }}
-        >
-          Hemos enviado un código de 6 dígitos a tu correo electrónico.
-        </Typography>
-      </Stack>
+      <Box
+        sx={{
+          width: '100%',
+          maxWidth: 320,
+          height: 200,
+          margin: '0 auto',
+          backgroundImage: `url(${mfaImg})`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
+          mb: 1,
+        }}
+      />
 
       <Typography
         variant="body2"
-        sx={{ color: 'var(--color-primary)', fontWeight: 700, textAlign: 'center', mb: 2 }}
+        sx={{ color: colors.primary, fontWeight: 700, textAlign: 'center', mb: 2 }}
       >
-        Ingresa el código de 6 dígitos
+        {getPrimaryMessage(activeType)}
       </Typography>
 
       <Box display="flex" justifyContent="center" gap={1.5} mb={2} onPaste={handlePaste}>
@@ -146,7 +206,7 @@ export const MfaForm = ({
             key={index}
             inputRef={(el) => (inputsRef.current[index] = el)}
             value={value}
-            onChange={(event) => onChange(index, event)}
+            onChange={(event) => onChange(index, event as ChangeEvent<HTMLInputElement>)}
             onKeyDown={(event) => onKeyDown(index, event)}
             inputProps={{
               inputMode: 'numeric',
@@ -157,7 +217,7 @@ export const MfaForm = ({
                 textAlign: 'center',
                 fontSize: '1.5rem',
                 fontWeight: 700,
-                color: 'var(--color-text)',
+                color: colors.text,
                 padding: 0,
                 height: '58px',
               },
@@ -167,18 +227,18 @@ export const MfaForm = ({
               '& .MuiOutlinedInput-root': {
                 borderRadius: '14px',
                 minHeight: 58,
-                backgroundColor: 'var(--color-bgInput)',
-                border: '1px solid var(--color-border)',
+                backgroundColor: colors.bgInput,
+                border: `1px solid ${colors.border}`,
                 transition: 'all 0.2s ease',
                 '&.Mui-focused': {
-                  borderColor: 'var(--color-primary)',
+                  borderColor: colors.primary,
                   borderWidth: 2,
-                  boxShadow: '0 0 0 4px var(--color-primarySoft)',
-                  backgroundColor: 'var(--color-bgInput)',
+                  boxShadow: `0 0 0 4px ${colors.primarySoft}`,
+                  backgroundColor: colors.bgInput,
                 },
                 '&:hover:not(.Mui-focused)': {
-                  borderColor: 'var(--color-primary)',
-                  backgroundColor: 'var(--color-hover)',
+                  borderColor: colors.primary,
+                  backgroundColor: colors.hover,
                 },
               },
               '& .MuiOutlinedInput-notchedOutline': {
@@ -187,7 +247,7 @@ export const MfaForm = ({
               '& .MuiOutlinedInput-input': {
                 padding: 0,
                 textAlign: 'center',
-                color: 'var(--color-text)',
+                color: colors.text,
               },
             }}
           />
@@ -195,7 +255,7 @@ export const MfaForm = ({
       </Box>
 
       {error && (
-        <Typography variant="body2" color="error" sx={{ mb: 1 }}>
+        <Typography variant="body2" color="error" sx={{ mb: 1, textAlign: 'center' }}>
           {error}
         </Typography>
       )}
@@ -213,17 +273,17 @@ export const MfaForm = ({
             textTransform: 'none',
             fontSize: '1rem',
             fontWeight: 700,
-            color: 'var(--color-bgCard)',
-            background: 'linear-gradient(90deg, var(--color-primary), var(--color-primaryHover))',
-            boxShadow: '0 10px 30px -10px var(--color-shadowCard)',
+            color: colors.bgCard,
+            background: `linear-gradient(90deg, ${colors.primary}, ${colors.primaryHover})`,
+            boxShadow: `0 10px 30px -10px ${colors.shadowCard}`,
             '&:hover': {
-              background: 'linear-gradient(90deg, var(--color-primaryHover), var(--color-primary))',
-              boxShadow: '0 12px 30px -10px var(--color-shadowCard)',
+              background: `linear-gradient(90deg, ${colors.primaryHover}, ${colors.primary})`,
+              boxShadow: `0 12px 30px -10px ${colors.shadowCard}`,
               transform: 'translateY(-1px)',
             },
             '&.Mui-disabled': {
-              color: 'var(--color-textMuted)',
-              background: 'var(--color-primarySoft)',
+              color: colors.textMuted,
+              background: colors.primarySoft,
               boxShadow: 'none',
               pointerEvents: 'none',
               opacity: 1,
@@ -233,42 +293,33 @@ export const MfaForm = ({
           Verificar código
         </Button>
 
-        <Button
-          fullWidth
-          variant="outlined"
-          disabled={timeLeft > 0 || isResending}
-          onClick={async () => {
-            if (timeLeft > 0 || isResending) return;
-            setIsResending(true);
-            setError('');
-            try {
-              const nextWait = await resendCode();
-              setTimeLeft(nextWait);
-            } catch (e: any) {
-              setError(e?.message || 'Error al reenviar el código');
-              if (e?.retryAfter) setTimeLeft(e.retryAfter);
-            } finally {
-              setIsResending(false);
-            }
-          }}
-          sx={{
-            py: 1.15,
-            minHeight: 50,
-            borderRadius: '14px',
-            textTransform: 'none',
-            fontSize: '1rem',
-            fontWeight: 700,
-            color: 'var(--color-primary)',
-            borderColor: 'var(--color-primary)',
-            backgroundColor: 'var(--color-bgCard)',
-            '&:hover': {
-              backgroundColor: 'var(--color-primarySoft)',
-              borderColor: 'var(--color-primary)',
-            },
-          }}
-        >
-          Enviar por correo electrónico {timeLeft > 0 && `(${formatTime(timeLeft)})`}
-        </Button>
+        {sendMethods.map((method) => (
+          <Button
+            key={method}
+            fullWidth
+            variant="outlined"
+            disabled={timeLeft > 0 || isResending}
+            loading={isResending && activeType === method}
+            onClick={() => requestCode(method)}
+            sx={{
+              py: 1.15,
+              minHeight: 50,
+              borderRadius: '14px',
+              textTransform: 'none',
+              fontSize: '1rem',
+              fontWeight: 700,
+              color: colors.primary,
+              borderColor: colors.primary,
+              backgroundColor: colors.bgCard,
+              '&:hover': {
+                backgroundColor: colors.primarySoft,
+                borderColor: colors.primary,
+              },
+            }}
+          >
+            {getSendLabel(method)}{activeType === method && timeLeft > 0 && ` (${formatTime(timeLeft)})`}
+          </Button>
+        ))}
       </Stack>
 
       <Typography
@@ -280,7 +331,7 @@ export const MfaForm = ({
         sx={{
           mt: 1,
           textAlign: 'center',
-          color: 'var(--color-primary)',
+          color: colors.primary,
           cursor: 'pointer',
           fontWeight: 500,
           '&:hover': { opacity: 0.8 },
@@ -292,26 +343,59 @@ export const MfaForm = ({
   );
 };
 
-export const MfaModal = ({ open, onClose, pendingLogin }: MfaModalProps) => {
-  const { handleSubmit, isPending, toLogin, resendCode } = useMfa(pendingLogin);
+export const MfaModalShell = ({
+  open,
+  onClose,
+  handleSubmit,
+  handleResend,
+  handleBackToLogin,
+  isPending,
+  options,
+}: MfaHandlers & {
+  open: boolean;
+  onClose: () => void;
+}) => {
+  const activeType = getDefaultMethod(options);
 
   return (
     <Modal
       open={open}
       onClose={onClose}
-      title="Autenticación en dos pasos"
+      title="Verificación en dos pasos"
+      description={
+        activeType === TypeMfa.AuthenticatorApp
+          ? 'Usa tu aplicación de autenticación para generar el código.'
+          : 'Completa la verificación en dos pasos para continuar.'
+      }
       maxWidth="sm"
-      sx={{ width: '100%', maxWidth: 580, p: 0 }}
-    >
-      <MfaForm
-        key={open ? 'open' : 'closed'}
-        handleSubmit={handleSubmit}
-        isPending={isPending}
-        toLogin={toLogin}
-        onClose={onClose}
-        resendCode={resendCode}
-      />
-    </Modal>
+      content={
+        <MfaForm
+          key={open ? 'open' : 'closed'}
+          options={options}
+          handleSubmit={handleSubmit}
+          isPending={isPending}
+          toLogin={handleBackToLogin}
+          onClose={onClose}
+          resendCode={handleResend}
+        />
+      }
+    />
+  );
+};
+
+export const MfaModal = ({ open, onClose, pendingLogin }: MfaModalProps) => {
+  const { handleSubmit, isPending, toLogin, resendCode, options } = useMfa(pendingLogin);
+
+  return (
+    <MfaModalShell
+      open={open}
+      onClose={onClose}
+      handleSubmit={handleSubmit}
+      handleResend={resendCode}
+      handleBackToLogin={toLogin}
+      isPending={isPending}
+      options={options}
+    />
   );
 };
 

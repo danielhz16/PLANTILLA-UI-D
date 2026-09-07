@@ -1,19 +1,29 @@
-import { useAuthStore, type ResponseLogin } from "@/features/auth";
+import { useAuthStore, type MfaOptions, type ResponseLogin } from "@/features/auth";
 import { callApi } from "@/hooks/api/base.api";
-import { MfaForm } from "./MfaModal";
-import { Modal } from "@/ui/modal/Modal";
+import { MfaModalShell } from "./MfaModal";
 import { useState } from "react";
+
+const DEFAULT_OPTIONS: MfaOptions = { mfaAuthenticator: false, mfaEmail: true, mfaWp: true };
 
 export const GlobalMfaModal = () => {
   const mfaPending = useAuthStore((s) => s.mfaPending);
   const setMfaPending = useAuthStore((s) => s.setMfaPending);
   const loginUser = useAuthStore((s) => s.loginUser);
+  const user = useAuthStore((s) => s.user);
   const [isPending, setIsPending] = useState(false);
 
-  const handleSubmit = async (data: { code: string }) => {
+  const options: MfaOptions = user
+    ? {
+        mfaAuthenticator: user.mfaAuthenticator ?? false,
+        mfaEmail: user.mfaEmail ?? false,
+        mfaWp: user.mfaWp ?? false,
+      }
+    : DEFAULT_OPTIONS;
+
+  const handleSubmit = async (data: { code: string; type: number }) => {
     setIsPending(true);
     try {
-      const res = (await callApi<ResponseLogin>("auth/mfa", "POST", { code: data.code })) as ResponseLogin;
+      const res = (await callApi<ResponseLogin>("auth/mfa", "POST", { ...data, epoch: Math.floor(Date.now() / 1000) })) as ResponseLogin;
       if (res.user) {
         loginUser(res);
       }
@@ -24,8 +34,8 @@ export const GlobalMfaModal = () => {
     }
   };
 
-  const handleResend = async (): Promise<number> => {
-    const res = await callApi<{ retryAfter?: number }>("auth/mfa/resend", "POST", {});
+  const handleResend = async (method: number): Promise<number> => {
+    const res = await callApi<{ retryAfter?: number }>("auth/mfa/resend", "POST", { type: method });
     return res?.retryAfter ?? 60;
   };
 
@@ -42,21 +52,14 @@ export const GlobalMfaModal = () => {
   if (!mfaPending) return null;
 
   return (
-    <Modal
-      open={true}
+    <MfaModalShell
+      open
       onClose={handleClose}
-      title="Autenticación en dos pasos"
-      maxWidth="sm"
-      sx={{ width: '100%', maxWidth: 580, p: 0 }}
-    >
-      <MfaForm
-        key="global-mfa"
-        handleSubmit={handleSubmit}
-        isPending={isPending}
-        toLogin={handleBackToLogin}
-        onClose={handleClose}
-        resendCode={handleResend}
-      />
-    </Modal>
+      handleSubmit={handleSubmit}
+      handleResend={handleResend}
+      handleBackToLogin={handleBackToLogin}
+      isPending={isPending}
+      options={options}
+    />
   );
 };

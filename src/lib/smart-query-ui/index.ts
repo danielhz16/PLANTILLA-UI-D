@@ -28,4 +28,3 @@ export const useSmartQuery = () => {
 
 export { useGetData, filterListData, getData, clearCache, getCache, deleteRow, pushRow, savedCache, updateRow };
 export type * from "./src/types";
-    

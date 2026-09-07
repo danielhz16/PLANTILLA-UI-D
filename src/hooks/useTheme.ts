@@ -1,4 +1,4 @@
-import { useThemeContext } from '@/ui/theme/ThemeContext';
+import { useThemeContext } from '@/components/theme/ThemeContext';
 import { themeConfig } from '@/const/theme';
 
 export const useTheme = () => {

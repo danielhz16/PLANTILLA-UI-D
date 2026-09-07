@@ -54,6 +54,18 @@ const shouldRefetchOnColumnFilterChange = <T,>(
   return filterListData(responseData, nextColumnFilters).length < minDataFetch;
 };
 
+const stringifyFilterValue = (value: unknown): string => {
+  if (value === null || value === undefined) {
+    return "";
+  }
+
+  if (typeof value === "string" || typeof value === "number" || typeof value === "boolean") {
+    return String(value).trim();
+  }
+
+  return JSON.stringify(value);
+};
+
 const hasSameScope = (currentScope: CacheScope, cachedScope: CacheScope): boolean => {
   const normalizedCurrentScope = normalizeScope(currentScope);
   const normalizedCachedScope = normalizeScope(cachedScope);
@@ -118,7 +130,7 @@ export const useGetData = <T, TFilters extends Filters = Filters,>({
 
   const cachedDataset = useMemo(() => {
     const cachedQueries = queryClient.getQueryCache().findAll({ queryKey: createSmartQueryKey(key) });
-    const currentScope = { endpoint, pageSize, filters };
+    const currentScope = { endpoint, pageSize, filters: {} as TFilters };
     const cachedPages = cachedQueries
       .map((cachedQuery) => {
         const cachedQueryKey = cachedQuery.queryKey as Readonly<[string, CacheScope?]>;
@@ -150,7 +162,7 @@ export const useGetData = <T, TFilters extends Filters = Filters,>({
       totalRecords,
       isFullDatasetLoaded: totalRecords > 0 && rows.length >= totalRecords
     };
-  }, [endpoint, filters, key, pageSize, query.data, queryClient]);
+  }, [endpoint, key, pageSize, query.data, queryClient]);
 
   const clearColumnFilterTimeout = useCallback(() => {
     if (!columnFilterTimeoutRef.current) {
@@ -231,7 +243,7 @@ export const useGetData = <T, TFilters extends Filters = Filters,>({
       if (options?.refetch !== false) {
         setFetchSource("manual");
         const nextScope = { endpoint, page, pageSize, filters: nextFilters };
-        void queryClient.fetchQuery({
+        queryClient.fetchQuery({
           queryKey: createSmartQueryKey(key, nextScope),
           queryFn: () => fetchFunction(constructUrlFilter(endpoint, nextFilters, page, pageSize)),
           staleTime: 0
@@ -300,7 +312,7 @@ export const useGetData = <T, TFilters extends Filters = Filters,>({
         return false;
       }
 
-      return String(filters[name as keyof TFilters] ?? "").trim() !== cleanValue;
+      return stringifyFilterValue(filters[name as keyof TFilters]) !== cleanValue;
     });
     const totalRecords = cachedDataset.isFullDatasetLoaded || (hasActiveColumnFilters && filteredItems.length < total)
       ? filteredItems.length
@@ -349,6 +361,11 @@ export const useGetData = <T, TFilters extends Filters = Filters,>({
       return;
     }
 
+    const currentValue = stringifyFilterValue(filters[filterName]);
+    if (currentValue === cleanValue) {
+      return;
+    }
+
     const nextFilters = { ...filters } as Partial<TFilters>;
 
     if (cleanValue) {
@@ -370,7 +387,7 @@ export const useGetData = <T, TFilters extends Filters = Filters,>({
     setFetchSource("column-blur");
     setFilters(resolvedFilters);
 
-    void queryClient.fetchQuery({
+    queryClient.fetchQuery({
       queryKey: createSmartQueryKey(key, nextScope),
       queryFn: () => fetchFunction(constructUrlFilter(endpoint, resolvedFilters, page, pageSize)),
       staleTime: 0

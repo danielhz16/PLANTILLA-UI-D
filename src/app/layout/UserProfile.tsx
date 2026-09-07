@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Box, Typography, Menu, MenuItem, Avatar, Divider } from '@mui/material';
-import { LogOut, Settings, ChevronDown } from 'lucide-react';
+import { Box, Typography, Menu, MenuItem, Divider } from '@mui/material';
+import { LogOut, Settings, User, ChevronDown } from 'lucide-react';
 import { useAuthStore } from '@/features/auth';
 import { useNavigate } from 'react-router';
 import { useMutationQuery } from '@/hooks/api/useMutationQuery';
+import { UserAvatar } from '@/components/avatar/UserAvatar';
 
 export const UserProfile: React.FC = () => {
     const { user, logoutUser } = useAuthStore();
@@ -37,17 +38,12 @@ export const UserProfile: React.FC = () => {
         navigate('/settings');
     };
 
-    if (!user) return null;
-
-    // Obtener iniciales del nombre
-    const getInitials = (name: string) => {
-        return name
-            .split(' ')
-            .map(n => n[0])
-            .join('')
-            .toUpperCase()
-            .slice(0, 2);
+    const handleProfile = () => {
+        handleClose();
+        navigate('/profile');
     };
+
+    if (!user) return null;
 
     return (
         <>
@@ -66,19 +62,7 @@ export const UserProfile: React.FC = () => {
                     }
                 }}
             >
-                <Avatar
-                    sx={{
-                        width: 40,
-                        height: 40,
-                        backgroundColor: 'var(--color-primary)',
-                        color: 'white',
-                        fontWeight: 700,
-                        fontSize: '0.9rem',
-                        border: '2px solid var(--color-border)',
-                    }}
-                >
-                    {getInitials(user.fullName)}
-                </Avatar>
+                <UserAvatar name={user.fullName} size={40} fontSize="0.9rem" sx={{ border: '2px solid var(--color-border)' }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, flexDirection: 'column', alignItems: 'flex-start' }}>
                     <Typography
                         variant="body2"
@@ -139,18 +123,7 @@ export const UserProfile: React.FC = () => {
             >
                 <Box sx={{ p: 2, pb: 1.5 }}>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
-                        <Avatar
-                            sx={{
-                                width: 48,
-                                height: 48,
-                                backgroundColor: 'var(--color-primary)',
-                                color: 'white',
-                                fontWeight: 700,
-                                fontSize: '1.1rem',
-                            }}
-                        >
-                            {getInitials(user.fullName)}
-                        </Avatar>
+                        <UserAvatar name={user.fullName} size={48} fontSize="1.1rem" />
                         <Box>
                             <Typography
                                 variant="body2"
@@ -176,6 +149,22 @@ export const UserProfile: React.FC = () => {
                 </Box>
 
                 <Divider sx={{ borderColor: 'var(--color-border)' }} />
+
+                <MenuItem
+                    onClick={handleProfile}
+                    sx={{
+                        py: 1.5,
+                        px: 2,
+                        gap: 1.5,
+                        color: 'var(--color-text)',
+                        '&:hover': {
+                            backgroundColor: 'var(--color-hover)',
+                        }
+                    }}
+                >
+                    <User size={18} />
+                    <Typography variant="body2">Perfil</Typography>
+                </MenuItem>
 
                 <MenuItem
                     onClick={handleSettings}

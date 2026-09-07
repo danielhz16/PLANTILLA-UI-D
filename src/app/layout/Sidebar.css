@@ -104,6 +104,16 @@
     transform: translateX(4px);
 }
 
+button.nav-item {
+    width: 100%;
+    border: none;
+    outline: none;
+    background: none;
+    font-family: inherit;
+    font-size: inherit;
+    text-align: left;
+}
+
 .collapsed .nav-item:hover {
     transform: none;
 }

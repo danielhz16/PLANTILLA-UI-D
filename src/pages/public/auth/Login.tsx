@@ -1,4 +1,4 @@
-import { MainForm } from "@/ui/form/MainForm";
+import { MainForm } from "@/components/form/MainForm";
 import { inputs } from "./inputs";
 import { Typography, Button, Stack } from "@mui/material";
 import { useLogin } from "./useLogin";
