@@ -1,4 +1,4 @@
-import { Details } from "@/components/crud/details/Details";
+import { Details } from "@/ui/crud/details/Details";
 import { inputsCompany } from "./inputs";
 
 const DetailsCompany = () => {
@@ -10,7 +10,7 @@ const DetailsCompany = () => {
           keyCache="companies"
           nameID="id"
           title="Empresa"
-          readEndpoint="company/read"
+          ReadEndpoint="company/read"
         />
     )
 };

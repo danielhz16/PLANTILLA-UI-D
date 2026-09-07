@@ -1,0 +1,15 @@
+.options-text {
+  font-size: 14px !important;
+  text-transform: none !important;
+  padding: 4px 8px !important;
+  color: var(--color-primary) !important;
+}
+
+.options-text:hover {
+  background-color: var(--color-optionsTextHover) !important;
+}
+
+.menu-icon {
+  margin-right: 8px;
+  color: inherit;
+}

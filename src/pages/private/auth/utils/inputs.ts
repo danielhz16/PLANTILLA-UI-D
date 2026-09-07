@@ -1,8 +1,9 @@
-import {  filterStatus, type Options } from "@/common";
-import type { Input } from "@/components/ts/form";
+import { filterStatus } from "@/ui";
+import { type Options } from "@/common";
+import type { Input } from "@/ui/ts/form";
 import { VALIDATIONS } from "@/const/validations";
 
-export const inputsUser = (): Input[] => [
+export const inputsUser = ({ roles }: { roles: Options[] }): Input[] => [
     {
         name: 'username',
         label: 'Nombre de usuario',
@@ -47,6 +48,16 @@ export const inputsUser = (): Input[] => [
         md: 6,
         validations: [
             { type: VALIDATIONS.REQUIRED, msg: 'El teléfono es obligatorio' }
+        ]
+    },
+    {
+        name: 'role',
+        label: 'Rol',
+        type: 'select',
+        md: 6,
+        options: roles,
+        validations: [
+            { type: VALIDATIONS.REQUIRED, msg: 'El rol es obligatorio' }
         ]
     }
 ];

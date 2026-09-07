@@ -1,21 +1,29 @@
-import { List } from "@/components/crud/list/List";
+import { useAuth, TYPES_AUTHORIZATIONS } from "@/features/auth";
+import { USERS } from "@/features/users";
+import { List } from "@/ui/crud/list/List";
 import { columnsUser } from "./utils/columns";
-import { useUsers } from "./utils/useUsers";
-import { filters } from "./utils/inputs";
+import { useCallback, useMemo } from "react";
+import { useNavigate } from "react-router";
 
 const ListUsers = () => {
-  const { optionsCompany, isLoading, initialValues } = useUsers();
-
+  const { validarPermiso } = useAuth();
+  const navigate = useNavigate();
+  const canWrite = validarPermiso(USERS.MODULE, TYPES_AUTHORIZATIONS.Write);
+  const handleNavigate = useCallback((id: number) => {
+    navigate(`/gestion-usuarios/usuarios/details/${id}`);
+  }, [navigate]);
+  const memoColumns = useMemo(() => {
+     return columnsUser({ canWrite, handleNavigate })
+  }, [canWrite, handleNavigate])
   return (
     <List
+      name="usuarios"
       title="Usuarios"
-      toCreate='/user/create'
-      endpoint="auth/list"
+      toCreate='/gestion-usuarios/usuarios/create'
+      endpoint="/users/list"
       queryKey="user"
-      columns={columnsUser()}
-      initialFilter={initialValues}
-      filters={filters(optionsCompany ?? [])}
-      isPending={isLoading}
+      columns={memoColumns}
+      permission={USERS.MODULE}
     />
   )
 }

@@ -1,5 +1,6 @@
 #root {
   width: 100%;
+  user-select: none;
 }
 
 .logo {
@@ -10,11 +11,11 @@
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em var(--color-primary));
 }
 
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em var(--color-secondary));
 }
 
 @keyframes logo-spin {
@@ -37,6 +38,6 @@
   padding: 2em;
 }
 
-.read-the-docs {
-  color: #888;
+.Read-the-docs {
+  color: var(--color-textSecondary);
 }

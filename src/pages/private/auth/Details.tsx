@@ -1,16 +1,20 @@
-import { Details } from "@/components/crud/details/Details";
-import { inputsUser } from "./utils/inputs";
+import { USERS } from "@/features/users";
+import { Details } from "@/ui/crud/details/Details";
+import { useDetailsUser } from "./hooks/useDetailsUser";
 
 const DetailsUser = () => {
+    const { inputs, isLoadingRoles } = useDetailsUser();
     return (
         <Details
-            inputs={inputsUser()}
-            urlCreate="/auth/create-user"
-            urlUpdate="/auth/update-user"
+            inputs={inputs}
+            urlCreate="/users/create"
+            urlUpdate="/users/update"
             keyCache="user"
             nameID="id"
             title="Usuario"
-            readEndpoint=""
+            ReadEndpoint="/users/read"
+            permission={USERS.MODULE}
+            isLoading={isLoadingRoles}
         />
     )
 }

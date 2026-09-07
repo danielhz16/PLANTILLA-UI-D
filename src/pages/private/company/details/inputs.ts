@@ -1,4 +1,4 @@
-import type { Input } from "@/components/ts/form";
+import type { Input } from "@/ui/ts/form";
 import { VALIDATIONS } from "@/const/validations";
 
 export const inputsCompany: Input[] = [
@@ -9,6 +9,15 @@ export const inputsCompany: Input[] = [
         validations: [
             {type: VALIDATIONS.REQUIRED},
             {type: VALIDATIONS.MAX_LENGTH, value: 75}
+        ]
+    },
+    {
+        label: 'NIT',
+        name: 'nit',
+        type: 'text',
+        validations: [
+            {type: VALIDATIONS.REQUIRED},
+            {type: VALIDATIONS.MAX_LENGTH, value: 30}
         ]
     }
 ]

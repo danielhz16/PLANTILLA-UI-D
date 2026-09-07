@@ -8,7 +8,7 @@ export const useResetPassword = () => {
     const navigate = useNavigate();
     const mutation = useMutationQuery({
         url: 'auth/reset-password',
-        method: 'POST',
+        method: 'PATCH',
     });
 
     const { token } = useParams<{ token: string }>();
@@ -16,7 +16,6 @@ export const useResetPassword = () => {
     const toLogin = () => navigate('/auth/login');
 
     const handleSubmbit = async (data = {}) => {
-        console.log('Data recibida en handleSubmit:', data);
         await mutation.mutateAsync({ ...data, token });
         toLogin();
     };

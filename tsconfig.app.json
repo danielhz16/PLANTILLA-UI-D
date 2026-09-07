@@ -30,28 +30,10 @@
     /* Path Mappings */
     "baseUrl": ".",
     "paths": {
-      "@/components/*": [
-        "./src/common/components/*"
-      ],
       "@/const/*": [
         "./src/common/const/*"
       ],
-      "@/hooks/*": [
-        "./src/common/hooks/*"
-      ],
-      "@/routes/*": [
-        "./src/common/routes/*"
-      ],
-      "@/services/*": [
-        "./src/common/services/*"
-      ],
-      "@/stores/*": [
-        "./src/common/stores/*"
-      ],
-      "@/utils/*": [
-        "./src/common/utils/*"
-      ],
-       "@/common": [
+      "@/common": [
         "./src/common/index.ts"
       ],
       "@/common/*": [
@@ -59,6 +41,9 @@
       ],
       "@/conf/*": [
         "src/conf/*"
+      ],
+      "@/*": [
+        "./src/*"
       ]
     }
   },

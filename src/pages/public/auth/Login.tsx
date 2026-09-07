@@ -1,205 +1,88 @@
-import { MainForm } from "@/components/form/MainForm";
+import { MainForm } from "@/ui/form/MainForm";
 import { inputs } from "./inputs";
-import { Box, Card, Typography, Container, Button, Divider } from "@mui/material";
+import { Typography, Button, Stack } from "@mui/material";
 import { useLogin } from "./useLogin";
-import { useTheme } from "@/hooks/useTheme";
-import { INFO_SISTEM } from "@/conf/info.sistem";
+import AuthLayout from "./AuthLayout";
+import { MfaModal } from "./MfaModal";
 
 const Login = () => {
-    const { formRef, handleSubmit, isPending, toForgot } = useLogin();
-    const { isDark } = useTheme();
+    const { formRef, handleSubmit, isPending, toForgot, openMfa, pendingLogin, handleCloseMfa } = useLogin();
 
     return (
-        <Box
-            sx={{
-                minHeight: '100vh',
-                width: '100vw',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                background: 'var(--color-background)',
-                backgroundImage: isDark
-                    ? `
-                    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), 
-                    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%)
-                `
-                    : `
-                    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%), 
-                    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%)
-                `,
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                zIndex: 1000,
-                p: 2,
-                userSelect: 'none'
-            }}
-        >
-            <Container maxWidth="md">
-                <Card
+        <>
+            <AuthLayout subtitle="Ingresa tus credenciales para acceder">
+                <Stack gap={0.5} mb={4}>
+                    <Typography
+                        variant="h5"
+                        sx={{ fontWeight: 800, color: 'var(--color-text)', letterSpacing: -0.3 }}
+                    >
+                        Iniciar sesión
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        sx={{ color: 'var(--color-text)', opacity: 0.55 }}
+                    >
+                        Accede con tu usuario y contraseña
+                    </Typography>
+                </Stack>
+
+                <MainForm
+                    ref={formRef as any}
+                    inputs={inputs}
+                    onSubmit={handleSubmit}
+                    columns={1}
+                    sx={{ width: '100%' }}
+                    sxForm={{ gap: 2 }}
+                />
+
+                <Button
+                    fullWidth
+                    variant="contained"
+                    onClick={() => formRef.current?.save()}
+                    loading={isPending}
                     sx={{
-                        p: { xs: 4, md: 0 },
-                        borderRadius: '24px',
-                        background: 'var(--color-background)',
-                        backdropFilter: 'blur(20px)',
-                        border: '1px solid var(--color-border)',
-                        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-                        display: 'flex',
-                        flexDirection: { xs: 'column', md: 'row' },
-                        position: 'relative',
-                        overflow: 'hidden',
-                        '&::before': {
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: '4px',
-                            background: 'linear-gradient(90deg, #3b82f6, #8b5cf6)',
-                        }
+                        mt: 3,
+                        py: 1.6,
+                        borderRadius: '12px',
+                        textTransform: 'none',
+                        fontSize: '1rem',
+                        fontWeight: 700,
+                        letterSpacing: 0.2,
+                        background: 'linear-gradient(90deg, #2563eb, #1a3ea8)',
+                        boxShadow: '0 8px 24px -6px rgba(37,99,235,0.45)',
+                        '&:hover': {
+                            background: 'linear-gradient(90deg, #1d55d4, #163399)',
+                            boxShadow: '0 12px 28px -8px rgba(37,99,235,0.55)',
+                            transform: 'translateY(-1px)',
+                        },
                     }}
                 >
-                    {/* Panel izquierdo: branding y descripción */}
-                    <Box
-                        sx={{
-                            flex: 1,
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            gap: 2.5,
-                            p: { xs: 0, md: 4 },
-                            pr: { md: 0 },
-                            borderRight: { md: '1px solid var(--color-border)' }
-                        }}
-                    >
-                        {INFO_SISTEM.fulllogo && (
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    justifyContent: { xs: 'center', md: 'flex-start' },
-                                }}
-                            >
-                                <Box
-                                    component="img"
-                                    src={INFO_SISTEM.fulllogo}
-                                    alt={INFO_SISTEM.name}
-                                    sx={{
-                                        height: 40,
-                                        width: 'auto',
-                                        display: 'block',
-                                        filter: 'drop-shadow(0 18px 35px rgba(15,23,42,0.35))',
-                                    }}
-                                />
-                            </Box>
-                        )}
+                    Acceder
+                </Button>
 
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                color: 'var(--color-text)',
-                                opacity: isDark ? 0.9 : 0.8,
-                                fontWeight: 600,
-                                textAlign: { xs: 'center', md: 'left' }
-                            }}
-                        >
-                            {INFO_SISTEM.loginSubtitle}
-                        </Typography>
+                <Typography
+                    onClick={toForgot}
+                    variant="body2"
+                    sx={{
+                        mt: 2.5,
+                        textAlign: 'center',
+                        color: 'var(--color-primary)',
+                        cursor: 'pointer',
+                        fontWeight: 500,
+                        '&:hover': { opacity: 0.75 },
+                    }}
+                >
+                    ¿Olvidaste tu contraseña?
+                </Typography>
+            </AuthLayout>
 
-                        <Typography
-                            variant="body2"
-                            sx={{
-                                color: 'var(--color-text)',
-                                opacity: 0.7,
-                                maxWidth: 360,
-                                textAlign: { xs: 'center', md: 'left' },
-                                mx: { xs: 'auto', md: 0 }
-                            }}
-                        >
-                           {INFO_SISTEM.loginHelper}
-                        </Typography>
-                    </Box>
+            <MfaModal
+                open={openMfa}
+                onClose={handleCloseMfa}
+                pendingLogin={pendingLogin}
+            />
+        </>
+    );
+};
 
-                    {/* Separador para mobile */}
-                    <Divider
-                        sx={{
-                            my: 2,
-                            display: { xs: 'block', md: 'none' },
-                            borderColor: 'var(--color-border)'
-                        }}
-                    />
-
-                    {/* Panel derecho: formulario */}
-                    <Box
-                        sx={{
-                            flex: 1,
-                            p: { xs: 0, md: 4 },
-                            pt: { xs: 0, md: 4 },
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: 2
-                        }}
-                    >
-                        <Typography
-                            variant="subtitle1"
-                            sx={{
-                                color: 'var(--color-text)',
-                                fontWeight: 600,
-                                mb: 1
-                            }}
-                        >
-                            Iniciar sesión
-                        </Typography>
-
-                        <MainForm
-                            ref={formRef as any}
-                            inputs={inputs}
-                            onSubmit={handleSubmit}
-                            columns={1}
-                            sx={{ width: '100%' }}
-                            sxForm={{ gap: 1.5 }}
-                        />
-
-                        <Button
-                            fullWidth
-                            variant="contained"
-                            onClick={() => formRef.current?.save()}
-                            loading={isPending}
-                            sx={{
-                                mt: 1,
-                                py: 1.5,
-                                borderRadius: '16px',
-                                textTransform: 'none',
-                                fontSize: '1rem',
-                                fontWeight: 600,
-                                letterSpacing: 0.2,
-                                transition: 'all 0.3s ease',
-                                boxShadow: '0 12px 24px -8px rgba(37, 99, 235, 0.45)',
-                                '&:hover': {
-                                    transform: 'translateY(-1px)',
-                                    boxShadow: '0 18px 32px -10px rgba(37, 99, 235, 0.55)',
-                                    opacity: 0.98
-                                }
-                            }}
-                        >
-                            Acceder
-                        </Button>
-
-                        <Typography
-                            onClick={toForgot}
-                            sx={{
-                                mt: 1,
-                                textAlign: 'center',
-                                color: 'var(--color-primary)',
-                                textDecoration: 'none'
-                            }}
-                        >
-                            ¿Olvidaste tu contraseña?
-                        </Typography>
-                    </Box>
-                </Card>
-            </Container>
-        </Box>
-    )
-}
-
-export default Login
+export default Login;

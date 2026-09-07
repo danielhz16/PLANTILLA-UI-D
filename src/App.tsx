@@ -2,9 +2,12 @@ import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import router from './routes/index.routes.tsx'
 import { RouterProvider } from 'react-router'
-import { ThemeProvider, useAuthStore } from '@/common'
+import { ThemeProvider, ErrorBoundary } from '@/ui'
+import { useAuthStore } from '@/features/auth'
 import { Toaster } from 'sonner'
-import { useEffect } from 'react'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { GlobalMfaModal } from './pages/public/auth/GlobalMfaModal';
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -18,15 +21,18 @@ const queryClient = new QueryClient({
   },
 })
 
+useAuthStore.getState().loadLocal();
+
 function App() {
-  useEffect(() => {
-    useAuthStore.getState().loadLocal();
-  }, [])
   return (
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
-        <Toaster toastOptions={{ className: 'sonner-toast' }} />
-        <RouterProvider router={router} />
+        <ErrorBoundary>
+          {import.meta.env.DEV === true && <ReactQueryDevtools />}
+          <Toaster toastOptions={{ className: 'sonner-toast' }} />
+          <RouterProvider router={router} />
+          <GlobalMfaModal />
+        </ErrorBoundary>
       </QueryClientProvider>
     </ThemeProvider>
   )

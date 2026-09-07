@@ -1,103 +1,78 @@
-import { MainForm } from "@/components/form/MainForm";
+import { MainForm } from "@/ui/form/MainForm";
 import { useResetPassword } from "./useResetPassword";
 import { inputs } from "./inputs";
-import { Box, Typography, Container, Card, Button } from "@mui/material";
-import { useTheme } from "@/hooks/useTheme";
+import { Typography, Button, Stack } from "@mui/material";
+import AuthLayout from "@/pages/public/auth/AuthLayout";
 
 const ResetPassword = () => {
-  const { formRef, handleSubmbit, toLogin } = useResetPassword();
-  const { isDark } = useTheme();
+    const { formRef, handleSubmbit, toLogin } = useResetPassword();
 
-  return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        width: "100vw",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "var(--color-background)",
-        backgroundImage: isDark
-          ? `
-                    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.15) 0px, transparent 50%), 
-                    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.15) 0px, transparent 50%)
-                `
-          : `
-                    radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.05) 0px, transparent 50%), 
-                    radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.05) 0px, transparent 50%)
-                `,
-        position: "fixed",
-        top: 0,
-        left: 0,
-        zIndex: 1000,
-        p: 2,
-        userSelect: "none"
-      }}
-    >
-      <Container maxWidth="sm">
-        <Card
-          sx={{
-            p: 4,
-            borderRadius: "24px",
-            background: "var(--color-background)",
-            backdropFilter: "blur(20px)",
-            border: "1px solid var(--color-border)",
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5)"
-          }}
-        >
-          <Typography
-            variant="h5"
-            sx={{
-              color: "var(--color-text)",
-              mb: 2,
-              textAlign: "center"
-            }}
-          >
-            Restablecer contraseña
-          </Typography>
+    return (
+        <AuthLayout subtitle="Crea una nueva contraseña segura para tu cuenta">
+            <Stack gap={0.5} mb={4}>
+                <Typography
+                    variant="h5"
+                    sx={{ fontWeight: 800, color: 'var(--color-text)', letterSpacing: -0.3 }}
+                >
+                    Restablecer contraseña
+                </Typography>
+                <Typography
+                    variant="body2"
+                    sx={{ color: 'var(--color-text)', opacity: 0.55 }}
+                >
+                    Ingresa tu nueva contraseña
+                </Typography>
+            </Stack>
 
-          <MainForm
-            ref={formRef as any}
-            inputs={inputs}
-            onSubmit={handleSubmbit}
-            columns={1}
-            sx={{ width: "100%" }}
-            sxForm={{ gap: 1.5 }}
-          />
+            <MainForm
+                ref={formRef as any}
+                inputs={inputs}
+                onSubmit={handleSubmbit}
+                columns={1}
+                sx={{ width: '100%' }}
+                sxForm={{ gap: 2 }}
+            />
 
-          <Button
-            fullWidth
-            variant="contained"
-            onClick={() => formRef.current?.save()}
-            sx={{
-              mt: 2,
-              py: 1.5,
-              borderRadius: "16px",
-              textTransform: "none",
-              fontSize: "1rem",
-              fontWeight: 600,
-              letterSpacing: 0.2
-            }}
-          >
-            Cambiar
-          </Button>
+            <Button
+                fullWidth
+                variant="contained"
+                onClick={() => formRef.current?.save()}
+                sx={{
+                    mt: 3,
+                    py: 1.6,
+                    borderRadius: '12px',
+                    textTransform: 'none',
+                    fontSize: '1rem',
+                    fontWeight: 700,
+                    letterSpacing: 0.2,
+                    background: 'linear-gradient(90deg, #2563eb, #1a3ea8)',
+                    boxShadow: '0 8px 24px -6px rgba(37,99,235,0.45)',
+                    '&:hover': {
+                        background: 'linear-gradient(90deg, #1d55d4, #163399)',
+                        boxShadow: '0 12px 28px -8px rgba(37,99,235,0.55)',
+                        transform: 'translateY(-1px)',
+                    },
+                }}
+            >
+                Cambiar contraseña
+            </Button>
 
-          <Typography
-            onClick={toLogin}
-            sx={{
-              display: "block",
-              mt: 2,
-              textAlign: "center",
-              color: "var(--color-primary)",
-              textDecoration: "none"
-            }}
-          >
-            Volver al inicio de sesión
-          </Typography>
-        </Card>
-      </Container>
-    </Box>
-  );
+            <Typography
+                onClick={toLogin}
+                variant="body2"
+                sx={{
+                    mt: 2.5,
+                    textAlign: 'center',
+                    color: 'var(--color-primary)',
+                    cursor: 'pointer',
+                    fontWeight: 500,
+                    '&:hover': { opacity: 0.75 },
+                }}
+            >
+                Volver al inicio de sesión
+            </Typography>
+        </AuthLayout>
+    );
 };
 
 export default ResetPassword;

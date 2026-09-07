@@ -1,4 +1,5 @@
-import { Details } from "@/components/crud/details/Details";
+import { PERMISSIONS } from "@/features/permissions";
+import { Details } from "@/ui/crud/details/Details";
 import { inputsPermission } from "./inputs";
 
 const DetailsPermission = () => {
@@ -6,10 +7,11 @@ const DetailsPermission = () => {
         <Details 
           inputs={inputsPermission}
           keyCache="permissions"
-          readEndpoint="/permissions/read"
+          ReadEndpoint="/permissions/Read"
           title="Permiso"
           urlCreate="/permissions/create"
           urlUpdate="/permissions/update"
+          permission={PERMISSIONS.MODULE}
         />
     )
 };

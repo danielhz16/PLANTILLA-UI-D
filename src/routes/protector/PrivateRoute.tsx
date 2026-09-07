@@ -1,5 +1,5 @@
 import { Navigate } from "react-router";
-import { useAuthStore } from "@/common";
+import { useAuthStore } from "@/features/auth";
 
 interface PrivateRouteProps {
     children: React.ReactNode;

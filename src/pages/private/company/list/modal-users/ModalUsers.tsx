@@ -1,12 +1,12 @@
-import { Modal } from "@/components/modal/Modal";
-import { MainTable } from "@/components/tables/mainTable/MainTable";
+import { Modal } from "@/ui/modal/Modal";
+import { MainTable } from "@/ui/tables/mainTable/MainTable";
 import { createColumnHelper } from "@tanstack/react-table";
-import { MainButton } from "@/components/buttons/MainButton";
-import { Title } from "@/components/layout/Title/Title";
+import { MainButton } from "@/ui/buttons/MainButton";
+import { Title } from "@/ui/layout/Title/Title";
 import { Users } from "lucide-react";
-import { ModalForm } from "@/components/modal/ModalForm";
+import { ModalForm } from "@/ui/modal/ModalForm";
 import { useState } from "react";
-import type { Input } from "@/components/ts/form";
+import type { Input } from "@/ui/ts/form";
 import type { Options } from "@/common";
 import type { PropsFetchModalUsers } from "./useModalUser";
 
