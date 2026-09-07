@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: [
-      { find: '@/const', replacement: fileURLToPath(new URL('./src/common/const', import.meta.url)) },
+      { find: '@/const', replacement: fileURLToPath(new URL('./src/shared/const', import.meta.url)) },
       { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
     ],
   },

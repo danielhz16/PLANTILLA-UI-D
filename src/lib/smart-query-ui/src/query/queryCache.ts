@@ -46,9 +46,9 @@ export const savedCache = <T>(
     key: string,
     scope: CacheScope,
     data: T,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for CacheOptions API compatibility
     options?: CacheOptions
 ): T => {
-    void options;
     queryClient.setQueryData(createSmartQueryKey(key, scope), data);
     return data;
 };
@@ -130,6 +130,10 @@ const mutateArrayEntries = (
 };
 
 const isSameId = (currentId: unknown, targetId: string | number): boolean => {
+    if (typeof currentId !== "string" && typeof currentId !== "number" && typeof currentId !== "boolean") {
+        return false;
+    }
+
     return String(currentId) === String(targetId);
 };
 

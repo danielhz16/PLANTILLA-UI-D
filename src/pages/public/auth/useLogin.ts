@@ -1,11 +1,13 @@
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
 import { useRef, useState } from "react";
-import type { RefForm } from "@/common";
+import type { RefForm } from "@/shared";
 import { ERRORS, type ResponseLogin } from "@/features/auth";
+import { useAuthStore } from "@/features/auth";
 import { useNavigate } from "react-router";
 
 export const useLogin = () => {
   const nav = useNavigate();
+  const { loginUser } = useAuthStore();
   const [openMfa, setOpenMfa] = useState(false);
   const [pendingLogin, setPendingLogin] = useState<ResponseLogin | null>(null);
 
@@ -29,11 +31,12 @@ export const useLogin = () => {
         return;
       }
 
+      loginUser(res);
       setPendingLogin(null);
       setOpenMfa(false);
       nav('/');
-    } catch (error: any) {
-      if (Number(error?.code) === ERRORS.MFA_PENDING) {
+    } catch (error: unknown) {
+      if (Number((error as { code?: number }).code) === ERRORS.MFA_PENDING) {
         return;
       }
       throw error;

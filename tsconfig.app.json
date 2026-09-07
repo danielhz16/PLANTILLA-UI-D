@@ -16,6 +16,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,
@@ -24,20 +25,19 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     /* Path Mappings */
     "baseUrl": ".",
     "paths": {
       "@/const/*": [
-        "./src/common/const/*"
+        "./src/shared/const/*"
       ],
-      "@/common": [
-        "./src/common/index.ts"
+      "@/shared": [
+        "./src/shared/index.ts"
       ],
-      "@/common/*": [
-        "./src/common/*"
+      "@/shared/*": [
+        "./src/shared/*"
       ],
       "@/conf/*": [
         "src/conf/*"

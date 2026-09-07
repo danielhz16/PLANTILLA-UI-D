@@ -1,13 +1,11 @@
 import './App.css'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import router from './routes/index.routes.tsx'
-import { RouterProvider } from 'react-router'
-import { ThemeProvider, ErrorBoundary } from '@/ui'
+import { ThemeProvider, ErrorBoundary } from '@/components'
 import { useAuthStore } from '@/features/auth'
 import { Toaster } from 'sonner'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { GlobalMfaModal } from './pages/public/auth/GlobalMfaModal';
-
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { GlobalMfaModal } from './pages/public/auth/GlobalMfaModal'
+import Router from './routes/index.routes'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -29,8 +27,8 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary>
           {import.meta.env.DEV === true && <ReactQueryDevtools />}
+          <Router />
           <Toaster toastOptions={{ className: 'sonner-toast' }} />
-          <RouterProvider router={router} />
           <GlobalMfaModal />
         </ErrorBoundary>
       </QueryClientProvider>

@@ -6,4 +6,5 @@ export const callApi = async <T = unknown>(
   method: Method,
   data?: unknown,
   formData?: boolean,
-): Promise<T> => serviceCallApi<T>(url, method, data, formData);
+  hiddenSuccessNotice?: boolean,
+): Promise<T> => serviceCallApi<T>(url, method, data, formData, hiddenSuccessNotice);

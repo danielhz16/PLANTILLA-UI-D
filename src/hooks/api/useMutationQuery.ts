@@ -11,7 +11,8 @@ interface Props {
   subProp?: string;
   useDataForm?: boolean;
   deleteCell?: boolean;
-  id?: string | number
+  id?: string | number;
+  hiddenNotificationSuccess?: boolean;
 }
 
 interface Response<T> {
@@ -31,13 +32,14 @@ export const useMutationQuery = <T>({
   subProp,
   useDataForm = false,
   deleteCell = false,
-  id
+  id,
+  hiddenNotificationSuccess = false,
 }: Props) => {
   const { pushRow, updateRow, deleteRow } = useSmartQuery();
 
   const mutation = useMutation<Response<T>, Error, MutationVariables>({
     mutationFn: (data) =>
-      callApi<Response<T>>(url, method, data ?? {}, useDataForm),
+      callApi<Response<T>>(url, method, data ?? {}, useDataForm, hiddenNotificationSuccess),
 
     onSuccess: (res) => {
       if (!keyCache) return;

@@ -1,9 +1,11 @@
 import { callApi } from "@/hooks/api/base.api";
 import { useMutationQuery } from "@/hooks/api/useMutationQuery";
 import { useRef } from "react";
-import { useAuthStore, type ResponseLogin } from "@/features/auth";
-import type { RefForm } from "@/common";
+import { useAuthStore, type MfaOptions, type ResponseLogin } from "@/features/auth";
+import type { RefForm } from "@/shared";
 import { useNavigate } from "react-router";
+
+const DEFAULT_OPTIONS: MfaOptions = { mfaAuthenticator: false, mfaEmail: true, mfaWp: true };
 
 export const useMfa = (pendingLogin?: ResponseLogin | null) => {
   const { loginUser } = useAuthStore();
@@ -16,8 +18,16 @@ export const useMfa = (pendingLogin?: ResponseLogin | null) => {
 
   const formRef = useRef<RefForm>(null);
 
-  const handleSubmit = async (data: { code: string }) => {
-    const res = (await mfa.mutateAsync(data)) as ResponseLogin;
+  const options: MfaOptions = pendingLogin?.user
+    ? {
+        mfaAuthenticator: pendingLogin.user.mfaAuthenticator ?? false,
+        mfaEmail: pendingLogin.user.mfaEmail ?? false,
+        mfaWp: pendingLogin.user.mfaWp ?? false,
+      }
+    : DEFAULT_OPTIONS;
+
+  const handleSubmit = async (data: { code: string; type: number }) => {
+    const res = (await mfa.mutateAsync({ ...data, epoch: Math.floor(Date.now() / 1000) })) as ResponseLogin;
 
     if (pendingLogin) {
       loginUser(pendingLogin);
@@ -28,8 +38,8 @@ export const useMfa = (pendingLogin?: ResponseLogin | null) => {
     nav('/');
   };
 
-  const resendCode = async (): Promise<number> => {
-    const res = await callApi<{ retryAfter?: number }>("auth/mfa/resend", "POST", {});
+  const resendCode = async (method: number): Promise<number> => {
+    const res = await callApi<{ retryAfter?: number }>("auth/mfa/resend", "POST", { type: method });
     return res?.retryAfter ?? 60;
   };
 
@@ -39,5 +49,6 @@ export const useMfa = (pendingLogin?: ResponseLogin | null) => {
     isPending: mfa.isPending,
     toLogin: () => nav('/auth/login'),
     resendCode,
+    options,
   };
 };

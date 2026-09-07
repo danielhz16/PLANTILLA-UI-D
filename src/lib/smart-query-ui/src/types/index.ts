@@ -23,20 +23,6 @@ export type CacheScope = {
     filters?: Filters;
 };
 
-export type CacheEntry<T = unknown> = {
-    scopeKey: string;
-    scope: CacheScope;
-    data: T;
-    createdAt: number;
-    expiresAt?: number;
-    updatedAt: number;
-};
-
-export type Query = {
-    key: string;
-    entries: Map<string, CacheEntry>;
-};
-
 export type DeleteRowParams = {
     key: string;
     id: string | number;

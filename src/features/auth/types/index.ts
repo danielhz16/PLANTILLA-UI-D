@@ -7,6 +7,9 @@ export interface UserProfile {
     firstLogin: boolean,
     phone: string,
     mfaOk: boolean,
+    mfaAuthenticator: boolean | null,
+    mfaEmail: boolean | null,
+    mfaWp: boolean | null,
     permissions: Permission[]
 };
 
@@ -20,5 +23,17 @@ export interface ResponseLogin {
     show: string,
     mfaOk: boolean,
 };
+
+export enum TypeMfa {
+    AuthenticatorApp = 1,
+    Email = 2,
+    WhatsApp = 3,
+}
+
+export interface MfaOptions {
+    mfaAuthenticator: boolean | null;
+    mfaEmail: boolean | null;
+    mfaWp: boolean | null;
+}
 
 export type TypeAuth = typeof TYPES_AUTHORIZATIONS[keyof typeof TYPES_AUTHORIZATIONS];

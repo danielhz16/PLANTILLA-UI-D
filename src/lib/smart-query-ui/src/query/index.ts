@@ -13,7 +13,6 @@ export const getData = async <T,>({
     forceRefresh = false,
     queryClient
 }: GetDataType<T>): Promise<{ data: T | null; isLoading: boolean; onError: unknown }> => {
-    let isLoading = true;
     let data: T | null = null;
     let onError: unknown = null;
 
@@ -34,9 +33,7 @@ export const getData = async <T,>({
         }
     } catch (err: unknown) {
         onError = err;
-    } finally {
-        isLoading = false;
     }
 
-    return { data, isLoading, onError };
+    return { data, isLoading: false, onError };
 };

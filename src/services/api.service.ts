@@ -56,7 +56,11 @@ const handleUnauthorized = async (response: Response): Promise<never> => {
 
   authHandlers.onUnauthorized?.();
   toast.error(errorData?.show || errorData?.message || 'Sesi\u00f3n expirada');
-  throw new Error('Unauthorized');
+  const error = new Error(errorData?.show || errorData?.message || 'Unauthorized') as Error & {
+    apiError?: ApiErrorResponse;
+  };
+  error.apiError = errorData;
+  throw error;
 };
 
 const handleForbidden = async (response: Response): Promise<never> => {
@@ -104,6 +108,7 @@ export const callApi = async <T = unknown>(
   method: Method,
   data?: unknown,
   formData?: boolean,
+  hiddenSuccessNotice?: boolean,
 ): Promise<T> => {
   const config: RequestInit & { headers: Record<string, string> } = {
     method,
@@ -127,6 +132,6 @@ export const callApi = async <T = unknown>(
   }
 
   const responseData = await parseResponse<T>(response);
-  showSuccessToast(method, responseData);
+  if (!hiddenSuccessNotice) showSuccessToast(method, responseData);
   return responseData as T;
 };
