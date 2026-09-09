@@ -1,4 +1,0 @@
-export const PERMISSIONS = {
-    MODULE: 'GESTION_PERMISOS',
-    HISTORY: 'HISTORIAL_PERMISOS',
-} as const;
