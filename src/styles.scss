@@ -1,0 +1,256 @@
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: (theme-type: light),
+    typography: (plain-family: 'Outfit', brand-family: 'Outfit'),
+    density: -2,
+  ));
+}
+
+:root {
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body {
+  color: var(--color-text);
+  background-color: var(--color-background);
+  background: radial-gradient(circle at top right, var(--color-gradientBgPrimary), transparent),
+    radial-gradient(circle at bottom left, var(--color-gradientBgSecondary), transparent),
+    var(--color-background);
+  overflow-x: hidden;
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+  opacity: 0.5;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+.mat-mdc-snack-bar-container {
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  box-shadow: 0 10px 40px var(--color-shadowCard);
+  color: var(--color-text);
+  font-family: 'Outfit', sans-serif;
+}
+
+.mat-mdc-snack-bar-container .mat-mdc-snackbar-surface {
+  background: transparent;
+  border-radius: 22px;
+}
+
+.mat-mdc-snack-bar-container .mdc-snackbar__label {
+  color: var(--color-text);
+}
+
+.mat-mdc-snack-bar-container.snack-success .mat-mdc-snackbar-surface {
+  background: var(--color-successSoft);
+  border: 1px solid var(--color-success);
+}
+
+.mat-mdc-snack-bar-container.snack-error .mat-mdc-snackbar-surface {
+  background: var(--color-errorSoft);
+  border: 1px solid var(--color-error);
+}
+
+app-root {
+  width: 100%;
+  user-select: none;
+}
+
+.ale-field ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-password ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-select ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-phone ::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 16px;
+  background-color: var(--color-sidebar);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.ale-field:hover ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-password:hover ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-select:hover ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-phone:hover ::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: var(--color-hover);
+  border-color: var(--color-primary);
+  transform: translateY(-1px);
+}
+
+.ale-field.mat-focused ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-password.mat-focused ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-select.mat-focused ::ng-deep .mat-mdc-text-field-wrapper,
+.ale-phone.mat-focused ::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: var(--color-sidebar);
+  box-shadow: var(--color-focusShadow);
+  border-color: var(--color-primary);
+}
+
+.ale-field ::ng-deep .mat-mdc-form-field-focus-overlay,
+.ale-password ::ng-deep .mat-mdc-form-field-focus-overlay,
+.ale-select ::ng-deep .mat-mdc-form-field-focus-overlay,
+.ale-phone ::ng-deep .mat-mdc-form-field-focus-overlay {
+  background: transparent;
+}
+
+.ale-field ::ng-deep .mdc-text-field--outlined .mdc-notched-outline,
+.ale-field ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__leading,
+.ale-field ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__notch,
+.ale-field ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__trailing,
+.ale-password ::ng-deep .mdc-text-field--outlined .mdc-notched-outline,
+.ale-password ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__leading,
+.ale-password ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__notch,
+.ale-password ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__trailing,
+.ale-select ::ng-deep .mdc-text-field--outlined .mdc-notched-outline,
+.ale-select ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__leading,
+.ale-select ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__notch,
+.ale-select ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__trailing,
+.ale-phone ::ng-deep .mdc-text-field--outlined .mdc-notched-outline,
+.ale-phone ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__leading,
+.ale-phone ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__notch,
+.ale-phone ::ng-deep .mdc-text-field--outlined .mdc-notched-outline__trailing {
+  border: none;
+}
+
+.ale-field ::ng-deep .mat-mdc-input-element,
+.ale-password ::ng-deep .ale-password-input,
+.ale-select ::ng-deep .mat-mdc-input-element,
+.ale-phone ::ng-deep .mat-mdc-input-element {
+  padding: 0 12px;
+  font-size: 0.925rem;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.ale-field ::ng-deep .mat-mdc-floating-label,
+.ale-password ::ng-deep .mat-mdc-floating-label,
+.ale-select ::ng-deep .mat-mdc-floating-label,
+.ale-phone ::ng-deep .mat-mdc-floating-label {
+  color: var(--color-text);
+  z-index: 1;
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu {
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  box-shadow: var(--color-shadowPopover);
+  backdrop-filter: blur(20px);
+  min-width: 260px;
+  overflow: hidden;
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-content {
+  padding: 0 !important;
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item {
+  color: var(--color-text);
+  font-family: Outfit, 'Segoe UI', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 16px;
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item:hover {
+  background: var(--color-hover);
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item .lucide,
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item svg {
+  color: var(--color-text);
+  opacity: 0.8;
+  flex-shrink: 0;
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item.logout-item,
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item.logout-item .lucide,
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item.logout-item svg {
+  color: var(--color-error);
+  opacity: 1;
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item.logout-item:hover {
+  background: var(--color-logoutHoverBg);
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-mdc-menu-item .mdc-list-item__primary-text {
+  color: inherit;
+}
+.cdk-overlay-container .mat-mdc-menu-panel.profile-menu .mat-divider {
+  border-top-color: var(--color-border);
+  margin: 0;
+}
+
+.cdk-overlay-container .mat-mdc-dialog-container {
+  border-radius: 24px;
+}
+.cdk-overlay-container .mat-mdc-dialog-container .mdc-dialog__surface {
+  background-color: var(--color-bgCard);
+  border: 1px solid var(--color-border);
+  border-radius: 24px;
+  box-shadow: var(--color-shadowElevated);
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+}
+.cdk-overlay-container .cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
