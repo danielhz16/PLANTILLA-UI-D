@@ -11,7 +11,7 @@ export interface GetQueryResult<T> {
 
 @Injectable({ providedIn: 'root' })
 export class GetQueryService {
-  constructor(private api: ApiService) {}
+  constructor(private readonly api: ApiService) {}
 
   get<T = unknown>(url: string): GetQueryResult<T> & { run: (action: boolean) => void } {
     let enabled = true;

@@ -33,9 +33,9 @@ const isSameId = (currentId: unknown, targetId: string | number): boolean => {
 @Injectable({ providedIn: 'root' })
 export class RequestService {
   constructor(
-    private api: ApiService,
-    private cache: QueryCache,
-    private registry: ListRegistry,
+    private readonly api: ApiService,
+    private readonly cache: QueryCache,
+    private readonly registry: ListRegistry,
   ) {}
 
   create<T = unknown>(options: RequestOptions<T>): {

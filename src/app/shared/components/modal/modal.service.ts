@@ -12,7 +12,7 @@ export interface ModalOpenOptions {
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
-  constructor(private dialog: MatDialog) {}
+  constructor(private readonly dialog: MatDialog) {}
 
   open<T>(component: ComponentType<T> | TemplateRef<T>, options: ModalOpenOptions = {}): MatDialogRef<T> {
     const config: MatDialogConfig = {

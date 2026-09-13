@@ -71,9 +71,9 @@ export class ListPermissionsComponent {
   ]);
 
   constructor(
-    private router: Router,
-    private auth: AuthStore,
-    private modal: ModalService,
+    private readonly router: Router,
+    private readonly auth: AuthStore,
+    private readonly modal: ModalService,
   ) {}
 
   canWrite(): boolean {

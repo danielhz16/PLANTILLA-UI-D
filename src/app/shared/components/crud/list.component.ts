@@ -86,8 +86,8 @@ export class ListComponent implements OnInit, OnDestroy {
   );
 
   constructor(
-    private listFactory: ListQueryFactory,
-    private registry: ListRegistry,
+    private readonly listFactory: ListQueryFactory,
+    private readonly registry: ListRegistry,
   ) {}
 
   ngOnInit(): void {

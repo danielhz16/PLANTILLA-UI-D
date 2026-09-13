@@ -259,8 +259,8 @@ export class SidebarComponent {
   readonly info = INFO_SYSTEM;
 
   constructor(
-    public menuService: MenuService,
-    private theme: ThemeService,
+    public readonly menuService: MenuService,
+    private readonly theme: ThemeService,
   ) {}
 
   readonly menuItems = computed(() => this.menuService.menu());

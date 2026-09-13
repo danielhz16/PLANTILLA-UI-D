@@ -58,8 +58,8 @@ export class ForgotComponent {
   readonly isPending = signal(false);
 
   constructor(
-    private request: RequestService,
-    private router: Router,
+    private readonly request: RequestService,
+    private readonly router: Router,
   ) {}
 
   toLogin(): void {

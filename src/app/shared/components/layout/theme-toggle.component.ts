@@ -52,7 +52,7 @@ import { LucideSun, LucideMoon } from '@lucide/angular';
   `],
 })
 export class ThemeToggleComponent {
-  constructor(public theme: ThemeService) {}
+  constructor(public readonly theme: ThemeService) {}
 
   toggleTheme(): void {
     this.theme.toggleTheme();

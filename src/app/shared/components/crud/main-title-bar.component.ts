@@ -60,8 +60,8 @@ export class MainTitleBarComponent {
   toggleStatus = input<() => void>(() => undefined);
 
   constructor(
-    private router: Router,
-    private auth: AuthStore,
+    private readonly router: Router,
+    private readonly auth: AuthStore,
   ) {}
 
   canCreate(): boolean {

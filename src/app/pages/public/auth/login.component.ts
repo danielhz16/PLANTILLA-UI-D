@@ -62,10 +62,10 @@ export class LoginComponent {
   readonly isPending = signal(false);
 
   constructor(
-    private request: RequestService,
-    private modal: ModalService,
-    private auth: AuthStore,
-    private router: Router,
+    private readonly request: RequestService,
+    private readonly modal: ModalService,
+    private readonly auth: AuthStore,
+    private readonly router: Router,
   ) {}
 
   handleSubmit(data: Record<string, unknown>): void {

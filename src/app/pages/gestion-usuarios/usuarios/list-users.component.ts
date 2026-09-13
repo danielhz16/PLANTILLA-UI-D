@@ -53,8 +53,8 @@ export class ListUsersComponent {
   ]);
 
   constructor(
-    private router: Router,
-    private auth: AuthStore,
+    private readonly router: Router,
+    private readonly auth: AuthStore,
   ) {}
 
   canWrite(): boolean {

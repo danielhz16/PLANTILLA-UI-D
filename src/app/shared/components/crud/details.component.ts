@@ -99,11 +99,11 @@ export class DetailsComponent implements OnInit {
   private routeId: string | null = null;
 
   constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private request: RequestService,
-    private getQuery: GetQueryService,
-    private auth: AuthStore,
+    private readonly route: ActivatedRoute,
+    private readonly router: Router,
+    private readonly request: RequestService,
+    private readonly getQuery: GetQueryService,
+    private readonly auth: AuthStore,
   ) {}
 
   ngOnInit(): void {

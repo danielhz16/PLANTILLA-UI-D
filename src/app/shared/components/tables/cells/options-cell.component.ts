@@ -81,8 +81,8 @@ export class OptionsCellComponent {
   loading = input(false);
 
   constructor(
-    private modal: ModalService,
-    private request: RequestService,
+    private readonly modal: ModalService,
+    private readonly request: RequestService,
   ) {}
 
   showStatusOption(): boolean {

@@ -58,8 +58,8 @@ export class MenuService {
   routes: RouteNode[] = [];
 
   constructor(
-    private router: Router,
-    private auth: AuthStore,
+    private readonly router: Router,
+    private readonly auth: AuthStore,
   ) {}
 
   setRoutes(routes: RouteNode[]): void {

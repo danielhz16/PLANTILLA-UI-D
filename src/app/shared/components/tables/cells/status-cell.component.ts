@@ -63,8 +63,8 @@ export class StatusCellComponent {
   isActive = () => this.active();
 
   constructor(
-    private request: RequestService,
-    private modal: ModalService,
+    private readonly request: RequestService,
+    private readonly modal: ModalService,
   ) {}
 
   openConfirm(): void {

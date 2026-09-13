@@ -20,7 +20,7 @@ export class ModulePlaceholderComponent {
   icon = input('Folder');
   label = input('');
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private readonly route: ActivatedRoute) {}
 
   resolvedIcon(): string {
     return (this.route.snapshot.data['icon'] as string | undefined) ?? this.icon();

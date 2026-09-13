@@ -86,9 +86,9 @@ export class UserProfileComponent {
   readonly menuOpen = signal(false);
 
   constructor(
-    public auth: AuthStore,
-    private router: Router,
-    private request: RequestService,
+    public readonly auth: AuthStore,
+    private readonly router: Router,
+    private readonly request: RequestService,
   ) {}
 
   goProfile(): void {

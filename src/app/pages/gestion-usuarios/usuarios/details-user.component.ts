@@ -36,7 +36,7 @@ export class DetailsUserComponent implements OnInit {
 
   readonly inputs = computed<Input[]>(() => inputsUser(this.roles()));
 
-  constructor(private getQuery: GetQueryService) {}
+  constructor(private readonly getQuery: GetQueryService) {}
 
   ngOnInit(): void {
     this.isLoading.set(true);

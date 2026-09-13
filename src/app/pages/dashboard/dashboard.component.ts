@@ -149,9 +149,9 @@ const MOCK_DATA = {
   `],
 })
 export class DashboardComponent {
-  data: { stats: DashboardStats; dailyResults: DailyResult[]; pendingByType: PendingByType[]; monthlyTrend: MonthlyTrend[]; lowStock: LowStockItem[] } = MOCK_DATA;
+  readonly data: { stats: DashboardStats; dailyResults: DailyResult[]; pendingByType: PendingByType[]; monthlyTrend: MonthlyTrend[]; lowStock: LowStockItem[] } = MOCK_DATA;
 
-  statCards = [
+  readonly statCards = [
     { title: 'Total Análisis', value: this.data.stats.totalAnalyses, colorToken: undefined, icon: 'FlaskConical' },
     { title: 'Pendientes', value: this.data.stats.pendingResults, colorToken: 'warning', icon: 'Clock' },
     { title: 'Analizados Hoy', value: this.data.stats.analyzedToday, colorToken: 'primary', icon: 'Activity' },
@@ -161,9 +161,9 @@ export class DashboardComponent {
 
   private readonly theme = inject(ThemeService);
 
-  private colors = this.theme.colors;
+  private readonly colors = this.theme.colors;
 
-  dailyData = {
+  readonly dailyData = {
     labels: this.data.dailyResults.map((item) => item.date),
     datasets: [
       { label: 'Recibidos', data: this.data.dailyResults.map((item) => item.received), backgroundColor: this.colors.chartIndigo, borderRadius: 6, maxBarThickness: 26 },
@@ -172,7 +172,7 @@ export class DashboardComponent {
     ],
   };
 
-  pendingData = {
+  readonly pendingData = {
     labels: this.data.pendingByType.map((item) => item.name),
     datasets: [
       {
@@ -188,7 +188,7 @@ export class DashboardComponent {
     ],
   };
 
-  monthlyData = {
+  readonly monthlyData = {
     labels: this.data.monthlyTrend.map((item) => item.month),
     datasets: [
       {
@@ -220,9 +220,9 @@ export class DashboardComponent {
 
   private rgba(color: string, alpha: number): string {
     const hex = color.replace('#', '');
-    const r = parseInt(hex.slice(0, 2), 16);
-    const g = parseInt(hex.slice(2, 4), 16);
-    const b = parseInt(hex.slice(4, 6), 16);
+    const r = Number.parseInt(hex.slice(0, 2), 16);
+    const g = Number.parseInt(hex.slice(2, 4), 16);
+    const b = Number.parseInt(hex.slice(4, 6), 16);
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
   }
 
@@ -281,11 +281,11 @@ export class DashboardComponent {
     };
   }
 
-  barOptions: ChartOptions = this.cartesianOptions();
+  readonly barOptions: ChartOptions = this.cartesianOptions();
 
-  lineOptions: ChartOptions = this.cartesianOptions();
+  readonly lineOptions: ChartOptions = this.cartesianOptions();
 
-  doughnutOptions: ChartOptions = {
+  readonly doughnutOptions: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
     layout: { padding: 8 },

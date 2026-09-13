@@ -55,9 +55,9 @@ export class ResetPasswordComponent {
   readonly isPending = signal(false);
 
   constructor(
-    private request: RequestService,
-    private router: Router,
-    private route: ActivatedRoute,
+    private readonly request: RequestService,
+    private readonly router: Router,
+    private readonly route: ActivatedRoute,
   ) {}
 
   toLogin(): void {

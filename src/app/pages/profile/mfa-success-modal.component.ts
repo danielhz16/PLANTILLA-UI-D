@@ -41,7 +41,7 @@ export interface MfaSuccessData {
 export class MfaSuccessModalComponent {
   constructor(
     @Inject(MAT_DIALOG_DATA) readonly data: MfaSuccessData,
-    private dialogRef: MatDialogRef<MfaSuccessModalComponent>,
+    private readonly dialogRef: MatDialogRef<MfaSuccessModalComponent>,
   ) {}
 
   close(): void {

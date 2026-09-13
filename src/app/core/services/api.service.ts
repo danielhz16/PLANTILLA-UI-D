@@ -10,8 +10,8 @@ export class ApiService {
   private readonly baseUrl = environment.apiUrl;
 
   constructor(
-    private http: HttpClient,
-    private toast: ToastService,
+    private readonly http: HttpClient,
+    private readonly toast: ToastService,
   ) {}
 
   private cleanUrl(url: string): string {

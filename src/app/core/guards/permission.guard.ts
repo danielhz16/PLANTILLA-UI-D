@@ -5,8 +5,8 @@ import { AuthStore } from '@core/auth/auth.store';
 @Injectable({ providedIn: 'root' })
 export class PermissionGuard implements CanActivate {
   constructor(
-    private auth: AuthStore,
-    private router: Router,
+    private readonly auth: AuthStore,
+    private readonly router: Router,
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, _state: RouterStateSnapshot): boolean | UrlTree {

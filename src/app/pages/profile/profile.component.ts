@@ -1,4 +1,4 @@
-import { Component, computed, signal, OnInit } from '@angular/core';
+import { Component, signal, OnInit } from '@angular/core';
 import { MainCardComponent } from '@components/cards/main-card.component';
 import { InfoCardComponent } from '@components/cards/info-card.component';
 import { UserAvatarComponent } from '@components/avatar/user-avatar.component';
@@ -91,9 +91,9 @@ export class ProfileComponent implements OnInit {
   readonly isLoading = signal(true);
 
   constructor(
-    public auth: AuthStore,
-    private getQuery: GetQueryService,
-    private modal: ModalService,
+    public readonly auth: AuthStore,
+    private readonly getQuery: GetQueryService,
+    private readonly modal: ModalService,
   ) {}
 
   ngOnInit(): void {

@@ -25,8 +25,8 @@ export interface ListQueryOptions {
 @Injectable({ providedIn: 'root' })
 export class ListQueryFactory {
   constructor(
-    private api: ApiService,
-    private cache: QueryCache,
+    private readonly api: ApiService,
+    private readonly cache: QueryCache,
   ) {}
 
   create<T>(
@@ -70,8 +70,8 @@ export class ListQuery<T> {
   private pageSizeSignal: ReturnType<typeof signal<number>>;
 
   constructor(
-    private api: ApiService,
-    private cache: QueryCache,
+    private readonly api: ApiService,
+    private readonly cache: QueryCache,
     options: ListQueryOptions,
   ) {
     this.url = options.url;
